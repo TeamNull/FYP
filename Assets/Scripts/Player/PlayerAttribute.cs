@@ -13,7 +13,7 @@ public class PlayerAttribute : MonoBehaviour {
     public Slider mpSlider;
     public Slider expSlider;
 
-	//level handling
+
 	int totalExp;
 	int currentExp;
 	int currentLevel;
@@ -48,10 +48,12 @@ public class PlayerAttribute : MonoBehaviour {
 		if(currentExp>=needExp){
 			currentExp -=needExp;
 			currentLevel++;
-			needExp = 100 * 1.1 ^ currentLevel;
+
+			needExp =(int) 100 * (int)Mathf.Floor(Mathf.Pow(1.1f , currentLevel));
 		}
 
-        expSlider.value = currentExp;
+        expSlider.value = currentExp;//todo: update slider according to the exp percentage
+
     }
 
     public void ConsumeMP(int value) {
