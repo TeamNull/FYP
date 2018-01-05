@@ -45,4 +45,6 @@ public class EnemyAttribute : MonoBehaviour {
             Destroy(this.gameObject, destoryDelay);
         }
     }
+
+    //Testing
 }
