@@ -12,14 +12,14 @@ public class EnemyAttribute : MonoBehaviour {
     bool isDead = false;
     Animator anim;
     UnityEngine.AI.NavMeshAgent nav;
-    Transform player;
+    Transform playerTransform;
     PlayerAttribute pa;
 
     // Use this for initialization
     void Start () {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
 	}
 	
 	// Update is called once per frame
