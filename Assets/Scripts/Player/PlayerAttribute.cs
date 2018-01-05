@@ -8,11 +8,11 @@ public class PlayerAttribute : MonoBehaviour {
     public int maxHP = 100;
     public int maxMP = 100;
     public int nextLvExp = 100;
+    public int currentHP;
     public Slider hpSlider;
     public Slider mpSlider;
     public Slider expSlider;
 
-    int currentHP;
     int currentMP;
     int currentExp;
 
