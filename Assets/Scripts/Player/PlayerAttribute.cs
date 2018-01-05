@@ -13,8 +13,14 @@ public class PlayerAttribute : MonoBehaviour {
     public Slider mpSlider;
     public Slider expSlider;
 
-    int currentMP;
-    int currentExp;
+	//level handling
+	int totalExp;
+	int currentExp;
+	int currentLevel;
+	int needExp;
+
+	int currentMP;
+    
 
 	// Use this for initialization
 	void Start () {
@@ -36,6 +42,15 @@ public class PlayerAttribute : MonoBehaviour {
 
     public void GainExp(int exp) {
         currentExp += exp;
+		totalExp += exp;
+
+		//check if level up
+		if(currentExp>=needExp){
+			currentExp -=needExp;
+			currentLevel++;
+			needExp = 100 * 1.1 ^ currentLevel;
+		}
+
         expSlider.value = currentExp;
     }
 
@@ -43,4 +58,6 @@ public class PlayerAttribute : MonoBehaviour {
         currentMP -= value;
         mpSlider.value = currentMP;
     }
+
+
 }
