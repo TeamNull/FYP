@@ -10,12 +10,12 @@ public class EnemyAttribute : MonoBehaviour
     public int exp = 10;
     public float destoryDelay = 1.0f;
     public float attackSpeed = 1.0f;
+    public int attack = 10;
 
     bool isDead = false;
     Animator anim;
     UnityEngine.AI.NavMeshAgent nav;
-    Transform playerPosition;
-    PlayerAttribute pa;
+    GameObject player;
     float timer;
 
     // Use this for initialization
@@ -23,7 +23,7 @@ public class EnemyAttribute : MonoBehaviour
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
-        playerPosition = GameObject.FindGameObjectWithTag("Player").transform;
+        player = GameObject.FindGameObjectWithTag("Player");
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
     }
 
@@ -31,21 +31,23 @@ public class EnemyAttribute : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (Vector3.Distance(playerPosition.position, transform.position) < 2) {
+        if (Vector3.Distance(player.transform.position, transform.position) < 2)
+        {
             nav.enabled = false;
             anim.SetBool("IsMoving", false);
             if (timer >= attackSpeed)
             {
                 anim.SetTrigger("Attack");
+                player.GetComponent<PlayerAttribute>().TakeDamge(attack);
                 timer = 0;
             }
         }
-        else if (Vector3.Distance(playerPosition.position, transform.position) < 6)
+        else if (Vector3.Distance(player.transform.position, transform.position) < 6)
         {
             nav.enabled = true;
             anim.SetBool("IsMoving", true);
-            nav.SetDestination(playerPosition.position);
-            transform.LookAt(playerPosition);
+            nav.SetDestination(player.transform.position);
+            transform.LookAt(player.transform.position);
         }
         else
         {
@@ -64,7 +66,6 @@ public class EnemyAttribute : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<PlayerAttribute>().GainExp(exp);
             isDead = true;
             anim.SetTrigger("Dead");
