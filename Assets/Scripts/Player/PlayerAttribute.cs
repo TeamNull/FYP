@@ -14,12 +14,15 @@ public class PlayerAttribute : MonoBehaviour {
     public Slider expSlider;
 
 
+    //for level handling
 	int totalExp;
-	int currentExp;
-	int currentLevel;
-	int needExp;
+	public int currentExp;
+    public int currentLevel;
+    public int needExp;
+    public Text currentLevelText;
+    public Text currentExpText;
 
-	int currentMP;
+    int currentMP;
     
 
 	// Use this for initialization
@@ -27,7 +30,12 @@ public class PlayerAttribute : MonoBehaviour {
         currentHP = maxHP;
         currentMP = maxMP;
         currentExp = 0;
-	}
+        currentLevel = 1;
+        needExp = 100;
+        currentLevelText.text = "LV " + currentLevel;
+        currentExpText.text = currentExp + " / " + needExp;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,14 +53,15 @@ public class PlayerAttribute : MonoBehaviour {
 		totalExp += exp;
 
 		//check if level up
-		if(currentExp>=needExp){
-			currentExp -=needExp;
-			currentLevel++;
+		while(currentExp>=needExp){
+			currentExp -=needExp;			
+			needExp =(int)Mathf.Floor((100 * Mathf.Pow(1.1f , currentLevel)));
+            currentLevel++;
+            currentLevelText.text = "LV "+currentLevel;
+        }
 
-			needExp =(int) 100 * (int)Mathf.Floor(Mathf.Pow(1.1f , currentLevel));
-		}
-
-        expSlider.value = currentExp;//todo: update slider according to the exp percentage
+        expSlider.value = (int)Mathf.Floor((100*currentExp/needExp));//todo: update slider according to the exp percentage
+        currentExpText.text = currentExp + " / " + needExp;
 
     }
 
