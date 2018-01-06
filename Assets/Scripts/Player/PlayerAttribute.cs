@@ -33,7 +33,7 @@ public class PlayerAttribute : MonoBehaviour {
         currentLevel = 1;
         needExp = 100;
         currentLevelText.text = "LV " + currentLevel;
-        currentExpText.text = currentExp + " / " + needExp;
+        currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
 
     }
 	
@@ -61,7 +61,7 @@ public class PlayerAttribute : MonoBehaviour {
         }
 
         expSlider.value = (int)Mathf.Floor((100*currentExp/needExp));//todo: update slider according to the exp percentage
-        currentExpText.text = currentExp + " / " + needExp;
+        currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
 
     }
 
