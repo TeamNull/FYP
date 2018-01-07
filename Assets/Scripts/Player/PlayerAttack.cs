@@ -25,7 +25,7 @@ public class PlayerAttack : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= attackSpeed) {
+        if (Input.GetButton("Fire1") && timer >= attackSpeed && !StaticVarAndFunction.PlayerIsDead) {
             isAttacking = true;
             Attack();
         }
