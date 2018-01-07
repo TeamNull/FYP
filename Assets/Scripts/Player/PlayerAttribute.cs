@@ -9,7 +9,7 @@ public class PlayerAttribute : MonoBehaviour
     public int maxHP = 100;
     public int maxMP = 100;
     public int nextLvExp = 100;
-    public int currentHP;
+    
     public Slider hpSlider;
     public Slider mpSlider;
     public Slider expSlider;
@@ -20,9 +20,11 @@ public class PlayerAttribute : MonoBehaviour
     int currentExp;
     int currentLevel;
     int needExp;
+    int currentHP;
     public Text currentLevelText;
     public Text currentExpText;
-
+    public Text levelUpText;
+    
     int currentMP;
     Animator anim;
 
@@ -38,12 +40,13 @@ public class PlayerAttribute : MonoBehaviour
         currentLevelText.text = "LV " + currentLevel.ToString();
         currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
         anim = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 
     public void TakeDamge(int damage)
@@ -76,7 +79,7 @@ public class PlayerAttribute : MonoBehaviour
             //add 500ms anim on slider
             //add popup
             currentLevelText.text = "LV " + currentLevel;
-
+            //anim.SetTrigger("LevelUp");
         }
 
         expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));//todo: update slider according to the exp percentage
