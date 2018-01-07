@@ -25,6 +25,7 @@ public class PlayerAttribute : MonoBehaviour
 
     int currentMP;
     bool isDead;
+    Animator anim;
 
 
     // Use this for initialization
@@ -37,7 +38,7 @@ public class PlayerAttribute : MonoBehaviour
         needExp = 100;
         currentLevelText.text = "LV " + currentLevel;
         currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -51,9 +52,11 @@ public class PlayerAttribute : MonoBehaviour
         if (isDead) return;
         currentHP -= damage;
         hpSlider.value = currentHP;
+        anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
             isDead = true;
+            anim.SetTrigger("Dead");
         }
 
     }
