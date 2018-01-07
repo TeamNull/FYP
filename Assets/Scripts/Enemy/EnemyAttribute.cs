@@ -17,7 +17,9 @@ public class EnemyAttribute : MonoBehaviour
     UnityEngine.AI.NavMeshAgent nav;
     GameObject player;
     float timer;
-    Transform spawnPoint;
+    Vector3 spawnPoint;
+    Quaternion spawnQuaternion;
+    EnemyManager em;
 
     // Use this for initialization
     void Start()
@@ -26,13 +28,15 @@ public class EnemyAttribute : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        spawnPoint = this.transform;
+        spawnPoint = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
+        spawnQuaternion = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z, this.transform.rotation.w);
+        em = GameObject.FindGameObjectWithTag("Manager").GetComponent<EnemyManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (StaticVarAndFunction.PlayerIsDead || isDead) return;
+        if (StaticVarAndFunction.PlayerIsDead) return;
         timer += Time.deltaTime;
         if (Vector3.Distance(player.transform.position, transform.position) < 2)
         {
@@ -73,6 +77,7 @@ public class EnemyAttribute : MonoBehaviour
             isDead = true;
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp);
+            em.Spawn(spawnPoint, spawnQuaternion);
             Destroy(this.gameObject, destoryDelay);
         }
     }
