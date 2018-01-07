@@ -6,13 +6,11 @@ public class Sword1 : MonoBehaviour {
 
     public int damage = 20;
 
-    GameObject enemy;
     GameObject player;
     PlayerAttack playerAttack;
 
     private void Awake()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy");
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
     }
@@ -29,7 +27,7 @@ public class Sword1 : MonoBehaviour {
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject == enemy && playerAttack.isAttacking)
+        if (other.tag == "Enemy" && playerAttack.isAttacking)
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
             temp.TakeDamage(damage);

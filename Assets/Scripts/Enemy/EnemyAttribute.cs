@@ -17,6 +17,7 @@ public class EnemyAttribute : MonoBehaviour
     UnityEngine.AI.NavMeshAgent nav;
     GameObject player;
     float timer;
+    Transform spawnPoint;
 
     // Use this for initialization
     void Start()
@@ -25,6 +26,7 @@ public class EnemyAttribute : MonoBehaviour
         anim = GetComponent<Animator>();
         player = GameObject.FindGameObjectWithTag("Player");
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
+        spawnPoint = this.transform;
     }
 
     // Update is called once per frame
@@ -67,9 +69,10 @@ public class EnemyAttribute : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            player.GetComponent<PlayerAttribute>().GainExp(exp);
+            
             isDead = true;
             anim.SetTrigger("Dead");
+            player.GetComponent<PlayerAttribute>().GainExp(exp);
             Destroy(this.gameObject, destoryDelay);
         }
     }
