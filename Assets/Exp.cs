@@ -18,7 +18,6 @@ public class Exp : MonoBehaviour {
 	}
 
     void LevelUp() {
-        anim.SetTrigger("LevelUp");
-        
+        anim.SetTrigger("LevelUp");        
     }
 }
