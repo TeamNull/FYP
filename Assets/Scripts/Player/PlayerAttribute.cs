@@ -27,6 +27,7 @@ public class PlayerAttribute : MonoBehaviour
     
     int currentMP;
     Animator anim;
+    Animator expAnim;
 
 
     // Use this for initialization
@@ -40,7 +41,7 @@ public class PlayerAttribute : MonoBehaviour
         currentLevelText.text = "LV " + currentLevel.ToString();
         currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
         anim = GetComponent<Animator>();
-        
+        expAnim = GameObject.FindGameObjectWithTag("Exp").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -80,6 +81,7 @@ public class PlayerAttribute : MonoBehaviour
             //add popup
             currentLevelText.text = "LV " + currentLevel;
             //anim.SetTrigger("LevelUp");
+            //expAnim.SetTrigger("LevelUp");
         }
 
         expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));//todo: update slider according to the exp percentage
