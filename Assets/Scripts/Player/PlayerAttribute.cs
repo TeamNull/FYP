@@ -24,7 +24,6 @@ public class PlayerAttribute : MonoBehaviour
     public Text currentExpText;
 
     int currentMP;
-    bool isDead;
     Animator anim;
 
 
@@ -49,13 +48,13 @@ public class PlayerAttribute : MonoBehaviour
 
     public void TakeDamge(int damage)
     {
-        if (isDead) return;
+        if (StaticVarAndFunction.PlayerIsDead) return;
         currentHP -= damage;
         hpSlider.value = currentHP;
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
-            isDead = true;
+            StaticVarAndFunction.PlayerIsDead = true;
             anim.SetTrigger("Dead");
         }
 
@@ -63,7 +62,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public void GainExp(int exp)
     {
-        if (isDead) return;
+        if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentExp += exp;
         totalExp += exp;
@@ -86,7 +85,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public void ConsumeMP(int value)
     {
-        if (isDead) return;
+        if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentMP -= value;
         mpSlider.value = currentMP;
