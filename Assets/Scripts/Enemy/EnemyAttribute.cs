@@ -30,6 +30,7 @@ public class EnemyAttribute : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (StaticVarAndFunction.PlayerIsDead) return;
         timer += Time.deltaTime;
         if (Vector3.Distance(player.transform.position, transform.position) < 2)
         {
