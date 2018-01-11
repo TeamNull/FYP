@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShortcutButton : MonoBehaviour {
+public class ShortcutKey : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //Debug.Log("ShortcutBtn0");
-    }
+		
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		
 	}
 
-    public void ShortcutBtn0 () {
-        Debug.Log("ShortcutBtn0");
+    public void ShortcutKey0()
+    {
+        Debug.Log("ShortcutKey0");
     }
 }
