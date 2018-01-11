@@ -78,10 +78,9 @@ public class PlayerAttribute : MonoBehaviour
             needExp = (int)Mathf.Floor((100 * Mathf.Pow(1.1f, currentLevel)));
             currentLevel++;
             //add 500ms anim on slider
-            //add popup
             currentLevelText.text = "LV " + currentLevel;
-            anim.SetTrigger("LevelUp");
-            expAnim.SetTrigger("LevelUp");
+            anim.SetTrigger("LevelUp");//ui anim
+            expAnim.SetTrigger("LevelUp");//player anim
         }
 
         expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));//todo: update slider according to the exp percentage
