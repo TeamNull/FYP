@@ -35,4 +35,8 @@ public class PlayerAttack : MonoBehaviour {
         timer = 0f;
         anim.SetTrigger("Attack");
     }
+
+    public void AttackEnd() {
+        isAttacking = false;
+    }
 }
