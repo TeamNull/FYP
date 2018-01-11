@@ -5,39 +5,49 @@ using UnityEngine.UI;
 
 public class PlayerAttribute : MonoBehaviour
 {
+    #region Variable
+    enum Classes { Warrior, Archer, Magician }
 
-    public int maxHP = 100;
-    public int maxMP = 100;
-    public int nextLvExp = 100;
+    public int atk;
+    public float attackSpeed;
     
     public Slider hpSlider;
     public Slider mpSlider;
     public Slider expSlider;
 
+    public Text currentLevelText;
+    public Text currentExpText;
+    public Text levelUpText;
 
-    //for level handling
+    Classes job = Classes.Warrior;
+
+    Animator anim;
+    Animator expAnim;
+
+    int maxHP;
+    int maxMP;
+    int nextLvExp = 100;
     int totalExp;
     int currentExp;
     int currentLevel;
     int needExp;
     int currentHP;
-    public Text currentLevelText;
-    public Text currentExpText;
-    public Text levelUpText;
-    
     int currentMP;
-    Animator anim;
-    Animator expAnim;
+    int def = 10;
+    int str = 1;
+    int _int = 1;
+    int agi = 1;
+    int distributionAttribute;
+    #endregion
 
-
+#region LifeCycle
     // Use this for initialization
     void Start()
     {
-        currentHP = maxHP;
-        currentMP = maxMP;
         currentExp = 0;
         currentLevel = 1;
         needExp = 100;
+        CalculatePlayerAttribute();
         currentLevelText.text = "LV " + currentLevel.ToString();
         currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
         anim = GetComponent<Animator>();
@@ -49,11 +59,32 @@ public class PlayerAttribute : MonoBehaviour
     {
        
     }
+#endregion
+
+    void CalculatePlayerAttribute() {
+        switch (job)
+        {
+            case Classes.Warrior:
+                atk = 2 + str * 2;
+                break;
+            case Classes.Archer:
+                atk = 2 + agi * 2;
+                break;
+            case Classes.Magician:
+                atk = 2 + _int * 2;
+                break;
+        }
+        attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
+        maxHP = 100 + str * 8;
+        maxMP = 20 + _int * 5;
+        currentHP = maxHP;
+        currentMP = maxMP;
+    }
 
     public void TakeDamge(int damage)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
-        currentHP -= damage;
+        currentHP -= damage - def;
         hpSlider.value = currentHP;
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
@@ -81,11 +112,13 @@ public class PlayerAttribute : MonoBehaviour
             currentLevelText.text = "LV " + currentLevel;
             anim.SetTrigger("LevelUp");//ui anim
             expAnim.SetTrigger("LevelUp");//player anim
+            distributionAttribute += 5;
         }
 
         expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));//todo: update slider according to the exp percentage
         currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
     }
+
 
     public void ConsumeMP(int value)
     {

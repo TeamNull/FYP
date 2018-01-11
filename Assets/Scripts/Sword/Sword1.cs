@@ -8,11 +8,13 @@ public class Sword1 : MonoBehaviour {
 
     GameObject player;
     PlayerAttack playerAttack;
+    PlayerAttribute playerAttribute;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerAttack = player.GetComponent<PlayerAttack>();
+        playerAttribute = player.GetComponent<PlayerAttribute>();
     }
 
     // Use this for initialization
@@ -30,7 +32,7 @@ public class Sword1 : MonoBehaviour {
         if (other.tag == "Enemy" && playerAttack.isAttacking)
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(damage);
+            temp.TakeDamage( + playerAttribute.atk);
             playerAttack.isAttacking = false;
         }
     }

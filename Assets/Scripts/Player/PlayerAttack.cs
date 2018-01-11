@@ -4,28 +4,23 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour {
 
-    public int damage = 20;
-    public float attackSpeed = 1f;
     public bool isAttacking = false;
 
     float timer = 0f;
     Animator anim;
-
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
+    PlayerAttribute pa;
 
     // Use this for initialization
     void Start () {
-		
+        anim = GetComponent<Animator>();
+        pa = GetComponent<PlayerAttribute>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= attackSpeed && !StaticVarAndFunction.PlayerIsDead) {
+        if (Input.GetButton("Fire1") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead) {
             isAttacking = true;
             Attack();
         }
