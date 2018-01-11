@@ -14,7 +14,7 @@ public class ShortcutButton : MonoBehaviour {
 		
 	}
 
-    public void ShortcutBtn0 () {
-        Debug.Log("ShortcutKey0" + key0Counter++);
+    public void ShortcutBtn() {
+        Debug.Log("ShortcutKey" + key0Counter++);
     }
 }
