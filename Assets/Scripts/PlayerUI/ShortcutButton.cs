@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ShortcutButton : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
+    int key0Counter = 0;
+    // Use this for initialization
+    void Start () {
         //Debug.Log("ShortcutBtn0");
     }
 	
@@ -15,6 +15,6 @@ public class ShortcutButton : MonoBehaviour {
 	}
 
     public void ShortcutBtn0 () {
-        Debug.Log("ShortcutBtn0");
+        Debug.Log("ShortcutKey0" + key0Counter++);
     }
 }
