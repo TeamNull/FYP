@@ -26,7 +26,6 @@ public class PlayerAttribute : MonoBehaviour
 
     int maxHP;
     int maxMP;
-    int nextLvExp = 100;
     int totalExp;
     int currentExp;
     int currentLevel;
