@@ -32,7 +32,7 @@ public class Sword1 : MonoBehaviour {
         if (other.tag == "Enemy" && playerAttack.isAttacking)
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage( + playerAttribute.atk);
+            temp.TakeDamage(damage + playerAttribute.atk);
             playerAttack.isAttacking = false;
         }
     }
