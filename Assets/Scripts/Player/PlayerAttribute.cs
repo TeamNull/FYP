@@ -10,7 +10,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public int atk;
     public float attackSpeed;
-    
+
     public Slider hpSlider;
     public Slider mpSlider;
     public Slider expSlider;
@@ -26,7 +26,7 @@ public class PlayerAttribute : MonoBehaviour
 
     int maxHP;
     int maxMP;
-    int baseExp=100;
+    int baseExp = 100;
     int totalExp;
     int currentExp;
     int currentLevel;
@@ -38,6 +38,7 @@ public class PlayerAttribute : MonoBehaviour
     int _int = 1;
     int agi = 1;
     int distributionAttribute;
+    string playerName;
     #endregion
 
     #region LifeCycle
@@ -47,6 +48,7 @@ public class PlayerAttribute : MonoBehaviour
         currentExp = 0;
         currentLevel = 1;
         needExp = 100;
+        playerName = "Fish";
         CalculatePlayerAttribute();
         currentLevelText.text = "LV " + currentLevel.ToString();
         currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
@@ -57,11 +59,13 @@ public class PlayerAttribute : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+
     }
     #endregion
 
-    void CalculatePlayerAttribute() {
+    #region Method
+    void CalculatePlayerAttribute()
+    {
         switch (job)
         {
             case Classes.Warrior:
@@ -85,7 +89,7 @@ public class PlayerAttribute : MonoBehaviour
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
         currentHP -= damage - def;
-        hpSlider.value = (int)Mathf.Floor((100*currentHP/maxHP));
+        hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
@@ -111,9 +115,9 @@ public class PlayerAttribute : MonoBehaviour
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
-            float expCoefficient=(60-currentLevel)*(60 - currentLevel);
+            float expCoefficient = (60 - currentLevel) * (60 - currentLevel);
             float difficultyCoefficient;
-            
+
             needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
             //add 500ms anim on slider
@@ -135,4 +139,5 @@ public class PlayerAttribute : MonoBehaviour
         currentMP -= value;
         mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP)); ;
     }
+    #endregion
 }
