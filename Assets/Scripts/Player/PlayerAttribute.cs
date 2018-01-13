@@ -118,9 +118,10 @@ public class PlayerAttribute : MonoBehaviour
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
-            float expCoefficient = (60 - currentLevel) * (60 - currentLevel);
-            float difficultyCoefficient;
-
+            float expCoefficient = 1 + (currentLevel / 10) * 0.1f - ((currentLevel % 10) * 0.01f * (currentLevel / 10));
+            if (currentLevel<10) {
+                expCoefficient = 2 - 0.1f * currentLevel;
+            };
             needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
             //add 500ms anim on slider
