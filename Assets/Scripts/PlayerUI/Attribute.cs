@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Attribute : MonoBehaviour {
 
+    public UnityEngine.UI.Text playerName, level, job, damage, attackSpeed, str, agi, _int, availablePoint;
+
 	// Use this for initialization
 	void Start () {
 		
