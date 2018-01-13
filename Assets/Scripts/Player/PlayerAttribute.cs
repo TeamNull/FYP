@@ -6,17 +6,20 @@ using UnityEngine.UI;
 public class PlayerAttribute : MonoBehaviour
 {
     #region Variable
+    public delegate void LevelUpHandler();
+    public event LevelUpHandler LevelUp;
+
     public enum Classes { Warrior, Archer, Magician }
 
     public int atk;
-    public float attackSpeed;
+    public int currentLevel;
     public int def = 10;
     public int str = 1;
     public int _int = 1;
     public int agi = 1;
-    public int distributionAttribute;
+    public int AvailablePoint;
+    public float attackSpeed;
     public string playerName;
-    public int currentLevel;
 
     public Slider hpSlider;
     public Slider mpSlider;
@@ -43,7 +46,7 @@ public class PlayerAttribute : MonoBehaviour
 
     #region LifeCycle
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         currentExp = 0;
         currentLevel = 1;
@@ -124,7 +127,8 @@ public class PlayerAttribute : MonoBehaviour
             currentLevelText.text = "LV " + currentLevel;
             anim.SetTrigger("LevelUp");//ui anim
             expAnim.SetTrigger("LevelUp");//player anim
-            distributionAttribute += 5;
+            AvailablePoint += 5;
+            if (LevelUp != null) LevelUp();
         }
 
         expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
