@@ -26,6 +26,7 @@ public class PlayerAttribute : MonoBehaviour
 
     int maxHP;
     int maxMP;
+    int baseExp=100;
     int totalExp;
     int currentExp;
     int currentLevel;
@@ -39,7 +40,7 @@ public class PlayerAttribute : MonoBehaviour
     int distributionAttribute;
     #endregion
 
-#region LifeCycle
+    #region LifeCycle
     // Use this for initialization
     void Start()
     {
@@ -58,7 +59,7 @@ public class PlayerAttribute : MonoBehaviour
     {
        
     }
-#endregion
+    #endregion
 
     void CalculatePlayerAttribute() {
         switch (job)
@@ -84,7 +85,7 @@ public class PlayerAttribute : MonoBehaviour
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
         currentHP -= damage - def;
-        hpSlider.value = currentHP;
+        hpSlider.value = (int)Mathf.Floor((100*currentHP/maxHP));
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
@@ -94,18 +95,26 @@ public class PlayerAttribute : MonoBehaviour
 
     }
 
-    public void GainExp(int exp)
+    public void GainExp(int sourceExp, int sourceLevel)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
+        //penalty and bonus for the level difference between player and monster
+        //if sourceLevel==0 which is mission, no penaly or bonus will be apply
+        float temp = sourceExp;
+        temp *= (((float)(sourceLevel - currentLevel) + 100f) / 100f);
+        sourceExp = (int)temp;
+        //sourceExp *= (int)(Mathf.Floor((float)(sourceLevel - currentLevel) + 100)/100);
 
-        currentExp += exp;
-        totalExp += exp;
-
+        currentExp += sourceExp;
+        totalExp += sourceExp;
         //check if level up
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
-            needExp = (int)Mathf.Floor((100 * Mathf.Pow(1.1f, currentLevel)));
+            float expCoefficient=(60-currentLevel)*(60 - currentLevel);
+            float difficultyCoefficient;
+            
+            needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
             //add 500ms anim on slider
             currentLevelText.text = "LV " + currentLevel;
@@ -114,7 +123,7 @@ public class PlayerAttribute : MonoBehaviour
             distributionAttribute += 5;
         }
 
-        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));//todo: update slider according to the exp percentage
+        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
         currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
     }
 
@@ -124,6 +133,6 @@ public class PlayerAttribute : MonoBehaviour
         if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentMP -= value;
-        mpSlider.value = currentMP;
+        mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP)); ;
     }
 }

@@ -11,6 +11,7 @@ public class EnemyAttribute : MonoBehaviour
     public float destoryDelay = 1.0f;
     public float attackSpeed = 1.0f;
     public int attack = 10;
+    public int currentLevel;
 
     bool isDead = false;
     Animator anim;
@@ -76,7 +77,7 @@ public class EnemyAttribute : MonoBehaviour
             
             isDead = true;
             anim.SetTrigger("Dead");
-            player.GetComponent<PlayerAttribute>().GainExp(exp);
+            player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
             em.Spawn(spawnPoint, spawnQuaternion);
             Destroy(this.gameObject, destoryDelay);
         }
