@@ -10,6 +10,13 @@ public class PlayerAttribute : MonoBehaviour
 
     public int atk;
     public float attackSpeed;
+    public int def = 10;
+    public int str = 1;
+    public int _int = 1;
+    public int agi = 1;
+    public int distributionAttribute;
+    public string playerName;
+    public int currentLevel;
 
     public Slider hpSlider;
     public Slider mpSlider;
@@ -29,16 +36,9 @@ public class PlayerAttribute : MonoBehaviour
     int baseExp = 100;
     int totalExp;
     int currentExp;
-    int currentLevel;
     int needExp;
     int currentHP;
     int currentMP;
-    int def = 10;
-    int str = 1;
-    int _int = 1;
-    int agi = 1;
-    int distributionAttribute;
-    string playerName;
     #endregion
 
     #region LifeCycle
