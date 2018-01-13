@@ -12,7 +12,7 @@ public class Sword1 : MonoBehaviour {
 
     private void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = StaticVarAndFunction.player;
         playerAttack = player.GetComponent<PlayerAttack>();
         playerAttribute = player.GetComponent<PlayerAttribute>();
     }

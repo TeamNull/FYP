@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerAttribute : MonoBehaviour
 {
     #region Variable
-    enum Classes { Warrior, Archer, Magician }
+    public enum Classes { Warrior, Archer, Magician }
 
     public int atk;
     public float attackSpeed;
@@ -26,7 +26,7 @@ public class PlayerAttribute : MonoBehaviour
     public Text currentExpText;
     public Text levelUpText;
 
-    Classes job = Classes.Warrior;
+    public Classes job = Classes.Warrior;
 
     Animator anim;
     Animator expAnim;
