@@ -13,7 +13,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public int atk;
     public int currentLevel;
-    public int def = 10;
+    public int def = 1;
     public int str = 1;
     public int _int = 1;
     public int agi = 1;
@@ -28,6 +28,8 @@ public class PlayerAttribute : MonoBehaviour
     public Text currentLevelText;
     public Text currentExpText;
     public Text levelUpText;
+    public Text hpText;
+    public Text mpText;
 
     public Classes job = Classes.Warrior;
 
@@ -48,13 +50,24 @@ public class PlayerAttribute : MonoBehaviour
     // Use this for initialization
     void Awake()
     {
+        //name
+        playerName = "Fish";
+        CalculatePlayerAttribute();
+        //exp
         currentExp = 0;
         currentLevel = 1;
         needExp = 100;
-        playerName = "Fish";
-        CalculatePlayerAttribute();
         currentLevelText.text = "LV " + currentLevel.ToString();
         currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
+        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
+        //hp
+        hpText.text = currentHP + " / " + maxHP;
+        hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
+        //mp
+        mpText.text = currentMP + " / " + maxMP;
+        mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP));
+        
+        
         anim = GetComponent<Animator>();
         expAnim = GameObject.FindGameObjectWithTag("Exp").GetComponent<Animator>();
     }
@@ -82,7 +95,7 @@ public class PlayerAttribute : MonoBehaviour
                 break;
         }
         attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
-        maxHP = 100 + str * 8;
+        maxHP = 1 + str * 8;
         maxMP = 20 + _int * 5;
         currentHP = maxHP;
         currentMP = maxMP;
@@ -91,8 +104,10 @@ public class PlayerAttribute : MonoBehaviour
     public void TakeDamge(int damage)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
-        currentHP -= damage - def;
+
+        currentHP -= ((damage - def) > 1)?(damage - def):1 ;
         hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
+        hpText.text = currentHP + " / " +maxHP;
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
@@ -142,6 +157,7 @@ public class PlayerAttribute : MonoBehaviour
         if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentMP -= value;
+        mpText.text = currentMP + " / " + maxMP;
         mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP)); ;
     }
     #endregion
