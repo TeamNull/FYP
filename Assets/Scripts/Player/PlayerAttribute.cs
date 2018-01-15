@@ -31,8 +31,6 @@ public class PlayerAttribute : MonoBehaviour
     public Text hpText;
     public Text mpText;
 
-    public UIinfo playerUiScript;
-
     public Classes job = Classes.Warrior;
 
     Animator anim;
@@ -108,7 +106,8 @@ public class PlayerAttribute : MonoBehaviour
         if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentHP -= ((damage - def) > 1)?(damage - def):1 ;
-        playerUiScript.updateHP(currentHP, maxHP);
+        hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
+        hpText.text = currentHP + " / " +maxHP;
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
@@ -121,17 +120,16 @@ public class PlayerAttribute : MonoBehaviour
     public void GainExp(int sourceExp, int sourceLevel)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
-        bool isLvUp = false;
         //penalty and bonus for the level difference between player and monster
         //if sourceLevel==0 which is mission, no penaly or bonus will be apply
-        //use temp to store the bonus or penalty to avoid the deduct exp condition when penalty occur
         float temp = sourceExp;
-        temp *= (((float)(sourceLevel - currentLevel) ) / 100f);
-        sourceExp += (int)temp;
+        temp *= (((float)(sourceLevel - currentLevel) + 100f) / 100f);
+        sourceExp = (int)temp;
+        //sourceExp *= (int)(Mathf.Floor((float)(sourceLevel - currentLevel) + 100)/100);
+
         currentExp += sourceExp;
         totalExp += sourceExp;
         //check if level up
-
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
@@ -141,21 +139,26 @@ public class PlayerAttribute : MonoBehaviour
             };
             needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
-            isLvUp = true;            
+            //add 500ms anim on slider
+            currentLevelText.text = "LV " + currentLevel;
+            anim.SetTrigger("LevelUp");//ui anim
+            expAnim.SetTrigger("LevelUp");//player anim
             AvailablePoint += 5;
             if (LevelUp != null) LevelUp();
         }
-        
-        if(isLvUp) anim.SetTrigger("LevelUp");
-        playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);        
+
+        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
+        currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
     }
 
 
     public void ConsumeMP(int value)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
+
         currentMP -= value;
-        playerUiScript.updateHP(currentMP, maxMP);
+        mpText.text = currentMP + " / " + maxMP;
+        mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP)); ;
     }
     #endregion
 }
