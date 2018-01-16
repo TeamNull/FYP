@@ -4,12 +4,10 @@ using UnityEngine;
 
 public class FunctionButton : MonoBehaviour {
 
-    public GameObject Attribute;
-    //public MeshRenderer AttributeRender;
+    public GameObject Attribute;    
 
     // Use this for initialization
-    void Start () {
-        //MeshRenderer render = Attribute.GetComponentInChildren<MeshRenderer>();
+    void Start () {        
 
     }
 	
@@ -19,10 +17,11 @@ public class FunctionButton : MonoBehaviour {
 	}
 
     public void EnableAttribute() {
-        Debug.Log("enable att");
-        //Attribute.SetActive(false);
-        //AttributeRender.enabled = !AttributeRender.enabled;
-        if (Attribute.activeSelf) Attribute.SetActive(false); else Attribute.SetActive(true);
+        if (Attribute.activeSelf){
+            Attribute.SetActive(false);
+        }else {
+            Attribute.SetActive(true);
+        }        
     }
 
 }

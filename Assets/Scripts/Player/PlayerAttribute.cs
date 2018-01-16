@@ -22,6 +22,7 @@ public class PlayerAttribute : MonoBehaviour
     public string playerName;
     
     public UIinfo playerUiScript;
+    public Attribute attributeScript;
 
     public Classes job = Classes.Warrior;
 
@@ -59,6 +60,7 @@ public class PlayerAttribute : MonoBehaviour
         
         //player anim
         anim = GetComponent<Animator>();
+
         
     }
 
@@ -94,6 +96,30 @@ public class PlayerAttribute : MonoBehaviour
         needExp = baseExp;
 
     }
+
+    void ReCalculatePlayerAttribute()
+    {
+        switch (job)
+        {
+            case Classes.Warrior:
+                atk = 2 + str * 2;
+                break;
+            case Classes.Archer:
+                atk = 2 + agi * 2;
+                break;
+            case Classes.Magician:
+                atk = 2 + _int * 2;
+                break;
+        }
+        //attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
+        maxHP = 1 + str * 8;
+        maxMP = 20 + _int * 5;
+        currentHP = (currentHP> maxHP) ?maxHP:currentHP;
+        currentMP = (currentMP > maxMP) ? maxMP : currentMP;  
+
+    }
+
+
 
     public void TakeDamge(int damage)
     {
@@ -147,6 +173,25 @@ public class PlayerAttribute : MonoBehaviour
 
         currentMP -= value;
         playerUiScript.updateHP(currentMP, maxMP);
+    }
+
+    public void UpdateAllAttributeInfo() {
+
+        //attribute initialization
+        ReCalculatePlayerAttribute();
+
+        //exp
+        playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
+        Debug.Log("call updateEXP");
+
+        //hp
+        playerUiScript.updateHP(currentHP, maxHP);
+
+        //mp
+        playerUiScript.updateMP(currentMP, maxMP);
+
+        attributeScript.UpdatePlayerInfo();
+
     }
     #endregion
 }
