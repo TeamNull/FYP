@@ -20,16 +20,8 @@ public class PlayerAttribute : MonoBehaviour
     public int AvailablePoint;
     public float attackSpeed;
     public string playerName;
-
-    public Slider hpSlider;
-    public Slider mpSlider;
-    public Slider expSlider;
-
-    public Text currentLevelText;
-    public Text currentExpText;
-    public Text levelUpText;
-    public Text hpText;
-    public Text mpText;
+    
+    public UIinfo playerUiScript;
 
     public Classes job = Classes.Warrior;
 
@@ -52,24 +44,22 @@ public class PlayerAttribute : MonoBehaviour
     {
         //name
         playerName = "Fish";
+
+        //attribute initialization
         CalculatePlayerAttribute();
+        
         //exp
-        currentExp = 0;
-        currentLevel = 1;
-        needExp = 100;
-        currentLevelText.text = "LV " + currentLevel.ToString();
-        currentExpText.text = currentExp.ToString() + " / " + needExp.ToString() + " ( " + (100 * currentExp / needExp) + "% )";
-        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
-        //hp
-        hpText.text = currentHP + " / " + maxHP;
-        hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
+        playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
+        
+         //hp
+        playerUiScript.updateHP(currentHP, maxHP);
+        
         //mp
-        mpText.text = currentMP + " / " + maxMP;
-        mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP));
+        playerUiScript.updateMP(currentMP, maxMP);
         
-        
+        //player anim
         anim = GetComponent<Animator>();
-        expAnim = GameObject.FindGameObjectWithTag("Exp").GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -99,15 +89,18 @@ public class PlayerAttribute : MonoBehaviour
         maxMP = 20 + _int * 5;
         currentHP = maxHP;
         currentMP = maxMP;
+        currentExp = 0;
+        currentLevel = 1;
+        needExp = baseExp;
+
     }
 
     public void TakeDamge(int damage)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
 
-        currentHP -= ((damage - def) > 1)?(damage - def):1 ;
-        hpSlider.value = (int)Mathf.Floor((100 * currentHP / maxHP));
-        hpText.text = currentHP + " / " +maxHP;
+        currentHP -= ((damage - def) > 1)?(damage - def):1 ;        
+        playerUiScript.updateHP(currentHP, maxHP);
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
@@ -123,10 +116,9 @@ public class PlayerAttribute : MonoBehaviour
         //penalty and bonus for the level difference between player and monster
         //if sourceLevel==0 which is mission, no penaly or bonus will be apply
         float temp = sourceExp;
-        temp *= (((float)(sourceLevel - currentLevel) + 100f) / 100f);
-        sourceExp = (int)temp;
-        //sourceExp *= (int)(Mathf.Floor((float)(sourceLevel - currentLevel) + 100)/100);
-
+        bool isLvUp = false;
+        temp *= (((float)(sourceLevel - currentLevel)) / 100f);
+        sourceExp += (int)temp;
         currentExp += sourceExp;
         totalExp += sourceExp;
         //check if level up
@@ -139,16 +131,13 @@ public class PlayerAttribute : MonoBehaviour
             };
             needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
-            //add 500ms anim on slider
-            currentLevelText.text = "LV " + currentLevel;
-            anim.SetTrigger("LevelUp");//ui anim
-            expAnim.SetTrigger("LevelUp");//player anim
+            isLvUp = true;
             AvailablePoint += 5;
             if (LevelUp != null) LevelUp();
         }
-
-        expSlider.value = (int)Mathf.Floor((100 * currentExp / needExp));
-        currentExpText.text = currentExp + " / " + needExp + " ( " + (100 * currentExp / needExp) + "% )";
+        
+        if (isLvUp) anim.SetTrigger("LevelUp");
+        playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
     }
 
 
@@ -157,8 +146,7 @@ public class PlayerAttribute : MonoBehaviour
         if (StaticVarAndFunction.PlayerIsDead) return;
 
         currentMP -= value;
-        mpText.text = currentMP + " / " + maxMP;
-        mpSlider.value = (int)Mathf.Floor((100 * currentMP / maxMP)); ;
+        playerUiScript.updateHP(currentMP, maxMP);
     }
     #endregion
 }
