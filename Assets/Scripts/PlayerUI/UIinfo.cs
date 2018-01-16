@@ -39,17 +39,15 @@ public class UIinfo : MonoBehaviour
     public void updateMP(int current, int total)
     {
         mpSlider.value = (int)Mathf.Floor((100 * current / total));
-        mpText.text = current + " / " + total;
-        Debug.Log("current");
-        Debug.Log("total");
+        mpText.text = current + " / " + total;        
     }
 
     public void updateEXP(int curLv, int current, int total, bool isLvUp)
     {
         if (isLvUp) expAnim.SetTrigger("LevelUp");//ui anim        
-        currentLevelText.text = "LV " + curLv;
+        currentLevelText.text = "LV " + curLv + " ( " + (100 * current / total) + "% )";
         expSlider.value = (int)Mathf.Floor((100 * current / total));
-        currentExpText.text = current + " / " + total + " ( " + (100 * current / total) + "% )";
+        currentExpText.text = current + " / " + total ;
     }
 
     //will be used for allow player to customize shortsut lately
