@@ -24,6 +24,7 @@ public class Attribute : MonoBehaviour
     }
 
     public void UpdatePlayerInfo() {
+        
         playerName.text = pa.playerName;
         level.text = pa.currentLevel.ToString();
         job.text = pa.job.ToString();

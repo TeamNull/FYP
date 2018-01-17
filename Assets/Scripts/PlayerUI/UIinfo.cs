@@ -44,12 +44,12 @@ public class UIinfo : MonoBehaviour
 
     public void updateEXP(int curLv, int current, int total, bool isLvUp)
     {
-        Debug.Log("in updateEXP");
+        //Debug.Log("in updateEXP");
         if (isLvUp) expAnim.SetTrigger("LevelUp");//ui anim        
         currentLevelText.text = "LV " + curLv + " ( " + (100 * current / total) + "% )";
         expSlider.value = (int)Mathf.Floor((100 * current / total));
         currentExpText.text = current + " / " + total ;
-        Debug.Log("after updateEXP");
+        //Debug.Log("after updateEXP");
     }
 
     //will be used for allow player to customize shortsut lately

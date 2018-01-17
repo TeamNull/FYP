@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class FunctionButton : MonoBehaviour {
 
-    public GameObject Attribute;    
+    public GameObject Attribute;
+    public GameObject DragDropTest;
 
     // Use this for initialization
     void Start () {        
@@ -22,6 +23,18 @@ public class FunctionButton : MonoBehaviour {
         }else {
             Attribute.SetActive(true);
         }        
+    }
+
+    public void EnableDragDropTest()
+    {
+        if (DragDropTest.activeSelf)
+        {
+            DragDropTest.SetActive(false);
+        }
+        else
+        {
+            DragDropTest.SetActive(true);
+        }
     }
 
 }
