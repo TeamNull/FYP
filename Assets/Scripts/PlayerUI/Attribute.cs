@@ -35,9 +35,18 @@ public class Attribute : MonoBehaviour
         damage.text = pa.atk.ToString();    //Todo: Add back equipment damage
         attackSpeed.text = pa.attackSpeed.ToString();
         str.text = pa.str.ToString();
+        if (usedSTR > 0) str.text += "(+" + usedSTR + ")";
         agi.text = pa.agi.ToString();
+        if (usedAGI > 0) agi.text += "(+" + usedAGI + ")";
         _int.text = pa._int.ToString();
-        if(!isEditing) tempAvailablePoint = pa.AvailablePoint;
+        if (used_INT > 0) _int.text += "(+" + used_INT + ")";
+        if (!isEditing)
+        {
+            tempAvailablePoint = pa.AvailablePoint;
+        }
+        else {
+            tempAvailablePoint += (pa.AvailablePoint - tempAvailablePoint - usedSTR - usedAGI - used_INT);
+        }        
         availablePoint.text = tempAvailablePoint.ToString();        
     }
     
@@ -47,13 +56,38 @@ public class Attribute : MonoBehaviour
         tempAvailablePoint -= 1;
         usedSTR += 1;
         str.text = pa.str.ToString()+"(+"+ usedSTR+")";
+        availablePoint.text = tempAvailablePoint.ToString();
     }
 
     public void minusStr() {
         if (usedSTR <= 0) return;
+        isEditing = true;
         usedSTR -= 1;
         tempAvailablePoint += 1;
-        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
+        str.text = pa.str.ToString();
+        if (usedSTR > 0) str.text += "(+" + usedSTR + ")";
+        availablePoint.text = tempAvailablePoint.ToString();
+    }
+    
+    public void addAgi()
+    {
+        if (tempAvailablePoint <= 0) return;
+        isEditing = true;
+        tempAvailablePoint -= 1;
+        usedAGI += 1;
+        agi.text = pa.agi.ToString() + "(+" + usedAGI + ")";
+        availablePoint.text = tempAvailablePoint.ToString();
+    }
+
+    public void minusAgi()
+    {
+        if (usedAGI <= 0) return;
+        isEditing = true;
+        usedAGI -= 1;
+        tempAvailablePoint += 1; ;
+        agi.text = pa.agi.ToString();
+        if (usedAGI > 0) agi.text += "(+" + usedAGI + ")";
+        availablePoint.text = tempAvailablePoint.ToString();
     }
 
     public void add_Int()
@@ -62,40 +96,27 @@ public class Attribute : MonoBehaviour
         isEditing = true;
         tempAvailablePoint -= 1;
         used_INT += 1;
-        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
+        _int.text = pa._int.ToString() + "(+" + used_INT + ")";
+        availablePoint.text = tempAvailablePoint.ToString();
     }
 
     public void minus_Int()
     {
-        if (pa._int <= 0) return;
-        pa.AvailablePoint += 1;
-        pa._int -= 1;
-        pa.UpdateAllAttributeInfo();
-    }
-
-    public void addAgi()
-    {
-        if (tempAvailablePoint <= 0) return;
+        if (used_INT <= 0) return;
         isEditing = true;
-        tempAvailablePoint -= 1;
-        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
-        pa.agi += 1;
-        pa.UpdateAllAttributeInfo();
-    }
-
-    public void minusAgi()
-    {
-        if (pa.agi <= 0) return;
-        pa.AvailablePoint += 1;
-        pa.agi -= 1;
-        pa.UpdateAllAttributeInfo();
+        used_INT -= 1;
+        tempAvailablePoint += 1;
+        _int.text = pa._int.ToString();
+        if (used_INT > 0) _int.text += "(+" + used_INT + ")";
+        availablePoint.text = tempAvailablePoint.ToString();
     }
 
     public void confirmPluaAndMinus() {
-        pa.AvailablePoint -=(usedSTR+usedAGI+used_INT);
+        pa.AvailablePoint -= (usedSTR+ usedAGI+ used_INT);
         pa.str += usedSTR;
         pa.agi += usedAGI;
         pa._int += used_INT;
+        usedSTR = usedAGI = used_INT = 0;
         isEditing = false;
         pa.UpdateAllAttributeInfo();
     }
