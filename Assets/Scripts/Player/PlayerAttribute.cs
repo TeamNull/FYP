@@ -11,6 +11,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public enum Classes { Warrior, Archer, Magician }
 
+    public const string id = "BF1D24BE7DF041E4A40170B1E940BBD4";
     public int atk;
     public int currentLevel;
     public int def = 1;
@@ -18,6 +19,11 @@ public class PlayerAttribute : MonoBehaviour
     public int _int = 1;
     public int agi = 1;
     public int AvailablePoint;
+    public int currentExp;
+    public int currentHP;
+    public int currentMP;
+    public int maxHP;
+    public int maxMP;
     public float attackSpeed;
     public string playerName;
     
@@ -29,14 +35,10 @@ public class PlayerAttribute : MonoBehaviour
     Animator anim;
     Animator expAnim;
 
-    int maxHP;
-    int maxMP;
     int baseExp = 100;
     int totalExp;
-    int currentExp;
     int needExp;
-    int currentHP;
-    int currentMP;
+
     #endregion
 
     #region LifeCycle
