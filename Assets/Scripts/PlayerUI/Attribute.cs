@@ -5,9 +5,13 @@ using UnityEngine;
 public class Attribute : MonoBehaviour
 {
     public UnityEngine.UI.Text playerName, level, job, damage, attackSpeed, str, agi, _int, availablePoint;
-
-
+    
     PlayerAttribute pa;
+    int usedSTR = 0;
+    int usedAGI = 0;
+    int used_INT = 0;
+    int tempAvailablePoint=0;
+    bool isEditing=false;
 
     // Use this for initialization
     void Start()
@@ -33,31 +37,32 @@ public class Attribute : MonoBehaviour
         str.text = pa.str.ToString();
         agi.text = pa.agi.ToString();
         _int.text = pa._int.ToString();
-        availablePoint.text = pa.AvailablePoint.ToString();        
+        if(!isEditing) tempAvailablePoint = pa.AvailablePoint;
+        availablePoint.text = tempAvailablePoint.ToString();        
     }
     
     public void addStr() {
-        if (pa.AvailablePoint <= 0) return;
-        pa.AvailablePoint -= 1;
-        pa.str += 1;
-        pa.UpdateAllAttributeInfo();
-
+        if (tempAvailablePoint <= 0) return;
+        isEditing = true;
+        tempAvailablePoint -= 1;
+        usedSTR += 1;
+        str.text = pa.str.ToString()+"(+"+ usedSTR+")";
     }
 
-    public void minusStr()
-    {
-        if (pa.str <= 0) return;
-        pa.AvailablePoint += 1;
-        pa.str -= 1;
-        pa.UpdateAllAttributeInfo();
+    public void minusStr() {
+        if (usedSTR <= 0) return;
+        usedSTR -= 1;
+        tempAvailablePoint += 1;
+        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
     }
 
     public void add_Int()
     {
-        if (pa.AvailablePoint <= 0) return;
-        pa.AvailablePoint -= 1;
-        pa._int += 1;
-        pa.UpdateAllAttributeInfo();
+        if (tempAvailablePoint <= 0) return;
+        isEditing = true;
+        tempAvailablePoint -= 1;
+        used_INT += 1;
+        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
     }
 
     public void minus_Int()
@@ -70,8 +75,10 @@ public class Attribute : MonoBehaviour
 
     public void addAgi()
     {
-        if (pa.AvailablePoint <= 0) return;
-        pa.AvailablePoint -= 1;
+        if (tempAvailablePoint <= 0) return;
+        isEditing = true;
+        tempAvailablePoint -= 1;
+        str.text = pa.str.ToString() + "(+" + usedSTR + ")";
         pa.agi += 1;
         pa.UpdateAllAttributeInfo();
     }
@@ -81,6 +88,15 @@ public class Attribute : MonoBehaviour
         if (pa.agi <= 0) return;
         pa.AvailablePoint += 1;
         pa.agi -= 1;
+        pa.UpdateAllAttributeInfo();
+    }
+
+    public void confirmPluaAndMinus() {
+        pa.AvailablePoint -=(usedSTR+usedAGI+used_INT);
+        pa.str += usedSTR;
+        pa.agi += usedAGI;
+        pa._int += used_INT;
+        isEditing = false;
         pa.UpdateAllAttributeInfo();
     }
 }

@@ -62,7 +62,6 @@ public class PlayerAttribute : MonoBehaviour
         
         //player anim
         anim = GetComponent<Animator>();
-
         
     }
 
@@ -162,8 +161,7 @@ public class PlayerAttribute : MonoBehaviour
             isLvUp = true;
             AvailablePoint += 5;
             if (LevelUp != null) LevelUp();
-        }
-        
+        }        
         if (isLvUp) anim.SetTrigger("LevelUp");
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
     }
@@ -184,7 +182,7 @@ public class PlayerAttribute : MonoBehaviour
 
         //exp
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
-        Debug.Log("call updateEXP");
+        //Debug.Log("call updateEXP");
 
         //hp
         playerUiScript.updateHP(currentHP, maxHP);
