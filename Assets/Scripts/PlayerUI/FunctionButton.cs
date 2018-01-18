@@ -2,27 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FunctionButton : MonoBehaviour {
+public class FunctionButton : MonoBehaviour
+{
 
+    #region Variable
     public GameObject Attribute;
     public GameObject DragDropTest;
+    public GameObject Setting;
+    #endregion
 
+    #region LifeCycle
     // Use this for initialization
-    void Start () {        
+    void Start()
+    {
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    public void EnableAttribute() {
-        if (Attribute.activeSelf){
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
+    #endregion
+
+    #region Method
+    public void EnableAttribute()
+    {
+        if (Attribute.activeSelf)
+        {
             Attribute.SetActive(false);
-        }else {
+        }
+        else
+        {
             Attribute.SetActive(true);
-        }        
+        }
     }
 
     public void EnableDragDropTest()
@@ -36,5 +49,11 @@ public class FunctionButton : MonoBehaviour {
             DragDropTest.SetActive(true);
         }
     }
+
+    public void EnableSetting()
+    {
+        Setting.SetActive(!Setting.activeSelf);
+    }
+    #endregion
 
 }

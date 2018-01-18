@@ -8,12 +8,15 @@ using UnityEngine.SceneManagement;
 public class SaveLoadManager : MonoBehaviour
 {
 
-#region Variable
+    #region Variable
     SqlConnectionStringBuilder builder;
     PlayerAttribute player;
-#endregion
 
-#region LifeCycle
+    public bool saveBtnClicked = false;
+    public bool loadBtnClicked = false;
+    #endregion
+
+    #region LifeCycle
     // Use this for initialization
     void Start()
     {
@@ -28,11 +31,32 @@ public class SaveLoadManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (saveBtnClicked) {
+            //Todo: Show save success message;
+            //Save();
+            Debug.Log("Save Btn Clicked");
+            saveBtnClicked = false;
+        }
 
+        if (loadBtnClicked) {
+            //Todo: Show load success message;
+            //Load();
+            Debug.Log("Load Btn Clicked");
+            loadBtnClicked = false;
+        }
     }
-#endregion
+    #endregion
 
-#region Method
+    #region Method
+
+    public void SaveBtnOnClick() {
+        saveBtnClicked = true;
+    }
+
+    public void LoadBtnOnClick() {
+        loadBtnClicked = true;
+    }
+
     bool Load()
     {
         try
@@ -159,5 +183,5 @@ public class SaveLoadManager : MonoBehaviour
 
         return true;
     }
-#endregion
+    #endregion
 }
