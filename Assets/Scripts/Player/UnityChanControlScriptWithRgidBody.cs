@@ -5,6 +5,8 @@
 //
 using UnityEngine;
 using System.Collections;
+using UnityEngine.AI;
+using UnityEngine.EventSystems;
 
 // 必要なコンポーネントの列記
 [RequireComponent(typeof (Animator))]
@@ -49,6 +51,7 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 	static int locoState = Animator.StringToHash("Base Layer.Locomotion");
 	static int jumpState = Animator.StringToHash("Base Layer.Jump");
 	static int restState = Animator.StringToHash("Base Layer.Rest");
+
 
 // 初期化
 	void Start ()
@@ -207,4 +210,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 		col.height = orgColHight;
 		col.center = orgVectColCenter;
 	}
+		
+
 }
