@@ -6,16 +6,13 @@ using UnityEngine.UI;
 public class PlayerAttribute : MonoBehaviour
 {
     #region Variable
+    public enum Classes { Warrior, Archer, Magician }
+
     public delegate void LevelUpHandler();
     public event LevelUpHandler LevelUp;
     public UIinfo playerUiScript;
     public Attribute attributeScript;
 
-
-
-    public enum Classes { Warrior, Archer, Magician }
-
-    public const string id = "BF1D24BE7DF041E4A40170B1E940BBD4";
     public int atk;
     public int currentLevel;
     public int def = 1;
