@@ -27,6 +27,11 @@ public class Attribute : MonoBehaviour
 
     }
 
+    private void OnApplicationQuit()
+    {
+        pa.LevelUp -= UpdatePlayerInfo;
+    }
+
     public void UpdatePlayerInfo() {
         
         playerName.text = pa.playerName;

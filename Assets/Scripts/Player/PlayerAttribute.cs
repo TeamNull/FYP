@@ -8,6 +8,10 @@ public class PlayerAttribute : MonoBehaviour
     #region Variable
     public delegate void LevelUpHandler();
     public event LevelUpHandler LevelUp;
+    public UIinfo playerUiScript;
+    public Attribute attributeScript;
+
+
 
     public enum Classes { Warrior, Archer, Magician }
 
@@ -26,9 +30,6 @@ public class PlayerAttribute : MonoBehaviour
     public int maxMP;
     public float attackSpeed;
     public string playerName;
-    
-    public UIinfo playerUiScript;
-    public Attribute attributeScript;
 
     public Classes job = Classes.Warrior;
 
