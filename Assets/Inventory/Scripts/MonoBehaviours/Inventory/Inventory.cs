@@ -66,7 +66,7 @@ public class Inventory : MonoBehaviour {
 	{	
 
 		for (int iteminventoryid = 0; iteminventoryid < numItemSlots; iteminventoryid++) // loop the inventory
-		{ ;
+		{ 
 
 			if (idandunit[iteminventoryid].cointainid(itemid))  // find the item in inventory
 			{ 
@@ -112,16 +112,21 @@ public class Inventory : MonoBehaviour {
 			idandunit [inventoryid].setunitas0(); //set the unit as 0
 			itemImages[inventoryid].sprite = null; //update the screen ui with the null
 			itemImages[inventoryid].enabled = false; // Disable because do not want to show background image
-			replaceItem(inventoryid);
 			return;
 		}
 
 		return;	
 	}
 
-	public void replaceItem(int inventoryid)
-	{	
+	public bool cotainitem(int itemid)
+	{
+        for (int iteminventoryid = 0; iteminventoryid < numItemSlots; iteminventoryid++) // loop the inventory
+        {
+            if (idandunit[iteminventoryid].cointainid(itemid))
+                return true;
+        }
 
+        return false;
 	}
 		
 		
