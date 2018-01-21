@@ -7,8 +7,9 @@ using UnityEngine.SceneManagement;
 
 public class SaveLoadManager : MonoBehaviour
 {
-
     #region Variable
+    public GameObject LoadingScreen;
+
     const string id = "BF1D24BE7DF041E4A40170B1E940BBD4";
 
     bool saveBtnClicked;
@@ -40,8 +41,12 @@ public class SaveLoadManager : MonoBehaviour
         if (saveBtnClicked)
         {
             //Todo: Show save success message;
+            LoadingScreen.SetActive(true);
+            StaticVarAndFunction.isLoading = true;
             saveBtnClicked = false;
             bool isSuccess = Save();
+            StaticVarAndFunction.isLoading = false;
+            LoadingScreen.SetActive(false);
             Debug.Log("Save" + isSuccess);
 
         }
@@ -49,8 +54,12 @@ public class SaveLoadManager : MonoBehaviour
         if (loadBtnClicked)
         {
             //Todo: Show load success message;
+            LoadingScreen.SetActive(true);
+            StaticVarAndFunction.isLoading = true;
             loadBtnClicked = false;
             bool isSuccess = Load();
+            StaticVarAndFunction.isLoading = false;
+            LoadingScreen.SetActive(false);
             Debug.Log("Load" + isSuccess);
 
         }
@@ -76,6 +85,7 @@ public class SaveLoadManager : MonoBehaviour
         //bool missionLoaded = true;
         //bool shortcutLoaded = true;
         //bool warehouseLoaded = true;
+
         try
         {
             using (SqlConnection connection = new SqlConnection(builder.ConnectionString))
@@ -90,16 +100,19 @@ public class SaveLoadManager : MonoBehaviour
                 string attribute = sb.ToString();
                 using (SqlCommand command = new SqlCommand(attribute, connection))
                 {
-                    if (command.ExecuteNonQuery() == 0) {
+                    if (command.ExecuteNonQuery() == 0)
+                    {
                         Debug.Log("Player Attribute Load Fail");
                         paLoaded = false;
                     }
-
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    else
                     {
-                        while (reader.Read())
+                        using (SqlDataReader reader = command.ExecuteReader())
                         {
-                            PlayerAttributeParser(reader);
+                            while (reader.Read())
+                            {
+                                PlayerAttributeParser(reader);
+                            }
                         }
                     }
                 }
@@ -205,6 +218,7 @@ public class SaveLoadManager : MonoBehaviour
                 //}
                 //sb.Remove(0, sb.Length);
 
+                connection.Close();
                 Debug.Log("DB Connection End");
             }
         }
@@ -249,11 +263,10 @@ public class SaveLoadManager : MonoBehaviour
                         Debug.Log("Player Attribute Load Fail");
                         paSaved = false;
                     }
-
-                    using (SqlDataReader reader = command.ExecuteReader())
+                    /*else
                     {
-                        Debug.Log("Fish");
-                    }
+                        command.ExecuteReader();
+                    }*/
                 }
                 sb.Remove(0, sb.Length);
 
@@ -327,6 +340,7 @@ public class SaveLoadManager : MonoBehaviour
                 //}
                 //sb.Remove(0, sb.Length);
 
+                connection.Close();
                 Debug.Log("DB Connection End");
             }
 

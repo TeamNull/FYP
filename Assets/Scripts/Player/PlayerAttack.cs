@@ -20,7 +20,7 @@ public class PlayerAttack : MonoBehaviour {
 	void Update () {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead) {
+        if (Input.GetButton("Fire1") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead && !StaticVarAndFunction.isLoading) {
             isAttacking = true;
             Attack();
         }
