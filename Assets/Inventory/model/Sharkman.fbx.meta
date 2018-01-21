@@ -1,0 +1,216 @@
+fileFormatVersion: 2
+guid: ac90a69acd46a424e99d251b70ea3b82
+timeCreated: 1516528091
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Eyes
+    100002: Head
+    100004: HeadEnd
+    100006: Hips
+    100008: LeftArm
+    100010: LeftClavicle
+    100012: LeftFoot
+    100014: LeftHand
+    100016: LeftIndex1
+    100018: LeftIndex2
+    100020: LeftIndex3
+    100022: LeftIndexEnd
+    100024: LeftLeg
+    100026: LeftMiddle1
+    100028: LeftMiddle2
+    100030: LeftMiddle3
+    100032: LeftMiddleEnd
+    100034: LeftPinky1
+    100036: LeftPinky2
+    100038: LeftPinky3
+    100040: LeftPinkyEnd
+    100042: LeftThumb1
+    100044: LeftThumb2
+    100046: LeftThumb3
+    100048: LeftThumbEnd
+    100050: LeftToe
+    100052: LeftToeEnd
+    100054: LeftUpLeg
+    100056: LeftUpperArm
+    100058: Mesh
+    100060: Mouth
+    100062: RightArm
+    100064: RightClavicle
+    100066: RightFoot
+    100068: RightHand
+    100070: RightIndex1
+    100072: RightIndex2
+    100074: RightIndex3
+    100076: RightIndexEnd
+    100078: RightLeg
+    100080: RightMiddle1
+    100082: RightMiddle2
+    100084: RightMiddle3
+    100086: RightMiddleEnd
+    100088: RightPinky1
+    100090: RightPinky2
+    100092: RightPinky3
+    100094: RightPinkyEnd
+    100096: RightThumb1
+    100098: RightThumb2
+    100100: RightThumb3
+    100102: RightThumbEnd
+    100104: RightToe
+    100106: RightToeEnd
+    100108: RightUpLeg
+    100110: RightUpperArm
+    100112: //RootNode
+    100114: Sharkman
+    100116: Skeleton
+    100118: Spine1
+    100120: Spine2
+    400000: Eyes
+    400002: Head
+    400004: HeadEnd
+    400006: Hips
+    400008: LeftArm
+    400010: LeftClavicle
+    400012: LeftFoot
+    400014: LeftHand
+    400016: LeftIndex1
+    400018: LeftIndex2
+    400020: LeftIndex3
+    400022: LeftIndexEnd
+    400024: LeftLeg
+    400026: LeftMiddle1
+    400028: LeftMiddle2
+    400030: LeftMiddle3
+    400032: LeftMiddleEnd
+    400034: LeftPinky1
+    400036: LeftPinky2
+    400038: LeftPinky3
+    400040: LeftPinkyEnd
+    400042: LeftThumb1
+    400044: LeftThumb2
+    400046: LeftThumb3
+    400048: LeftThumbEnd
+    400050: LeftToe
+    400052: LeftToeEnd
+    400054: LeftUpLeg
+    400056: LeftUpperArm
+    400058: Mesh
+    400060: Mouth
+    400062: RightArm
+    400064: RightClavicle
+    400066: RightFoot
+    400068: RightHand
+    400070: RightIndex1
+    400072: RightIndex2
+    400074: RightIndex3
+    400076: RightIndexEnd
+    400078: RightLeg
+    400080: RightMiddle1
+    400082: RightMiddle2
+    400084: RightMiddle3
+    400086: RightMiddleEnd
+    400088: RightPinky1
+    400090: RightPinky2
+    400092: RightPinky3
+    400094: RightPinkyEnd
+    400096: RightThumb1
+    400098: RightThumb2
+    400100: RightThumb3
+    400102: RightThumbEnd
+    400104: RightToe
+    400106: RightToeEnd
+    400108: RightUpLeg
+    400110: RightUpperArm
+    400112: //RootNode
+    400114: Sharkman
+    400116: Skeleton
+    400118: Spine1
+    400120: Spine2
+    4300000: Sharkman
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Sharkman
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SharkmanMaterial
+    second: {fileID: 2100000, guid: 04cec440bbcfa7748a027ea7a53d9c01, type: 2}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

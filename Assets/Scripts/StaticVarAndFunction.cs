@@ -7,6 +7,7 @@ public class StaticVarAndFunction : MonoBehaviour {
     public static bool PlayerIsDead = false;
     public static bool isLoading = false;
     public static GameObject player = GameObject.FindGameObjectWithTag("Player");
+	//public static Item[] itemlist;
 
 	// Use this for initialization
 	void Start () {
@@ -17,4 +18,6 @@ public class StaticVarAndFunction : MonoBehaviour {
 	void Update () {
 		
 	}
+		
+
 }
