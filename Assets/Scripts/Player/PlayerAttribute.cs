@@ -31,7 +31,6 @@ public class PlayerAttribute : MonoBehaviour
     public Classes job = Classes.Warrior;
 
     Animator anim;
-    Animator expAnim;
 
     int baseExp = 100;
     int totalExp;
@@ -48,19 +47,19 @@ public class PlayerAttribute : MonoBehaviour
 
         //attribute initialization
         CalculatePlayerAttribute();
-        
+
         //exp
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
-        
-         //hp
+
+        //hp
         playerUiScript.updateHP(currentHP, maxHP);
-        
+
         //mp
         playerUiScript.updateMP(currentMP, maxMP);
-        
+
         //player anim
         anim = GetComponent<Animator>();
-        
+
     }
 
     // Update is called once per frame
@@ -73,23 +72,7 @@ public class PlayerAttribute : MonoBehaviour
     #region Method
     void CalculatePlayerAttribute()
     {
-        switch (job)
-        {
-            case Classes.Warrior:
-                atk = 2 + str * 2;
-                break;
-            case Classes.Archer:
-                atk = 2 + agi * 2;
-                break;
-            case Classes.Magician:
-                atk = 2 + _int * 2;
-                break;
-        }
-        attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
-        maxHP = 1 + str * 8;
-        maxMP = 20 + _int * 5;
-        currentHP = maxHP;
-        currentMP = maxMP;
+        ReCalculatePlayerAttribute();
         currentExp = 0;
         currentLevel = 1;
         needExp = baseExp;
@@ -111,11 +94,10 @@ public class PlayerAttribute : MonoBehaviour
                 break;
         }
         //attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
-        maxHP = 1 + str * 8;
-        maxMP = 20 + _int * 5;
-        currentHP = (currentHP> maxHP) ?maxHP:currentHP;
-        currentMP = (currentMP > maxMP) ? maxMP : currentMP;  
-
+        maxHP = 100 + str * 8;
+        maxMP = 100 + _int * 5;
+        currentHP = (currentHP > maxHP) ? maxHP : currentHP;
+        currentMP = (currentMP > maxMP) ? maxMP : currentMP;
     }
 
 
@@ -124,7 +106,7 @@ public class PlayerAttribute : MonoBehaviour
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
 
-        currentHP -= ((damage - def) > 1)?(damage - def):1 ;        
+        currentHP -= ((damage - def) > 1) ? (damage - def) : 1;
         playerUiScript.updateHP(currentHP, maxHP);
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
@@ -151,15 +133,16 @@ public class PlayerAttribute : MonoBehaviour
         {
             currentExp -= needExp;
             float expCoefficient = 1 + (currentLevel / 10) * 0.1f - ((currentLevel % 10) * 0.01f * (currentLevel / 10));
-            if (currentLevel<10) {
+            if (currentLevel < 10)
+            {
                 expCoefficient = 2 - 0.1f * currentLevel;
-            };
+            }
             needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
             currentLevel++;
             isLvUp = true;
             AvailablePoint += 5;
             if (LevelUp != null) LevelUp();
-        }        
+        }
         if (isLvUp) anim.SetTrigger("LevelUp");
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
     }
@@ -173,7 +156,8 @@ public class PlayerAttribute : MonoBehaviour
         playerUiScript.updateHP(currentMP, maxMP);
     }
 
-    public void UpdateAllAttributeInfo() {
+    public void UpdateAllAttributeInfo()
+    {
 
         //attribute initialization
         ReCalculatePlayerAttribute();
