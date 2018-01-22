@@ -34,6 +34,7 @@ public class UIinfo : MonoBehaviour
     {
         hpSlider.value = (int)Mathf.Floor((100 * current / total));
         hpText.text = current + " / " + total;
+        Debug.Log(current + " / " + total);
     }
 
     public void updateMP(int current, int total)

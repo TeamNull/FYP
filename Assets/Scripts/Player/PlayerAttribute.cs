@@ -20,9 +20,9 @@ public class PlayerAttribute : MonoBehaviour
     public int _int = 1;
     public int agi = 1;
     public int AvailablePoint;
-    public int currentExp;
-    public int currentHP;
-    public int currentMP;
+    public int currentExp=0;
+    public int currentHP = 0;
+    public int currentMP = 0;
     public int maxHP;
     public int maxMP;
     public float attackSpeed;
@@ -70,20 +70,23 @@ public class PlayerAttribute : MonoBehaviour
     #endregion
 
     #region Method
+
     void CalculatePlayerAttribute()
     {
         ReCalculatePlayerAttribute();
+
         currentExp = 0;
         currentLevel = 1;
         needExp = baseExp;
-
+        currentHP = maxHP;
+        currentMP = maxMP;
     }
 
     void ReCalculatePlayerAttribute()
     {
         switch (job)
         {
-            case Classes.Warrior:
+            case Classes.Warrior:                
                 atk = 2 + str * 2;
                 break;
             case Classes.Archer:
@@ -93,14 +96,13 @@ public class PlayerAttribute : MonoBehaviour
                 atk = 2 + _int * 2;
                 break;
         }
-        //attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
+        
+        attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
         maxHP = 100 + str * 8;
         maxMP = 100 + _int * 5;
-        currentHP = (currentHP > maxHP) ? maxHP : currentHP;
-        currentMP = (currentMP > maxMP) ? maxMP : currentMP;
+        currentHP = (currentHP > maxHP) ? currentHP : maxHP;
+        currentMP = (currentMP > maxMP) ? currentMP : maxMP;
     }
-
-
 
     public void TakeDamge(int damage)
     {
@@ -142,6 +144,8 @@ public class PlayerAttribute : MonoBehaviour
             isLvUp = true;
             AvailablePoint += 5;
             if (LevelUp != null) LevelUp();
+            currentHP = maxHP;
+            currentMP = maxMP;
         }
         if (isLvUp) anim.SetTrigger("LevelUp");
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);

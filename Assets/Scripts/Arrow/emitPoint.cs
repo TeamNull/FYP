@@ -9,24 +9,28 @@ public class emitPoint : MonoBehaviour {
     Vector3 theEmitPoint = Vector3.zero;
     Vector3 theDirection = Vector3.zero;
     Vector3 theTargetPoint = Vector3.zero;
-    
+    PlayerAttack playerAttack;
+    GameObject player;
     //RaycastHit theHit;
 
 
     // Use this for initialization
     void Start () {
-       
+
+        player = StaticVarAndFunction.player;
+        playerAttack = player.GetComponent<PlayerAttack>();
     }
 	
 	// Update is called once per frame
 	void FixedUpdate () {
         theEmitPoint = this.transform.position;
-        theDirection = this.transform.TransformDirection(Vector3.forward);        
+        theDirection = this.transform.TransformDirection(Vector3.forward);       
 
     }
 
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse0)) {
             //set anim
             GameObject cloneArrow=Instantiate(theArrow, theEmitPoint, Quaternion.identity);
@@ -34,7 +38,14 @@ public class emitPoint : MonoBehaviour {
             cloneArrow.transform.position = theEmitPoint;
             cloneArrow.transform.rotation = transform.rotation;
         }
+        */
     }
 
+    public void AttackByShoot() {
+        GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);        
+        cloneArrow.transform.position = theEmitPoint;
+        cloneArrow.transform.rotation = transform.rotation;
+        playerAttack.isAttacking = false;
+    }
     
 }
