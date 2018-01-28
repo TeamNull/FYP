@@ -9,7 +9,7 @@ public class Arrow1 : MonoBehaviour {
     public int range = 100;
 
     GameObject player;
-    PlayerAttack playerAttack;
+    //PlayerAttack playerAttack;
     PlayerAttribute playerAttribute;
     Vector3 initPos;
     Rigidbody ridigB;
@@ -17,23 +17,25 @@ public class Arrow1 : MonoBehaviour {
     bool isColl=false;
 
     // Use this for initialization
-    void Start () {
-        //this.transform.rotation;
+    void Start () {        
         ridigB = GetComponent<Rigidbody>();
         initPos = transform.position;
+        //transform.rotation = ;
     }
 
     private void Awake()
     {
-        player = StaticVarAndFunction.player;
-        playerAttack = player.GetComponent<PlayerAttack>();
+        player = StaticVarAndFunction.player;        
         playerAttribute = player.GetComponent<PlayerAttribute>();
+        //transform.rotation = Quaternion.LookRotation(ridigB.velocity);
     }
 
     // Update is called once per frame
     void Update () {        
         if(!isColl)transform.Translate(Vector3.left* theSpeed*Time.deltaTime);
+        
         if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
+
 	}
 
     void OnTriggerEnter(Collider other)
@@ -42,14 +44,16 @@ public class Arrow1 : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(damage + playerAttribute.atk);            
+            temp.TakeDamage(damage + playerAttribute.atk);
+            Destroy(gameObject);
+            return;
         }       
 
         ridigB.velocity = Vector3.zero;
         ridigB.useGravity = false;
         ridigB.isKinematic = true;
         isColl = true;        
-        Destroy(gameObject,3);
+        Destroy(gameObject,1f);
 
     }
 }

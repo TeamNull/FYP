@@ -28,7 +28,7 @@ public class PlayerAttack : MonoBehaviour {
             Attack();
         }
 
-        if (Input.GetButton("Fire2") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead && !StaticVarAndFunction.isLoading)
+        if (Input.GetButton("Fire2") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead && !StaticVarAndFunction.isLoading && !EventSystem.current.IsPointerOverGameObject())
         {
             isAttacking = true;
             AttackByShoot();
@@ -46,9 +46,6 @@ public class PlayerAttack : MonoBehaviour {
         timer = 0f;
         emitPoint.AttackByShoot();
         anim.SetTrigger("AttackByShoot");
-        
-        //set anim later
-        //AttackByShoot
     }
 
     public void AttackEnd() {

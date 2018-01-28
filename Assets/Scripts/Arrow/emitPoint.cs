@@ -7,7 +7,7 @@ public class emitPoint : MonoBehaviour {
     public int theRange = 1000;
     public GameObject theArrow;
     Vector3 theEmitPoint = Vector3.zero;
-    Vector3 theDirection = Vector3.zero;
+    //Vector3 theDirection = Vector3.zero;
     //Vector3 theTargetPoint = Vector3.zero;
     PlayerAttack playerAttack;
     GameObject player;
@@ -24,7 +24,7 @@ public class emitPoint : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate () {
         theEmitPoint = transform.position;
-        theDirection = transform.TransformDirection(Vector3.forward);       
+        //theDirection = transform.TransformDirection(Vector3.forward);       
 
     }
 
@@ -45,6 +45,7 @@ public class emitPoint : MonoBehaviour {
         GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);        
         cloneArrow.transform.position = theEmitPoint;
         cloneArrow.transform.rotation = transform.rotation;
+        //cloneArrow.transform.eulerAngles = new Vector3(0,270,0);
         playerAttack.isAttacking = false;
     }
     

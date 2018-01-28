@@ -28,26 +28,12 @@ public class FunctionButton : MonoBehaviour
     #region Method
     public void EnableAttribute()
     {
-        if (Attribute.activeSelf)
-        {
-            Attribute.SetActive(false);
-        }
-        else
-        {
-            Attribute.SetActive(true);
-        }
+        Attribute.SetActive(!Attribute.activeSelf);        
     }
 
     public void EnableDragDropTest()
     {
-        if (DragDropTest.activeSelf)
-        {
-            DragDropTest.SetActive(false);
-        }
-        else
-        {
-            DragDropTest.SetActive(true);
-        }
+        DragDropTest.SetActive(!DragDropTest.activeSelf);
     }
 
     public void EnableSetting()
