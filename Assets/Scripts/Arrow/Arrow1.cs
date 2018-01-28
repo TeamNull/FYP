@@ -6,11 +6,12 @@ public class Arrow1 : MonoBehaviour {
     public static int arrowCounter=0;
     public int theSpeed=50;
     public int damage = 20;
+    public int range = 100;
 
     GameObject player;
     PlayerAttack playerAttack;
     PlayerAttribute playerAttribute;
-
+    Vector3 initPos;
     Rigidbody ridigB;
 
     bool isColl=false;
@@ -19,6 +20,7 @@ public class Arrow1 : MonoBehaviour {
     void Start () {
         //this.transform.rotation;
         ridigB = GetComponent<Rigidbody>();
+        initPos = transform.position;
     }
 
     private void Awake()
@@ -31,6 +33,7 @@ public class Arrow1 : MonoBehaviour {
     // Update is called once per frame
     void Update () {        
         if(!isColl)transform.Translate(Vector3.left* theSpeed*Time.deltaTime);
+        if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
 	}
 
     void OnTriggerEnter(Collider other)
@@ -39,17 +42,14 @@ public class Arrow1 : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(damage + playerAttribute.atk);
-            //playerAttack.isAttacking = false;
+            temp.TakeDamage(damage + playerAttribute.atk);            
         }       
 
         ridigB.velocity = Vector3.zero;
         ridigB.useGravity = false;
         ridigB.isKinematic = true;
-        isColl = true;
-        Debug.Log("arrow" + ++arrowCounter);
-        Destroy(gameObject);
-        //Debug.Log("Destroied");
+        isColl = true;        
+        Destroy(gameObject,3);
 
     }
 }

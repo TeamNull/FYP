@@ -8,7 +8,7 @@ public class emitPoint : MonoBehaviour {
     public GameObject theArrow;
     Vector3 theEmitPoint = Vector3.zero;
     Vector3 theDirection = Vector3.zero;
-    Vector3 theTargetPoint = Vector3.zero;
+    //Vector3 theTargetPoint = Vector3.zero;
     PlayerAttack playerAttack;
     GameObject player;
     //RaycastHit theHit;
@@ -23,8 +23,8 @@ public class emitPoint : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-        theEmitPoint = this.transform.position;
-        theDirection = this.transform.TransformDirection(Vector3.forward);       
+        theEmitPoint = transform.position;
+        theDirection = transform.TransformDirection(Vector3.forward);       
 
     }
 
