@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class EnemyAttribute : MonoBehaviour
 {
-
+    #region Variable
+    public delegate void EnemyDeathHandler();
+    public event EnemyDeathHandler EnemyDeath;
+    public Quaternion spawnQuaternion;
+    public Vector3 spawnPoint;
+    public float destoryDelay = 1.0f;
+    public float attackSpeed = 1.0f;
     public int startingHealth = 100;
     public int currentHealth;
     public int exp = 10;
-    public float destoryDelay = 1.0f;
-    public float attackSpeed = 1.0f;
     public int attack = 10;
     public int currentLevel;
+    public bool isDead;
 
-    bool isDead = false;
     Animator anim;
     UnityEngine.AI.NavMeshAgent nav;
     GameObject player;
     float timer;
-    Vector3 spawnPoint;
-    Quaternion spawnQuaternion;
-    EnemyManager em;
+    #endregion
 
+    #region Life Cycle
     // Use this for initialization
     void Start()
     {
@@ -31,7 +34,6 @@ public class EnemyAttribute : MonoBehaviour
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         spawnPoint = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         spawnQuaternion = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z, this.transform.rotation.w);
-        em = GameObject.FindGameObjectWithTag("Manager").GetComponent<EnemyManager>();
     }
 
     // Update is called once per frame
@@ -63,7 +65,9 @@ public class EnemyAttribute : MonoBehaviour
             anim.SetBool("IsMoving", false);
         }
     }
+    #endregion
 
+    #region Method
     public void TakeDamage(int amount)
     {
         if (isDead)
@@ -74,12 +78,12 @@ public class EnemyAttribute : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            
             isDead = true;
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
-            em.Spawn(spawnPoint, spawnQuaternion);
-            Destroy(this.gameObject, destoryDelay);
+            if (EnemyDeath != null) EnemyDeath();
+            this.gameObject.SetActive(false);
         }
     }
+    #endregion
 }
