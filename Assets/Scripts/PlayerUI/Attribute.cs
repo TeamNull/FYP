@@ -6,7 +6,7 @@ public class Attribute : MonoBehaviour
 {
     public UnityEngine.UI.Text playerName, level, job, damage, attackSpeed, str, agi, _int, availablePoint;
     
-    PlayerAttribute pa;
+    public PlayerAttribute pa;
     int usedSTR = 0;
     int usedAGI = 0;
     int used_INT = 0;
@@ -16,7 +16,8 @@ public class Attribute : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        //pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();      
+        //pa = FindObjectOfType<PlayerAttribute>();
         pa.LevelUp += UpdatePlayerInfo;
         UpdatePlayerInfo();
     }
@@ -32,8 +33,7 @@ public class Attribute : MonoBehaviour
         pa.LevelUp -= UpdatePlayerInfo;
     }
 
-    public void UpdatePlayerInfo() {
-        
+    public void UpdatePlayerInfo() {        
         playerName.text = pa.playerName;
         level.text = pa.currentLevel.ToString();
         job.text = pa.job.ToString();
@@ -123,6 +123,7 @@ public class Attribute : MonoBehaviour
         pa._int += used_INT;
         usedSTR = usedAGI = used_INT = 0;
         isEditing = false;
-        pa.UpdateAllAttributeInfo();
+        pa.UpdatePlayerValueByPoint();
+        //pa.UpdateAllAttributeInfo();
     }
 }
