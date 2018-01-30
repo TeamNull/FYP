@@ -15,14 +15,14 @@ public class PlayerAttribute : MonoBehaviour
 
     public int atk;
     public int currentLevel;
-    public int def = 1;
-    public int str = 1;
-    public int _int = 1;
-    public int agi = 1;
+    public int def;
+    public int str;
+    public int _int;
+    public int agi;
     public int AvailablePoint;
-    public int currentExp=0;
-    public int currentHP = 0;
-    public int currentMP = 0;
+    public int currentExp;
+    public int currentHP;
+    public int currentMP;
     public int maxHP;
     public int maxMP;
     public float attackSpeed;
@@ -96,7 +96,7 @@ public class PlayerAttribute : MonoBehaviour
                 atk = 2 + _int * 2;
                 break;
         }
-        
+        def = Mathf.CeilToInt(agi * 0.5f);
         attackSpeed = 1;    //Todo: Calculate attackSpeed by agi
         maxHP = 100 + str * 8;
         maxMP = 100 + _int * 5;
