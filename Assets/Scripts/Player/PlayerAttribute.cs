@@ -13,53 +13,38 @@ public class PlayerAttribute : MonoBehaviour
     public UIinfo playerUiScript;
     public Attribute attributeScript;
     public GameObject levelUp;
-    public int atk;
-    public int currentLevel;
-    public int def;
-    public int str;
-    public int _int;
-    public int agi;
-    public int AvailablePoint;
-    public int currentExp;
     public int currentHP;
     public int currentMP;
     public int maxHP;
     public int maxMP;
-    public float attackSpeed;
+    public int str;
+    public int _int;
+    public int agi;
+    public int additionalAtk;   //used for equipment
+    public int additionalDef;   //used for equipment
+    public int additionalSpeed; //used for equipment
+    public int atk;             //total included additional
+    public int def;             //total included additional
+    public float attackSpeed;   //total included additional
     public string playerName;
-
-    public Classes job = Classes.Warrior;
-
-    Animator anim;
-
-    int baseExp = 100;
+    public Classes job;
+    public int AvailablePoint;
+    public int currentLevel;
+    public int currentExp;
     int totalExp;
     int needExp;
-
+    const int baseExp = 100;
+    Animator anim;
     #endregion
 
     #region LifeCycle
     // Use this for initialization
     void Awake()
     {
-        //name
-        playerName = "Fish";
-
         //attribute initialization
-        CalculatePlayerAttribute();
-
-        //exp
-        playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
-
-        //hp
-        playerUiScript.updateHP(currentHP, maxHP);
-
-        //mp
-        playerUiScript.updateMP(currentMP, maxMP);
-
+        InitialPlayerAttribute();
         //player anim
         anim = GetComponent<Animator>();
-
     }
 
     // Update is called once per frame
@@ -71,6 +56,151 @@ public class PlayerAttribute : MonoBehaviour
 
     #region Method
 
+
+
+    public void TakeDamge(int damage)
+    {
+        if (StaticVarAndFunction.PlayerIsDead) return;
+
+        currentHP -= ((damage - def) > 1) ? (damage - def) : 1;
+        playerUiScript.updateHP(currentHP, maxHP);
+        anim.SetTrigger("Damaged");
+        if (currentHP <= 0)
+        {
+            StaticVarAndFunction.PlayerIsDead = true;
+            anim.SetTrigger("Dead");
+        }
+    }
+
+    public void ConsumeMP(int value)
+    {
+        if (StaticVarAndFunction.PlayerIsDead) return;
+
+        currentMP -= value;
+        playerUiScript.updateHP(currentMP, maxMP);
+    }
+
+    public void GainExp(int sourceExp, int sourceLevel)
+    {
+        if (StaticVarAndFunction.PlayerIsDead) return;
+        //penalty and bonus for the level difference between player and monster
+        //if sourceLevel==0 which is mission, no penaly or bonus will be apply
+        float temp = sourceExp;
+        bool isLvUp = false;
+        temp *= (!(sourceLevel == 0)) ? (((float)(sourceLevel - currentLevel)) / 100f) : 1;
+        sourceExp += (int)temp;
+        currentExp += sourceExp;
+        totalExp += sourceExp;
+        //check if level up
+        while (currentExp >= needExp)
+        {
+            currentExp -= needExp;
+            float expCoefficient = 1 + (currentLevel / 10) * 0.1f - ((currentLevel % 10) * 0.01f * (currentLevel / 10));
+            if (currentLevel < 10)
+            {
+                expCoefficient = 2 - 0.1f * currentLevel;
+            }
+            needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
+            currentLevel++;
+            isLvUp = true;
+            AvailablePoint += 5;
+            currentHP = maxHP;
+            currentMP = maxMP;
+            if (LevelUp != null) LevelUp();
+        }
+        playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
+        if (isLvUp) levelUp.SetActive(true);
+    }
+
+    //initial
+    void InitialPlayerAttribute()
+    {
+        playerName = "Fish";
+        job = Classes.Warrior;
+
+        str = 5;
+        _int = 5;
+        agi = 5;
+
+        additionalAtk = 0;
+        additionalDef = 0;
+        additionalSpeed = 0;
+
+        UpdatePlayerValueByPoint(); //could be deleted if the save is loaded
+
+        currentLevel = 1;
+        currentExp = 0;
+        needExp = baseExp;
+        AvailablePoint = 0;
+
+        //exp ui update
+        playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
+
+        currentHP = maxHP;
+        currentMP = maxMP;
+        //hp ui update
+        playerUiScript.updateHP(currentHP, maxHP);
+
+        //mp ui update
+        playerUiScript.updateMP(currentMP, maxMP);
+
+
+    }
+
+    //call after point change,initial,equipment,skill
+    public void UpdatePlayerValueByPoint()
+    {
+        switch (job)
+        {
+            case Classes.Warrior:
+                atk = 2 + str * 2 + additionalAtk;
+                break;
+            case Classes.Archer:
+                atk = 2 + agi * 2 + additionalAtk;
+                break;
+            case Classes.Magician:
+                atk = 2 + _int * 2 + additionalAtk;
+                break;
+        }
+        def = Mathf.CeilToInt(agi * 0.5f) + additionalDef;
+        attackSpeed = 1 + additionalSpeed;    //Todo: Calculate attackSpeed by agi
+        maxHP = 100 + str * 8;
+        maxMP = 100 + _int * 5;
+        currentHP = (currentHP > maxHP) ? currentHP : maxHP;
+        currentMP = (currentMP > maxMP) ? currentMP : maxMP;
+
+        //update ui and attribute page after value and point update        
+
+        //hp ui update
+        playerUiScript.updateHP(currentHP, maxHP);
+
+        //mp ui update
+        playerUiScript.updateMP(currentMP, maxMP);
+
+        //update attribute page
+        attributeScript.UpdatePlayerInfo();
+
+    }
+
+    /*
+    delegate int PointDekegate(int originalPoint, int playerPoint);
+    delegate int ValueDelegate(int originalValue, int playerValue);
+
+    void PointUpdate(PointDekegate pointDelegate) {
+
+    }
+    void ValueUpdate(ValueDelegate valueDelegate) {
+
+    }
+    */
+
+    //point update
+    //equipment update
+    //level update
+    //add point,value skill apply
+
+
+    /*
     void CalculatePlayerAttribute()
     {
         ReCalculatePlayerAttribute();
@@ -103,81 +233,28 @@ public class PlayerAttribute : MonoBehaviour
         currentHP = (currentHP > maxHP) ? currentHP : maxHP;
         currentMP = (currentMP > maxMP) ? currentMP : maxMP;
     }
+    */
 
-    public void TakeDamge(int damage)
-    {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+    /*
+   public void UpdateAllAttributeInfo()
+   {
 
-        currentHP -= ((damage - def) > 1) ? (damage - def) : 1;
-        playerUiScript.updateHP(currentHP, maxHP);
-        anim.SetTrigger("Damaged");
-        if (currentHP <= 0)
-        {
-            StaticVarAndFunction.PlayerIsDead = true;
-            anim.SetTrigger("Dead");
-        }
+       //attribute initialization
+       ReCalculatePlayerAttribute();
 
-    }
+       //exp ui update
+       playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
 
-    public void GainExp(int sourceExp, int sourceLevel)
-    {
-        if (StaticVarAndFunction.PlayerIsDead) return;
-        //penalty and bonus for the level difference between player and monster
-        //if sourceLevel==0 which is mission, no penaly or bonus will be apply
-        float temp = sourceExp;
-        bool isLvUp = false;
-        temp *= (((float)(sourceLevel - currentLevel)) / 100f);
-        sourceExp += (int)temp;
-        currentExp += sourceExp;
-        totalExp += sourceExp;
-        //check if level up
-        while (currentExp >= needExp)
-        {
-            currentExp -= needExp;
-            float expCoefficient = 1 + (currentLevel / 10) * 0.1f - ((currentLevel % 10) * 0.01f * (currentLevel / 10));
-            if (currentLevel < 10)
-            {
-                expCoefficient = 2 - 0.1f * currentLevel;
-            }
-            needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
-            currentLevel++;
-            isLvUp = true;
-            AvailablePoint += 5;
-            if (LevelUp != null) LevelUp();
-            currentHP = maxHP;
-            currentMP = maxMP;
-        }
-        if (isLvUp) levelUp.SetActive(true);
-        playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
-    }
+       //hp ui update
+       playerUiScript.updateHP(currentHP, maxHP);
 
+       //mp ui update
+       playerUiScript.updateMP(currentMP, maxMP);
 
-    public void ConsumeMP(int value)
-    {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+       //update attribute page
+       attributeScript.UpdatePlayerInfo();
 
-        currentMP -= value;
-        playerUiScript.updateHP(currentMP, maxMP);
-    }
-
-    public void UpdateAllAttributeInfo()
-    {
-
-        //attribute initialization
-        ReCalculatePlayerAttribute();
-
-        //exp
-        playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
-        //Debug.Log("call updateEXP");
-
-        //hp
-        playerUiScript.updateHP(currentHP, maxHP);
-
-        //mp
-        playerUiScript.updateMP(currentMP, maxMP);
-
-        attributeScript.UpdatePlayerInfo();
-
-    }
+   }
+   */
     #endregion
 }
