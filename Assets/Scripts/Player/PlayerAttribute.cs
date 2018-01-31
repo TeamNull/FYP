@@ -12,7 +12,7 @@ public class PlayerAttribute : MonoBehaviour
     public event LevelUpHandler LevelUp;
     public UIinfo playerUiScript;
     public Attribute attributeScript;
-
+    public GameObject levelUp;
     public int atk;
     public int currentLevel;
     public int def;
@@ -147,7 +147,7 @@ public class PlayerAttribute : MonoBehaviour
             currentHP = maxHP;
             currentMP = maxMP;
         }
-        if (isLvUp) anim.SetTrigger("LevelUp");
+        if (isLvUp) levelUp.SetActive(true);
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
     }
 
