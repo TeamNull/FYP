@@ -178,7 +178,7 @@ public class PlayerAttribute : MonoBehaviour
         playerUiScript.updateMP(currentMP, maxMP);
 
         //update attribute page
-        attributeScript.UpdatePlayerInfo();
+        //attributeScript.UpdatePlayerInfo();
 
     }
 
