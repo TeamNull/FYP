@@ -9,6 +9,7 @@ public class FunctionButton : MonoBehaviour
     public GameObject Attribute;
     public GameObject DragDropTest;
     public GameObject Setting;
+    public GameObject Bag;
     #endregion
 
     #region LifeCycle
@@ -39,6 +40,11 @@ public class FunctionButton : MonoBehaviour
     public void EnableSetting()
     {
         Setting.SetActive(!Setting.activeSelf);
+    }
+
+    public void EnableBag()
+    {
+        Bag.SetActive(!Bag.activeSelf);
     }
     #endregion
 

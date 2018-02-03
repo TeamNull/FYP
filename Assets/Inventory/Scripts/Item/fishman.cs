@@ -25,9 +25,9 @@ public class fishman : MonoBehaviour {
 
 	void Fishman()
 	{
-		Debug.Log (inventory.itemlist.Length);
-		inventory.itemlist[2] = item;
-		inventory.AddItem(2);
+		//Debug.Log (inventory.item.Length);
+		//inventory.itemlist[2] = item;
+		//inventory.AddItem(2);
 		Destroy(gameObject);
 	}
 }
