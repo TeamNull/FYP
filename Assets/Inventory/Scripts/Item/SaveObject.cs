@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class SaveObject : MonoBehaviour {
+public class SaveObject : MonoBehaviour
+{
 
     public Item item;
     Inventory bag;
@@ -11,14 +11,7 @@ public class SaveObject : MonoBehaviour {
 
     void Start()
     {
-        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
-        foreach (GameObject go in uiGameObjectArray)
-        {
-            if (go.name == "PlayerUI")
-            {
-                bag = go.transform.Find("Bag").GetChild(2).GetComponent<Inventory>();
-            }
-        }
+        bag = StaticVarAndFunction.bag;
     }
 
     void Update()
@@ -33,7 +26,14 @@ public class SaveObject : MonoBehaviour {
             {
                 if (hit.transform.gameObject == this.gameObject)
                 {
-                    bag.AddItem(item, unit);
+                    if (item.id != 0)
+                    {
+                        bag.AddItem(item, unit);
+                    }
+                    else
+                    {
+                        item.unit += unit;
+                    }
                     Destroy(this.gameObject);
                 }
             }
