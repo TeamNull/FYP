@@ -16,7 +16,7 @@ public class SaveObject : MonoBehaviour {
         {
             if (go.name == "PlayerUI")
             {
-                bag = go.transform.Find("Bag").gameObject.GetComponent<Inventory>();
+                bag = go.transform.Find("Bag").GetChild(2).GetComponent<Inventory>();
             }
         }
     }
