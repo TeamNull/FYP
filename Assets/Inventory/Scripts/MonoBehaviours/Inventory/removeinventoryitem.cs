@@ -5,7 +5,7 @@ using UnityEngine;
 public class removeinventoryitem : MonoBehaviour {
 
 	public Item item;
-	public Inventory inventory;
+	public Bag inventory;
 
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.F1))

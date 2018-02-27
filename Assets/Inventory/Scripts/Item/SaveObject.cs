@@ -6,7 +6,7 @@ public class SaveObject : MonoBehaviour
 {
 
     public Item item;
-    Inventory bag;
+    Bag bag;
     public int unit = 1;
 
     void Start()

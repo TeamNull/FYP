@@ -3,7 +3,7 @@
 public class saveCoin1 : MonoBehaviour
 {
 	public Item item;
-	public Inventory inventory;
+    public Bag bag;
 
 	void Update () {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -23,7 +23,7 @@ public class saveCoin1 : MonoBehaviour
 
 	void savecoin1()
 	{
-		inventory.itemList[0] = item;
+		bag.itemList[0] = item;
 		//inventory.AddItem(0);
 		Destroy(gameObject);
 	}

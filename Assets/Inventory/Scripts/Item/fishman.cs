@@ -5,7 +5,7 @@ using UnityEngine;
 public class fishman : MonoBehaviour {
 
 	public Item item;
-	public Inventory inventory;
+	public Bag inventory;
 
 	void Update () {
 		Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class SaveCoin2 : MonoBehaviour
 {
     public Item item;
-    Inventory bag;
+    Bag bag;
 
     void Start()
     {
@@ -13,7 +13,7 @@ public class SaveCoin2 : MonoBehaviour
         {
             if (go.name == "PlayerUI")
             {
-                bag = go.transform.Find("Bag").gameObject.GetComponent<Inventory>();
+                bag = go.transform.Find("Bag").gameObject.GetComponent<Bag>();
             }
         }
     }

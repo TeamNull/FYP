@@ -11,7 +11,7 @@ public class Missionboard : MonoBehaviour {
 
    
     public GameObject originalcanves; // the original canves
-    public Inventory inventory; // inventory
+    public Bag inventory; // inventory
     public Button btn; // the button show on the mission canves
     public Text completext; // the text show on the mission canves
     public const int missionnumber = 20; // totoal mission number 
