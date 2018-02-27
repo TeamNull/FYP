@@ -8,7 +8,7 @@ public class StaticVarAndFunction : MonoBehaviour {
     public static bool PlayerIsDead = false;
     public static bool isLoading = false;
     public static GameObject player = GameObject.FindGameObjectWithTag("Player");
-    public static Bag bag = GameObject.FindGameObjectWithTag("Bag").GetComponent<Bag>();
+    public static Bag bag/* = GameObject.FindGameObjectWithTag("Bag").GetComponent<Bag>()*/;
 	//public static Item[] itemlist;
 
 	// Use this for initialization
