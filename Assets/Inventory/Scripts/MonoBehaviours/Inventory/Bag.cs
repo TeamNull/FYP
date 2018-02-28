@@ -1,18 +1,33 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Bag : MonoBehaviour
 {
-    public const int itemSlotsNum = 24; //total solts
+    const int itemSlotsNum = 24; //total solts
     public List<Item> itemList = new List<Item>(); //testing use
-    public Image[] itemImages = new Image[itemSlotsNum]; //show in ui
+    public List<Image> itemImages = new List<Image>(); //show in ui
 
     int itemInBag;
 
     private void Awake()
     {
         StaticVarAndFunction.bag = this;
+    }
+
+    private void Start()
+    {
+        List<Transform> childs = new List<Transform>();
+        // GetComponentsInChildren does not guarantee the order so do the sorting by ourselves
+        for (int i = 0; i < itemSlotsNum; i++)  
+        {
+            childs.Add(transform.GetChild(i));
+        }
+        foreach(Transform child in childs) {
+            itemImages.Add(child.GetChild(0).GetComponent<Image>());
+        }
+        itemImages.OrderBy(x => x.name);
     }
 
     public void AddItem(Item item, int unit)
@@ -35,24 +50,37 @@ public class Bag : MonoBehaviour
         itemInBag++;
     }
 
-    public void RemoveItem(int inventoryId)
+    public void RemoveItem(int bagId)
     {
-        if (itemInBag == 0) return;
+        if (itemInBag == 0 || bagId + 1 > itemInBag) return;
 
-        itemList[inventoryId].unit--;
-        if (itemList[inventoryId].unit == 0) {
+        itemList[bagId].unit--;
+        if (itemList[bagId].unit == 0)
+        {
             itemInBag--;
-            itemList.RemoveAt(inventoryId);
-            itemImages[inventoryId].sprite = null;
-            itemImages[inventoryId].enabled = false;
+            itemList.RemoveAt(bagId);
+            UpdateImageList();
         }
     }
 
-    public bool Cotainitem(int itemid)
+    void UpdateImageList()
     {
-        for (int itemBagid = 0; itemBagid < itemSlotsNum; itemBagid++) // loop the inventory
+        for (int i = 0; i < itemSlotsNum; i++) {
+            if (i < itemInBag) {
+                itemImages[i].sprite = itemList[i].sprite;
+                itemImages[i].enabled = true;
+            } else {
+                itemImages[i].sprite = null;
+                itemImages[i].enabled = false;
+            }
+        }
+    }
+
+    public bool Cotainitem(int itemId)
+    {
+        for (int itemBagId = 0; itemBagId < itemSlotsNum; itemBagId++) // loop the inventory
         {
-            if (itemList[itemBagid].id == itemid)
+            if (itemList[itemBagId].id == itemId)
                 return true;
         }
 

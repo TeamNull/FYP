@@ -1,21 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class BagGrid : MonoBehaviour {
+public class BagGrid : MonoBehaviour, IPointerClickHandler {
 
     int gridId;
     Bag bag;
 
 	// Use this for initialization
 	void Start () {
-        bag = this.transform.parent.gameObject.GetComponent<Bag>();
         gridId = int.Parse(name);
+        bag = StaticVarAndFunction.bag;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetMouseButtonDown(1))
-            bag.RemoveItem(gridId);
+		
 	}
+
+    public void OnPointerClick(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Right) {
+            Debug.Log(gridId);
+            bag.RemoveItem(gridId);
+        }
+    }
 }

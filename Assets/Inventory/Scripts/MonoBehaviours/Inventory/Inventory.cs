@@ -2,20 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Inventory : MonoBehaviour {
 
-    public const int itemSlotsNum = 24; //total solts
-    public List<Item> itemList = new List<Item>(); //testing use
-    public Image[] itemImages = new Image[itemSlotsNum]; //show in ui
+    const int itemSlotsNum = 24; //total solts
+    List<Item> itemList = new List<Item>(); //testing use
+    List<Image> itemImages = new List<Image>(); //show in ui
 
-    int itemInBag;
+    int itemInInventory;
+
+    private void Awake()
+    {
+        StaticVarAndFunction.inventory = this;
+    }
+
+    private void Start()
+    {
+        List<Transform> childs = new List<Transform>();
+        // GetComponentsInChildren does not guarantee the order so do the sorting by ourselves
+        for (int i = 0; i < itemSlotsNum; i++)
+        {
+            childs.Add(transform.GetChild(i));
+        }
+        foreach (Transform child in childs)
+        {
+            itemImages.Add(child.GetChild(0).GetComponent<Image>());
+        }
+        itemImages.OrderBy(x => x.name);
+    }
 
     public void AddItem(Item item, int unit)
     {
-        if (itemInBag == itemSlotsNum) return; //Check bag space
+        if (itemInInventory == itemSlotsNum) return; //Check bag space
 
-        for (int i = 0; i < itemInBag; i++) // loop the inventory
+        for (int i = 0; i < itemInInventory; i++) // loop the inventory
         {
             if (itemList[i].id == item.id)  // find the item in inventory
             {
@@ -25,20 +46,20 @@ public class Inventory : MonoBehaviour {
         }
 
         itemList.Add(item);
-        itemImages[itemInBag].sprite = item.sprite;
-        itemImages[itemInBag].enabled = true;
-        itemList[itemInBag].unit++;
-        itemInBag++;
+        itemImages[itemInInventory].sprite = item.sprite;
+        itemImages[itemInInventory].enabled = true;
+        itemList[itemInInventory].unit++;
+        itemInInventory++;
     }
 
     public void RemoveItem(int inventoryId)
     {
-        if (itemInBag == 0) return;
+        if (itemInInventory == 0) return;
 
         itemList[inventoryId].unit--;
         if (itemList[inventoryId].unit == 0)
         {
-            itemInBag--;
+            itemInInventory--;
             itemList.RemoveAt(inventoryId);
             itemImages[inventoryId].sprite = null;
             itemImages[inventoryId].enabled = false;
@@ -47,9 +68,9 @@ public class Inventory : MonoBehaviour {
 
     public bool Cotainitem(int itemid)
     {
-        for (int itemBagid = 0; itemBagid < itemSlotsNum; itemBagid++) // loop the inventory
+        for (int itemInventoryId = 0; itemInventoryId < itemSlotsNum; itemInventoryId++) // loop the inventory
         {
-            if (itemList[itemBagid].id == itemid)
+            if (itemList[itemInventoryId].id == itemid)
                 return true;
         }
 

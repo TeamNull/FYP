@@ -23,7 +23,7 @@ public class saveCoin1 : MonoBehaviour
 
 	void savecoin1()
 	{
-		bag.itemList[0] = item;
+		//bag.itemList[0] = item;
 		//inventory.AddItem(0);
 		Destroy(gameObject);
 	}
