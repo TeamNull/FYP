@@ -6,8 +6,8 @@ using System.Linq;
 public class Bag : MonoBehaviour
 {
     const int itemSlotsNum = 24; //total solts
-    List<Item> itemList = new List<Item>(); //testing use
-    List<Transform> itemUIList = new List<Transform>();
+    public List<Item> itemList = new List<Item>(); //testing use
+    public List<Transform> itemUIList = new List<Transform>();
 
     int itemInBag;
 
@@ -53,32 +53,32 @@ public class Bag : MonoBehaviour
     {
         if (itemInBag == 0 || bagId + 1 > itemInBag) return;
 
-        if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true) {
+        /*if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true) {
             StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
-        }
+        }*/
 
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
         {
             itemInBag--;
             itemList.RemoveAt(bagId);
-            UpdateImageList();
         }
+        UpdateImageList();
     }
 
     void UpdateImageList()
     {
         for (int i = 0; i < itemSlotsNum; i++) {
             if (i < itemInBag) {
-                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = itemList[i].sprite;
-                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = true;
-                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = itemList[i].unit.ToString();
-                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = true;
+                itemUIList[i].GetChild(0).GetComponent<Image>().sprite = itemList[i].sprite;
+                itemUIList[i].GetChild(0).GetComponent<Image>().enabled = true;
+                itemUIList[i].GetChild(1).GetComponent<Text>().text = itemList[i].unit.ToString();
+                itemUIList[i].GetChild(1).GetComponent<Text>().enabled = true;
             } else {
-                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = null;
-                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = false;
-                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = "0";
-                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = false;
+                itemUIList[i].GetChild(0).GetComponent<Image>().sprite = null;
+                itemUIList[i].GetChild(0).GetComponent<Image>().enabled = false;
+                itemUIList[i].GetChild(1).GetComponent<Text>().text = "0";
+                itemUIList[i].GetChild(1).GetComponent<Text>().enabled = false;
             }
         }
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SaveObject : MonoBehaviour, IPointerClickHandler
+public class SaveObject : MonoBehaviour
 {
 
     public Item item;
@@ -13,13 +13,6 @@ public class SaveObject : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         bag = StaticVarAndFunction.bag;
-    }
-
-    public void OnPointerClick(PointerEventData eventData) {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            Debug.Log("Clicked");
-        }
     }
 
     void Update()
