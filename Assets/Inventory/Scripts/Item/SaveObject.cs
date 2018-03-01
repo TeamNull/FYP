@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class SaveObject : MonoBehaviour
+public class SaveObject : MonoBehaviour, IPointerClickHandler
 {
 
     public Item item;
@@ -12,6 +13,13 @@ public class SaveObject : MonoBehaviour
     void Start()
     {
         bag = StaticVarAndFunction.bag;
+    }
+
+    public void OnPointerClick(PointerEventData eventData) {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("Clicked");
+        }
     }
 
     void Update()

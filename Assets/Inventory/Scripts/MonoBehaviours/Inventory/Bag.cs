@@ -6,8 +6,8 @@ using System.Linq;
 public class Bag : MonoBehaviour
 {
     const int itemSlotsNum = 24; //total solts
-    public List<Item> itemList = new List<Item>(); //testing use
-    public List<Image> itemImages = new List<Image>(); //show in ui
+    List<Item> itemList = new List<Item>(); //testing use
+    List<Transform> itemUIList = new List<Transform>();
 
     int itemInBag;
 
@@ -18,16 +18,12 @@ public class Bag : MonoBehaviour
 
     private void Start()
     {
-        List<Transform> childs = new List<Transform>();
         // GetComponentsInChildren does not guarantee the order so do the sorting by ourselves
         for (int i = 0; i < itemSlotsNum; i++)  
         {
-            childs.Add(transform.GetChild(i));
+            itemUIList.Add(transform.GetChild(i));
         }
-        foreach(Transform child in childs) {
-            itemImages.Add(child.GetChild(0).GetComponent<Image>());
-        }
-        itemImages.OrderBy(x => x.name);
+        itemUIList.OrderBy(x => x.name);
     }
 
     public void AddItem(Item item, int unit)
@@ -39,20 +35,27 @@ public class Bag : MonoBehaviour
             if (itemList[i].id == item.id)  // find the item in inventory
             {
                 itemList[i].UpdateUnit(unit);
+                itemUIList[i].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
                 return;
             }
         }
 
         itemList.Add(item);
-        itemImages[itemInBag].sprite = item.sprite;
-        itemImages[itemInBag].enabled = true;
         itemList[itemInBag].unit++;
+        itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = item.sprite;
+        itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = true;
+        itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
+        itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = true;
         itemInBag++;
     }
 
     public void RemoveItem(int bagId)
     {
         if (itemInBag == 0 || bagId + 1 > itemInBag) return;
+
+        if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true) {
+            StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
+        }
 
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
@@ -67,11 +70,15 @@ public class Bag : MonoBehaviour
     {
         for (int i = 0; i < itemSlotsNum; i++) {
             if (i < itemInBag) {
-                itemImages[i].sprite = itemList[i].sprite;
-                itemImages[i].enabled = true;
+                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = itemList[i].sprite;
+                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = true;
+                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = itemList[i].unit.ToString();
+                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = true;
             } else {
-                itemImages[i].sprite = null;
-                itemImages[i].enabled = false;
+                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = null;
+                itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = false;
+                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = "0";
+                itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = false;
             }
         }
     }
