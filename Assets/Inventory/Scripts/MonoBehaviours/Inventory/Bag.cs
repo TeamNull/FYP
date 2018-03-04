@@ -56,10 +56,10 @@ public class Bag : MonoBehaviour
         /*if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true) {
             StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
         }*/
-
+        itemList[bagId].ApplyAction();
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
-        {
+        {            
             itemInBag--;
             itemList.RemoveAt(bagId);
         }

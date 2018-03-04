@@ -16,4 +16,8 @@ public class Item : ScriptableObject
     public void ResetUnitToZero() {
         unit = 0;
     }
+
+    public virtual void ApplyAction() {
+        Debug.Log("applyaction in item");
+    }
 }
