@@ -6,6 +6,7 @@ public class Mission {
 
     private int missionID;
     private int type;
+    private string requirement = "nothing";
     private string description ="nothing";
     private string rectname = "nothing"; 
     private string scene = "nothing";
@@ -14,11 +15,12 @@ public class Mission {
 
 
 
-    public Mission(int missionID, int type, string description)
+    public Mission(int missionID, int type, string description, string requirement)
     {
         this.missionID = missionID;
         this.type = type;
         this.description = description;
+        this.requirement = requirement;
     }
 
     public int GetmissionID()
@@ -29,6 +31,11 @@ public class Mission {
     public int Gettype()
     {
         return type;
+    }
+
+    public string Getrequirement()
+    {
+        return requirement;
     }
 
     public string Getdescription()

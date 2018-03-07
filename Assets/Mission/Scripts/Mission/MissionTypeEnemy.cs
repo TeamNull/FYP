@@ -9,7 +9,7 @@ public class MissionTypeEnemy : Mission {
     private int countcdienum;
     private string scene;
 
-    public MissionTypeEnemy(int missionID, int type, string description, string enemyname, int countcdienum, string scene, bool complete) : base(missionID, type, description)
+    public MissionTypeEnemy(int missionID, int type, string description, string requirement, string enemyname, int countcdienum, string scene, bool complete) : base(missionID, type, description , requirement)
     {
         this.complete = complete;
         this.enemyname = enemyname;

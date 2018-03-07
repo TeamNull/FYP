@@ -8,7 +8,7 @@ public class MissionTypeLocation : Mission {
     private string rectname;
     private string scene;
 
-    public MissionTypeLocation(int missionID, int type, string description, string rectname, string scene, bool complete) : base(missionID, type, description)
+    public MissionTypeLocation(int missionID, int type, string description, string requirement, string rectname, string scene, bool complete) : base(missionID, type, description, requirement)
     {
         this.complete = complete;
         this.rectname = rectname;

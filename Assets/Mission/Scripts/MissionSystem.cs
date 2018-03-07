@@ -14,7 +14,10 @@ public class MissionSystem : MonoBehaviour {
         MissionStart(0);
     }
 
-    public Text missiontext; // the text show on the mission canves
+    public Text titletext; // mission number of the mission
+    public Text descriptiontext; // the text show on the mission canves
+    public Text requirementtext;
+    public Text progresstext;
 
 
     public const int missionnumber = 24; // totoal mission number 
@@ -25,11 +28,11 @@ public class MissionSystem : MonoBehaviour {
     void Setmission()
     {  
         
-        mission[0] = new MissionTypeLocation(0, 0, "Go to forest 0,0,0", "location0","Forest", false);
+        mission[0] = new MissionTypeLocation(0, 0, " description1", "Go to forest 0,0,0", "location0","Forest", false);
        
-        mission[1] = new MissionTypeLocation(1, 0, "Go to forest 10,1,0", "location1", "Forest", false);
+        mission[1] = new MissionTypeLocation(1, 0, "description2", "Go to forest 10,1,0", "location1", "Forest", false);
 
-        mission[2] = new MissionTypeEnemy(2, 1, "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
+        mission[2] = new MissionTypeEnemy(2, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
 
         return;
 
@@ -38,14 +41,15 @@ public class MissionSystem : MonoBehaviour {
     void MissionStart(int missionID)
     {
         globalMissionID = missionID;
-
+        titletext.text = "Mission " + (missionID + 1).ToString();
+        descriptiontext.text = mission[missionID].Getdescription();
+        requirementtext.text = mission[missionID].Getrequirement();
         //Debug.Log("this is global" + globalMissionID);
         //Debug.Log("this is missionID" + mission[missionID].GetmissionID());
-
-        if (mission[missionID].Gettype() == 0)
+ /*       if (mission[missionID].Gettype() == 0)
         {
-            
-            missiontext.text = mission[missionID].Getdescription();
+
+            descriptiontext.text = mission[missionID].Getdescription();
 
             //GameObject[] uiGameObjectArray = SceneManager.GetSceneByName(mission[missionID].Getscene()).GetRootGameObjects();
             //foreach (GameObject target in uiGameObjectArray)
@@ -58,15 +62,15 @@ public class MissionSystem : MonoBehaviour {
             return;
         }
 
-        
+ */   
         if (mission[missionID].Gettype() == 1)
         {
-            missiontext.text = mission[missionID].Getdescription();
+            progresstext.text = temp.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
             return;
         }
 
         return;
-
+ 
     }
 
     void OnTriggerEnter(Collider other)
@@ -74,6 +78,7 @@ public class MissionSystem : MonoBehaviour {
         
         if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
         {
+            Debug.Log("1");
             MissionComplete(globalMissionID);
             return;
         }
@@ -84,19 +89,19 @@ public class MissionSystem : MonoBehaviour {
             if (!other.gameObject.activeSelf)
             {
                 temp++;
+                progresstext.text = temp.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
                 Debug.Log(temp);
             }
 
-
             if (temp == mission[globalMissionID].Getcountcdienum())
+                progresstext.text = " ";
+                Debug.Log("2");
                 MissionComplete(globalMissionID);
 
             return;
         }
 
     }
-
-
 
 
     void MissionComplete(int missionID)
@@ -116,7 +121,7 @@ public class MissionSystem : MonoBehaviour {
 
         if (mission[missionID + 1] == null)
         {
-            missiontext.text = "Mission complete";
+            descriptiontext.text = "Mission complete";
             return;
         }
     }
