@@ -16,7 +16,6 @@ public class emitPoint : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
         player = StaticVarAndFunction.player;
         playerAttack = player.GetComponent<PlayerAttack>();
     }

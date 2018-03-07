@@ -34,7 +34,9 @@ public class PlayerAttack : MonoBehaviour {
             AttackByShoot();
         }
 
-
+        /*if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Archer_attack")) {
+            isAttacking = false;
+        }*/
     }
 
     void Attack() {
