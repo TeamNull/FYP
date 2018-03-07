@@ -53,9 +53,14 @@ public class Bag : MonoBehaviour
     {
         if (itemInBag == 0 || bagId + 1 > itemInBag) return;
 
-        /*if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true) {
-            StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
-        }*/
+        if (StaticVarAndFunction.inventory != null)
+        {
+            if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true)
+            {
+                StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
+            }
+        }
+
         itemList[bagId].ApplyAction();
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
