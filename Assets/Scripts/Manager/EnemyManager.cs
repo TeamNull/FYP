@@ -19,6 +19,15 @@ public class EnemyManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        Init();
+
+        //foreach (Transform t in bossSpawnPoint) {
+        //    GameObject obj = Instantiate(enemy, t.position, t.rotation);
+        //    bossResourcePool.Add(obj);
+        //}
+    }
+
+    public void Init() {
         enemyResourcePool = new List<GameObject>();
         foreach (Transform t in spawnPoint)
         {
@@ -26,11 +35,6 @@ public class EnemyManager : MonoBehaviour
             obj.GetComponent<EnemyAttribute>().EnemyDeath += Spawn;
             enemyResourcePool.Add(obj);
         }
-
-        //foreach (Transform t in bossSpawnPoint) {
-        //    GameObject obj = Instantiate(enemy, t.position, t.rotation);
-        //    bossResourcePool.Add(obj);
-        //}
     }
 
     // Update is called once per frame

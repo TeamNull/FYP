@@ -69,6 +69,7 @@ public class LoadSceneManager : MonoBehaviour
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        SceneManager.GetActiveScene().GetRootGameObjects()[3].GetComponent<EnemyManager>().Init();
         playerTransform.position = v3;
         playerTransform.rotation = q;
     }
