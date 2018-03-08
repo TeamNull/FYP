@@ -18,6 +18,6 @@ public class Item : ScriptableObject
     }
 
     public virtual void ApplyAction() {
-        Debug.Log("applyaction in item");
+        //Debug.Log("applyaction in item");
     }
 }

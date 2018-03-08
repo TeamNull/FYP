@@ -24,7 +24,7 @@ public class Equipment : Item
 
     public override void ApplyAction() {
         pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
-        Debug.Log("applyaction in equipment");
+        //Debug.Log("applyaction in equipment");
         pa.maxHP += hp;
         pa.currentHP += hp;
         pa.maxMP += mp;
@@ -36,6 +36,6 @@ public class Equipment : Item
         pa.additionalDef += def;
         pa.attackSpeed += speed;
         pa.UpdatePlayerValueByPoint();
-        Debug.Log("applyaction end in equipment");
+        //Debug.Log("applyaction end in equipment");
     }
 }
