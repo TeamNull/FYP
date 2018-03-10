@@ -5,8 +5,9 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Equipment : Item
 {
-    PlayerAttribute pa;
 
+    PlayerAttribute pa;
+    ArmedEquipment ae;
     int hp = 1;
     int mp = 1;
     int str = 1;
@@ -24,6 +25,7 @@ public class Equipment : Item
 
     public override void ApplyAction() {
         pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        ae = StaticVarAndFunction.armedEquipment;
         //Debug.Log("applyaction in equipment");
         pa.maxHP += hp;
         pa.currentHP += hp;
@@ -36,6 +38,7 @@ public class Equipment : Item
         pa.additionalDef += def;
         pa.attackSpeed += speed;
         pa.UpdatePlayerValueByPoint();
+        ae.ApplyEquipment(this, unit);
         //Debug.Log("applyaction end in equipment");
     }
 }

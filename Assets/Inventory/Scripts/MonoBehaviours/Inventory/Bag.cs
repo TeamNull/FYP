@@ -27,7 +27,7 @@ public class Bag : MonoBehaviour
     }
 
     public void AddItem(Item item, int unit)
-    {
+    {        
         if (itemInBag == itemSlotsNum) return; //Check bag space
 
         for (int i = 0; i < itemInBag; i++) // loop the inventory
@@ -39,7 +39,7 @@ public class Bag : MonoBehaviour
                 return;
             }
         }
-
+        
         itemList.Add(item);
         itemList[itemInBag].unit++;
         itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = item.sprite;

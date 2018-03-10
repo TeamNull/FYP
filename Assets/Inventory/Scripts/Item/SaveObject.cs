@@ -28,7 +28,7 @@ public class SaveObject : MonoBehaviour
                 if (hit.transform.gameObject == this.gameObject)
                 {
                     if (item.id != 0)
-                    {
+                    {                        
                         bag.AddItem(item, unit);
                     }
                     else

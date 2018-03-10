@@ -46,10 +46,14 @@ public class ArmedEquipment : MonoBehaviour
 
         equipmentList.Add(Equipment);
         equipmentList[equipmentOnBody].unit++;
-        equipmentUIList[equipmentOnBody].GetChild(0).GetComponent<Image>().sprite = Equipment.sprite;
-        equipmentUIList[equipmentOnBody].GetChild(0).GetComponent<Image>().enabled = true;
-        equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().text = Equipment.unit.ToString();
-        equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().enabled = true;
+        equipmentUIList[equipmentOnBody].GetComponent<RawImage>().enabled = false;
+        equipmentUIList[equipmentOnBody].GetComponent<Image>().sprite = Equipment.sprite;
+        equipmentUIList[equipmentOnBody].GetComponent<Image>().enabled = true;
+        //equipmentUIList[equipmentOnBody].GetComponent<Image>().sprite = Equipment.sprite;
+        
+        //RawImage
+        //equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().text = Equipment.unit.ToString();
+        //equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().enabled = true;
         equipmentOnBody++;
     }
 
