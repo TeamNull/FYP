@@ -26,7 +26,7 @@ public class ArmedEquipmentSlot : MonoBehaviour, IPointerClickHandler{
         if (eventData.button == PointerEventData.InputButton.Right)
         {
             Debug.Log(slotId);
-            armedEquipment.RemoveEquipment(slotId);
+            if(armedEquipment!=null)armedEquipment.RemoveEquipment(slotId);
         }
     }
 }

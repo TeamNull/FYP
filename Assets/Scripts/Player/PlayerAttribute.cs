@@ -166,8 +166,8 @@ public class PlayerAttribute : MonoBehaviour
         attackSpeed = 1 + additionalSpeed;    //Todo: Calculate attackSpeed by agi
         maxHP = 100 + str * 8;
         maxMP = 100 + _int * 5;
-        currentHP = (currentHP > maxHP) ? currentHP : maxHP;
-        currentMP = (currentMP > maxMP) ? currentMP : maxMP;
+        currentHP = (currentHP < maxHP) ? currentHP : maxHP;
+        currentMP = (currentMP < maxMP) ? currentMP : maxMP;
 
         //update ui and attribute page after value and point update        
 

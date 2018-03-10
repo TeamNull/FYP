@@ -4,16 +4,18 @@ using UnityEngine.UI;
 using System.Linq;
 
 public class ArmedEquipment : MonoBehaviour
-{
+{    
+    //public List<Equipment> equipmentList = new List<Equipment>(); //testing use
+    //public List<Transform> equipmentUIList = new List<Transform>();
+    public Equipment[] equipmentList = new Equipment[5];
+    public Transform[] equipmentUIList = new Transform[5];
 
+    Bag bag;
+    //int equipmentOnBody;
     const int equipmentSlotsNum = 5; //total slots
     // 0 
     //123
     // 4
-    public List<Equipment> equipmentList = new List<Equipment>(); //testing use
-    public List<Transform> equipmentUIList = new List<Transform>();
-
-    int equipmentOnBody;
 
     private void Awake()
     {
@@ -23,91 +25,35 @@ public class ArmedEquipment : MonoBehaviour
     private void Start()
     {
         // GetComponentsInChildren does not guarantee the order so do the sorting by ourselves
+        equipmentUIList[0] = transform.GetChild(0);
         for (int i = 0; i < equipmentSlotsNum; i++)
         {
-            equipmentUIList.Add(transform.GetChild(i));
+            //equipmentUIList.Add(transform.GetChild(i));
+            equipmentUIList[i] = transform.GetChild(i);
         }
-        equipmentUIList.OrderBy(x => x.name);
+        //equipmentUIList.OrderBy(x => x.name);
+        bag = StaticVarAndFunction.bag;
     }
 
-    public void ApplyEquipment(Equipment Equipment, int unit)
+    public void ApplyEquipment(Equipment Equipment)
     {
-        if (equipmentOnBody == equipmentSlotsNum) return; //Check bag space
-
-        for (int i = 0; i < equipmentOnBody; i++) // loop the inventory
-        {
-            if (equipmentList[i].id == Equipment.id)  // find the item in inventory
-            {
-                equipmentList[i].UpdateUnit(unit);
-                equipmentUIList[i].GetChild(1).GetComponent<Text>().text = Equipment.unit.ToString();
-                return;
-            }
+        if (equipmentList[Equipment.equipmentType]!=null) {
+            RemoveEquipment(Equipment.equipmentType);
         }
-
-        equipmentList.Add(Equipment);
-        equipmentList[equipmentOnBody].unit++;
-        equipmentUIList[equipmentOnBody].GetComponent<RawImage>().enabled = false;
-        equipmentUIList[equipmentOnBody].GetComponent<Image>().sprite = Equipment.sprite;
-        equipmentUIList[equipmentOnBody].GetComponent<Image>().enabled = true;
-        //equipmentUIList[equipmentOnBody].GetComponent<Image>().sprite = Equipment.sprite;
-        
-        //RawImage
-        //equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().text = Equipment.unit.ToString();
-        //equipmentUIList[equipmentOnBody].GetChild(1).GetComponent<Text>().enabled = true;
-        equipmentOnBody++;
+        equipmentList[Equipment.equipmentType] = Equipment;
+        equipmentUIList[Equipment.equipmentType].GetComponent<RawImage>().enabled = false;        
+        equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().sprite = Equipment.sprite;
+        equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().enabled = true;
     }
 
     public void RemoveEquipment(int bagId)
     {
-        if (equipmentOnBody == 0 || bagId + 1 > equipmentOnBody) return;
-
-        if (StaticVarAndFunction.inventory != null)
-        {
-            if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true)
-            {
-                StaticVarAndFunction.inventory.AddItem(equipmentList[bagId], 1);
-            }
-        }
-
-        equipmentList[bagId].ApplyAction();
-        equipmentList[bagId].unit--;
-        if (equipmentList[bagId].unit == 0)
-        {
-            equipmentOnBody--;
-            equipmentList.RemoveAt(bagId);
-        }
-        UpdateImageList();
+        equipmentList[bagId].RemoveAction();
+        bag.AddItem(equipmentList[bagId],1);
+        equipmentList[bagId]=null;
+        
+        equipmentUIList[bagId].GetChild(1).GetComponent<Image>().enabled = false;
+        equipmentUIList[bagId].GetComponent<RawImage>().enabled = true;
     }
 
-    void UpdateImageList()
-    {
-        for (int i = 0; i < equipmentSlotsNum; i++)
-        {
-            if (i < equipmentOnBody)
-            {
-                equipmentUIList[i].GetChild(0).GetComponent<Image>().sprite = equipmentList[i].sprite;
-                equipmentUIList[i].GetChild(0).GetComponent<Image>().enabled = true;
-                equipmentUIList[i].GetChild(1).GetComponent<Text>().text = equipmentList[i].unit.ToString();
-                equipmentUIList[i].GetChild(1).GetComponent<Text>().enabled = true;
-            }
-            else
-            {
-                equipmentUIList[i].GetChild(0).GetComponent<Image>().sprite = null;
-                equipmentUIList[i].GetChild(0).GetComponent<Image>().enabled = false;
-                equipmentUIList[i].GetChild(1).GetComponent<Text>().text = "0";
-                equipmentUIList[i].GetChild(1).GetComponent<Text>().enabled = false;
-            }
-        }
-    }
-
-    public bool CotainEquipment(int itemId)
-    {
-        for (int itemBagId = 0; itemBagId < equipmentSlotsNum; itemBagId++) // loop the inventory
-        {
-            if (equipmentList[itemBagId].id == itemId)
-                return true;
-        }
-
-        return false;
-    }
 }

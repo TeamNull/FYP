@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Equipment : Item
 {
-
+    public int equipmentType = 1;
     PlayerAttribute pa;
     ArmedEquipment ae;
     int hp = 1;
@@ -15,7 +15,10 @@ public class Equipment : Item
     int agi = 1;
     int atk = 1;
     int def = 1;
-    float speed = 0;
+    float speed = 0;    
+    // 0
+    //123
+    // 4
 
     void Start()
     {
@@ -38,7 +41,22 @@ public class Equipment : Item
         pa.additionalDef += def;
         pa.attackSpeed += speed;
         pa.UpdatePlayerValueByPoint();
-        ae.ApplyEquipment(this, unit);
+        ae.ApplyEquipment(this);
         //Debug.Log("applyaction end in equipment");
+    }
+
+    public void RemoveAction() {
+        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        pa.maxHP -= hp;
+        pa.currentHP -= hp;
+        pa.maxMP -= mp;
+        pa.currentMP -= mp;
+        pa.str -= str;
+        pa.agi -= agi;
+        pa._int -= _int;
+        pa.additionalAtk -= atk;
+        pa.additionalDef -= def;
+        pa.attackSpeed -= speed;
+        pa.UpdatePlayerValueByPoint();
     }
 }
