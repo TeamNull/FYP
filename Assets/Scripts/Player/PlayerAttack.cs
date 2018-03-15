@@ -40,6 +40,21 @@ public class PlayerAttack : MonoBehaviour {
     }
 
     void Attack() {
+        Ray ray = Camera.main.ScreenPointToRay(transform.position);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+            //Debug.Log(hit.transform.name);
+            if (hit.distance <= 2)
+            {
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    hit.transform.gameObject.GetComponent<EnemyAttribute>().TakeDamage(pa.atk);
+
+                }
+            }
+        }
         timer = 0f;
         anim.SetTrigger("Attack");
     }
