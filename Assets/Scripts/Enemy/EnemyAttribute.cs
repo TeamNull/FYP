@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyAttribute : MonoBehaviour
 {
@@ -9,10 +10,13 @@ public class EnemyAttribute : MonoBehaviour
     public event EnemyDeathHandler EnemyDeath;
     public Quaternion spawnQuaternion;
     public Vector3 spawnPoint;
+    public Texture icon;
     public float destoryDelay = 1.0f;
     public float attackSpeed = 1.0f;
     public int startingHealth = 100;
+    public int startingMp = 100;
     public int currentHealth;
+    public int currentMp;
     public int exp = 10;
     public int attack = 10;
     public int currentLevel;
