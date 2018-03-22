@@ -8,6 +8,8 @@ public class EnemyAttribute : MonoBehaviour
     #region Variable
     public delegate void EnemyDeathHandler();
     public event EnemyDeathHandler EnemyDeath;
+    public List<GameObject> DropItemList;
+    public List<double> DropItemProbability;
     public Quaternion spawnQuaternion;
     public Vector3 spawnPoint;
     public Texture icon;
@@ -86,6 +88,16 @@ public class EnemyAttribute : MonoBehaviour
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
             if (EnemyDeath != null) EnemyDeath();
+            for (int i = 0; i < DropItemList.Count; i++) {
+                float randomNumber = Random.Range(0.0f, 1.0f);
+                if (DropItemProbability[i] > 1) {
+                    DropItemProbability[i] = 1.0f;
+                }
+
+                if (randomNumber <= DropItemProbability[i]) {
+                    Instantiate(DropItemList[i], transform.position, DropItemList[i].transform.rotation);
+                }
+            }
             this.gameObject.SetActive(false);
         }
     }
