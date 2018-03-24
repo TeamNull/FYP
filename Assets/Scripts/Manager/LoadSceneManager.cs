@@ -7,6 +7,7 @@ public class LoadSceneManager : MonoBehaviour
 {
     GameObject loadingScene;
     Transform playerTransform;
+    Transform BeginPosition;
 
     // Use this for initialization
     void Start()
@@ -36,11 +37,11 @@ public class LoadSceneManager : MonoBehaviour
             switch (SceneManager.GetActiveScene().name)
             {
                 case "Forest":
-                    StartCoroutine(LoadScene("Village", new Vector3(36.9f, 0, 37.12f), new Quaternion(0, 180f, 0, playerTransform.rotation.w)));
+                    StartCoroutine(LoadScene("Village", new Vector3(37.116f, 0.1399994f, 37.678f), new Quaternion(0, 180f, 0, playerTransform.rotation.w)));
                     StartCoroutine(UnloadScene("Forest"));
                     break;
                 case "Village":
-                    StartCoroutine(LoadScene("Forest", new Vector3(-6.695f, 0, 22.756f), new Quaternion(0, 180f, 0, playerTransform.rotation.w)));
+                    StartCoroutine(LoadScene("Forest", new Vector3(57.69f, 0.1399994f, -2.81f), new Quaternion(0, 0f, 0, playerTransform.rotation.w)));
                     StartCoroutine(UnloadScene("Village"));
                     break;
                 default:
@@ -69,7 +70,10 @@ public class LoadSceneManager : MonoBehaviour
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-        SceneManager.GetActiveScene().GetRootGameObjects()[3].GetComponent<EnemyManager>().Init();
+        if (sceneName == "Forest")
+        {
+            SceneManager.GetActiveScene().GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();
+        }
         playerTransform.position = v3;
         playerTransform.rotation = q;
     }

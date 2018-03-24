@@ -137,7 +137,7 @@ public class Weather : MonoBehaviour
 	public LightAndSky[] m_LightAndSkyList;
 
 	// Index to current Skybox
-	int m_CurrentSkyBox = 0;
+	int m_CurrentSkyBox = 3;
 	
 #endregion // Variables
 
