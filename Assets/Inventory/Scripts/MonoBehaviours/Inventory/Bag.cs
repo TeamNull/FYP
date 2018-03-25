@@ -24,6 +24,7 @@ public class Bag : MonoBehaviour
             itemUIList.Add(transform.GetChild(i));
         }
         itemUIList.OrderBy(x => x.name);
+        this.gameObject.transform.parent.gameObject.SetActive(false);
     }
 
     public void AddItem(Item item, int unit)
