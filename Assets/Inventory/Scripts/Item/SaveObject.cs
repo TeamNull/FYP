@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SaveObject : MonoBehaviour
 {
@@ -9,10 +10,12 @@ public class SaveObject : MonoBehaviour
     public Item item;
     Bag bag;
     public int unit = 1;
+    GameObject player;
 
     void Start()
     {
         //bag = StaticVarAndFunction.bag;
+        player = StaticVarAndFunction.player;
     }
 
     void Update()
@@ -31,6 +34,7 @@ public class SaveObject : MonoBehaviour
                     {
                         bag = StaticVarAndFunction.bag;
                         bag.AddItem(item, unit);
+                        player.GetComponent<MissionSystem>().Missiontype3(item.id);
                     }
                     else
                     {

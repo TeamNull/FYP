@@ -34,9 +34,10 @@ public class MissionSystem : MonoBehaviour {
 
         //mission[2] = new MissionTypeEnemy(2, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
 
-        // mission[3] = new MissionTypeNPC(3, 2, " description1", "find Commander", "Commander", "FrontlineBase", false);
+        //mission[3] = new MissionTypeNPC(3, 2, " description4", "find Commander", "Commander", "FrontlineBase", false);
 
-        mission[0] = new MissionTypeItem(0, 3, " description1", "find Commander", 100, "Village", false);
+        //mission[4] = new MissionTypeItem(0, 3, " description5", "get Katana", 100, "Village", false);
+
         return;
 
     }
@@ -124,6 +125,17 @@ public class MissionSystem : MonoBehaviour {
 
     }
 
+    public void Missiontype3(int iteamid)
+    {
+        if (mission[globalMissionID].Gettype() == 3)
+        {
+            if (mission[globalMissionID].Getitemid() == iteamid)
+            {
+                MissionComplete(globalMissionID);
+            }
+        }
+
+    }
 
 
     void MissionComplete(int missionID)
