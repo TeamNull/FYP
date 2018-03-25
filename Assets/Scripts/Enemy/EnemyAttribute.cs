@@ -85,6 +85,7 @@ public class EnemyAttribute : MonoBehaviour
         if (currentHealth <= 0)
         {
             isDead = true;
+            currentHealth = 0;
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
             if (EnemyDeath != null) EnemyDeath();
