@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class MissionSystem : MonoBehaviour {
 
     private int globalMissionID;
+    private int enemycount = 0 ;
 
     // Use this for initialization
     void Start () {
@@ -24,15 +25,14 @@ public class MissionSystem : MonoBehaviour {
 
 
     Mission[] mission  = new Mission[missionnumber];
-    int temp = 0;
     void Setmission()
     {  
         
-        mission[0] = new MissionTypeLocation(0, 0, " description1", "Go to forest 0,0,0", "location0","Forest", false);
+        //mission[0] = new MissionTypeLocation(0, 0, " description1", "Go to forest 0,0,0", "location0","Forest", false);
        
-        mission[1] = new MissionTypeLocation(1, 0, "description2", "Go to forest 10,1,0", "location1", "Forest", false);
+        //mission[1] = new MissionTypeLocation(1, 0, "description2", "Go to forest 10,1,0", "location1", "Forest", false);
 
-        mission[2] = new MissionTypeEnemy(2, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
+        mission[0] = new MissionTypeEnemy(0, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
 
         return;
 
@@ -65,7 +65,7 @@ public class MissionSystem : MonoBehaviour {
  */   
         if (mission[missionID].Gettype() == 1)
         {
-            progresstext.text = temp.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
+            progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
             return;
         }
 
@@ -73,38 +73,69 @@ public class MissionSystem : MonoBehaviour {
  
     }
 
+
     void OnTriggerEnter(Collider other)
     {
         
         if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
         {
-            Debug.Log("1");
+            //Debug.Log("1");
             MissionComplete(globalMissionID);
             return;
         }
 
-        if (other.name == mission[globalMissionID].Getenemyname() && mission[globalMissionID].Gettype() == 1)
+        //if (other.name == mission[globalMissionID].Getenemyname() && mission[globalMissionID].Gettype() == 1)
+        //{
+        //    enemycount = 0;
+        //    if (!other.gameObject.activeSelf)
+        //    {
+        //        //enemycount++;
+        //        progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
+        //        Debug.Log(enemycount);
+        //    }
+
+        //    if (enemycount == mission[globalMissionID].Getcountcdienum())
+        //        progresstext.text = " ";
+        //        //Debug.Log("2");
+        //        MissionComplete(globalMissionID);
+
+        //    return;
+        //}
+
+    }
+
+    public void Missiontype1counter(int count, string mountername)
+    {
+        if (mission[globalMissionID].Gettype() == 1)
         {
-
-            if (!other.gameObject.activeSelf)
+            if (mission[globalMissionID].Getenemyname() == mountername)
             {
-                temp++;
-                progresstext.text = temp.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
-                Debug.Log(temp);
+                enemycount = enemycount + count;
+                Missiontype1main();
+                Debug.Log("this is " + enemycount);
+
             }
+        }
 
-            if (temp == mission[globalMissionID].Getcountcdienum())
-                progresstext.text = " ";
-                Debug.Log("2");
-                MissionComplete(globalMissionID);
+    }
 
-            return;
+    public void Missiontype1main()
+    {
+        progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
+
+        if (enemycount == mission[globalMissionID].Getcountcdienum())
+        {
+            enemycount = 0;
+            progresstext.text = " ";
+            MissionComplete(globalMissionID);
         }
 
     }
 
 
-    void MissionComplete(int missionID)
+
+
+void MissionComplete(int missionID)
     {
         
         mission[missionID].Setcomplete(true);
@@ -122,6 +153,7 @@ public class MissionSystem : MonoBehaviour {
         if (mission[missionID + 1] == null)
         {
             descriptiontext.text = "Mission complete";
+            requirementtext.text = "";
             return;
         }
     }

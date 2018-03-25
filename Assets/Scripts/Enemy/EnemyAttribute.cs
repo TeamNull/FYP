@@ -88,6 +88,8 @@ public class EnemyAttribute : MonoBehaviour
             currentHealth = 0;
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
+            print(this.gameObject.transform.name);
+            player.GetComponent<MissionSystem>().Missiontype1counter(1, this.gameObject.transform.name);
             if (EnemyDeath != null) EnemyDeath();
             for (int i = 0; i < DropItemList.Count; i++) {
                 float randomNumber = Random.Range(0.0f, 1.0f);
