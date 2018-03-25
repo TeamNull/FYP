@@ -34,8 +34,9 @@ public class MissionSystem : MonoBehaviour {
 
         //mission[2] = new MissionTypeEnemy(2, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
 
-        mission[0] = new MissionTypeNPC(0, 2, " description1", "find Commander", "Commander", "FrontlineBase", false);
+        // mission[3] = new MissionTypeNPC(3, 2, " description1", "find Commander", "Commander", "FrontlineBase", false);
 
+        mission[0] = new MissionTypeItem(0, 3, " description1", "find Commander", 100, "Village", false);
         return;
 
     }
