@@ -12,7 +12,7 @@ public class SaveObject : MonoBehaviour
 
     void Start()
     {
-        bag = StaticVarAndFunction.bag;
+        //bag = StaticVarAndFunction.bag;
     }
 
     void Update()
@@ -28,7 +28,8 @@ public class SaveObject : MonoBehaviour
                 if (hit.transform.gameObject == this.gameObject)
                 {
                     if (item.id != 0)
-                    {                        
+                    {
+                        bag = StaticVarAndFunction.bag;
                         bag.AddItem(item, unit);
                     }
                     else
