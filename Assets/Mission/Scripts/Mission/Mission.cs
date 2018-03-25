@@ -12,6 +12,8 @@ public class Mission {
     private string scene = "nothing";
     private string enemyname = "nothing";
     private int countcdienum = 0;
+    private string npc = "nothing";
+    private int itemid;
 
 
 
@@ -73,5 +75,15 @@ public class Mission {
         return scene;
     }
 
+    public virtual string Getnpc()
+    {
+        return npc;
+    }
+
+    public virtual int Getitemid()
+    {
+        return itemid;
+    }
+   
 
 }

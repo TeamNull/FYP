@@ -26,13 +26,15 @@ public class MissionSystem : MonoBehaviour {
 
     Mission[] mission  = new Mission[missionnumber];
     void Setmission()
-    {  
-        
+    {
+
         //mission[0] = new MissionTypeLocation(0, 0, " description1", "Go to forest 0,0,0", "location0","Forest", false);
-       
+
         //mission[1] = new MissionTypeLocation(1, 0, "description2", "Go to forest 10,1,0", "location1", "Forest", false);
 
-        mission[0] = new MissionTypeEnemy(0, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
+        //mission[2] = new MissionTypeEnemy(2, 1, "description3", "Kill 3 spiders", "spider(Clone)", 3, "Forest", false);
+
+        mission[0] = new MissionTypeNPC(0, 2, " description1", "find Commander", "Commander", "FrontlineBase", false);
 
         return;
 
@@ -74,68 +76,56 @@ public class MissionSystem : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other) // missiontype1
     {
         
         if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
         {
-            //Debug.Log("1");
             MissionComplete(globalMissionID);
             return;
         }
 
-        //if (other.name == mission[globalMissionID].Getenemyname() && mission[globalMissionID].Gettype() == 1)
-        //{
-        //    enemycount = 0;
-        //    if (!other.gameObject.activeSelf)
-        //    {
-        //        //enemycount++;
-        //        progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
-        //        Debug.Log(enemycount);
-        //    }
-
-        //    if (enemycount == mission[globalMissionID].Getcountcdienum())
-        //        progresstext.text = " ";
-        //        //Debug.Log("2");
-        //        MissionComplete(globalMissionID);
-
-        //    return;
-        //}
-
     }
 
-    public void Missiontype1counter(int count, string mountername)
+    public void Missiontype1(int count, string mountername)
     {
         if (mission[globalMissionID].Gettype() == 1)
         {
             if (mission[globalMissionID].Getenemyname() == mountername)
             {
                 enemycount = enemycount + count;
-                Missiontype1main();
-                Debug.Log("this is " + enemycount);
+
+                progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
+
+                if (enemycount == mission[globalMissionID].Getcountcdienum())
+                {
+                    enemycount = 0;
+                    progresstext.text = " ";
+                    MissionComplete(globalMissionID);
+                }
+                //Debug.Log("this is " + enemycount);
 
             }
         }
 
     }
 
-    public void Missiontype1main()
-    {
-        progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
 
-        if (enemycount == mission[globalMissionID].Getcountcdienum())
+    public void Missiontype2(string npcname, string scenename)
+    {
+        if (mission[globalMissionID].Gettype() == 2)
         {
-            enemycount = 0;
-            progresstext.text = " ";
-            MissionComplete(globalMissionID);
+            if (mission[globalMissionID].Getnpc() == npcname && mission[globalMissionID].Getscene() == scenename)
+            {
+                MissionComplete(globalMissionID);
+            }
         }
 
     }
 
 
 
-
-void MissionComplete(int missionID)
+    void MissionComplete(int missionID)
     {
         
         mission[missionID].Setcomplete(true);
