@@ -28,6 +28,8 @@ public class MissionSystem : MonoBehaviour {
     void Setmission()
     {
 
+        //testing use
+
         //mission[0] = new MissionTypeLocation(0, 0, " description1", "Go to forest 0,0,0", "location0","Forest", false);
 
         //mission[1] = new MissionTypeLocation(1, 0, "description2", "Go to forest 10,1,0", "location1", "Forest", false);
@@ -37,6 +39,50 @@ public class MissionSystem : MonoBehaviour {
         //mission[3] = new MissionTypeNPC(3, 2, " description4", "find Commander", "Commander", "FrontlineBase", false);
 
         //mission[4] = new MissionTypeItem(0, 3, " description5", "get Katana", 100, "Village", false);
+
+        //real
+
+        //mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
+
+        //mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
+
+        //mission[2] = new MissionTypeNPC(2, 0, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
+
+        //mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders", "spider(Clone)", 3, "Forest", false);
+
+        //mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
+
+        //mission[5] = new MissionTypeLocation(5, 0, "Find out the Unknown!", "Go to the forest and find the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
+
+        //mission[6] = new MissionTypeLocation(6, 0, "Make a new front map", "Visit the Ruins and explore the new map", "Mission6", "Ruins", false);
+
+        //mission[7] = new MissionTypeNPC(7, 2, "Find the Chief of army", "Find the location of Chief of army", "Chief of army", "Villiage", false);
+
+        //mission[8] = new MissionTypeNPC(8, 2, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
+
+        //mission[9] = new MissionTypeNPC(9, 2, "Collect intelligence about unknown", "Predict the number of unknown at front line and report to Chief of the Warrior", "Chief of the warrior", "Villiage", false);
+
+        //mission[10] = new MissionTypeItem(10, 3, "Collect item 1", "Go to the forest and pick up item 1", 100, "Forest", false); // wait for the item list complete
+
+        //mission[11] = new MissionTypeNPC(11, 2, "Meet the Commander", "Go to Frontline base and meet the commander", "Commander", "FrontlineBase", false);
+
+        //mission[12] = new MissionTypeItem(12, 3, "Find the lost material", "Go to ruins and find the lost material ", 100, "Ruins", false); // wait for the item list complete
+
+        //mission[13] = new MissionTypeNPC(13, 2, "Find the Chief of the warrior", "Back to the village and find the Chief of the warrior", "Chief of the warrior", "Villiage", false);
+
+        //mission[14] = new MissionTypeNPC(14, 2, "Find the father", "Find the father", "Father", "Villiage", false);
+
+        //mission[15] = new MissionTypeNPC(15, 2, "Return to frontline base", "Go to frontline base and find the commander", "Commander", "FrontlineBase", false);
+
+        //mission[16] = new MissionTypeItem(16, 3, "Collect material in the Ruins", "Go to Ruins and find out the material", 100, "Ruins", false); // wait for the item list complete
+
+        //mission[17] = new MissionTypeLocation(17, 0, "Check here", "walk and check all the detail", "Mission17", "Ruins", false);
+
+        //mission[18] = new MissionTypeLocation(18, 0, "Skirmish!", "Kill them ALL!", "Mission17", "Ruins", false); // auto generate unknows and close the portal
+
+        //mission[19] = new MissionTypeNPC(19, 2, "Return to frontline base", "Go to frontline base and find the commander", "Commander", "FrontlineBase", false);
+        
+        //real end
 
         return;
 
