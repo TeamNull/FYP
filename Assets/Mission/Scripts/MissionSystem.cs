@@ -6,13 +6,16 @@ using UnityEngine.UI;
 
 public class MissionSystem : MonoBehaviour {
 
-    private int globalMissionID;
+    private int globalMissionID = 0;
     private int enemycount = 0 ;
+    Mission[] mission = new Mission[missionnumber];
+    GameObject player;
 
     // Use this for initialization
     void Start () {
         Setmission();
-        MissionStart(0);
+        MissionStart(globalMissionID);
+        player = StaticVarAndFunction.player;
     }
 
     public Text titletext; // mission number of the mission
@@ -23,8 +26,11 @@ public class MissionSystem : MonoBehaviour {
 
     public const int missionnumber = 24; // totoal mission number 
 
+    void SetglobalMissionID(int missionID)
+    {
+        globalMissionID = missionID;
+    }
 
-    Mission[] mission  = new Mission[missionnumber];
     void Setmission()
     {
 
@@ -42,9 +48,9 @@ public class MissionSystem : MonoBehaviour {
 
         //real
 
-        //mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
+        mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
 
-        //mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
+        mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
 
         //mission[2] = new MissionTypeNPC(2, 0, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
 
@@ -191,7 +197,8 @@ public class MissionSystem : MonoBehaviour {
 
         if (mission[missionID+1] != null)
         {
-
+            //player.GetComponent<Story>().Loadstory(globalMissionID);
+            player.GetComponent<Story>().Callstory(globalMissionID);
             missionID++;
             MissionStart(missionID);
             
