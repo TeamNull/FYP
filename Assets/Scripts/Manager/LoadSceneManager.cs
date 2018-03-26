@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LoadSceneManager : MonoBehaviour
 {
+    public string from;
+    public string to;
+
     GameObject loadingScene;
     Transform playerTransform;
     Transform BeginPosition;
@@ -34,19 +37,46 @@ public class LoadSceneManager : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            switch (SceneManager.GetActiveScene().name)
+            Vector3 destinationPosition = new Vector3();
+            Quaternion destinationQuaternion = new Quaternion();
+            switch (to)
             {
                 case "Forest":
-                    StartCoroutine(LoadScene("Village", new Vector3(37.116f, 0.1399994f, 37.678f), new Quaternion(0, 180f, 0, playerTransform.rotation.w)));
-                    StartCoroutine(UnloadScene("Forest"));
+                    if (from == "Village")
+                    {
+                        destinationPosition = new Vector3(57.69f, 0.1399994f, -2.81f);
+                        destinationQuaternion = new Quaternion(0, 0f, 0, playerTransform.rotation.w);
+                    }
+                    else if (from == "FrontlineBase")
+                    {
+                        destinationPosition = new Vector3(36.37389f, 0.1399994f, 88.26687f);
+                        destinationQuaternion = new Quaternion(0, 180f, 0, playerTransform.rotation.w);
+                    }
                     break;
                 case "Village":
-                    StartCoroutine(LoadScene("Forest", new Vector3(57.69f, 0.1399994f, -2.81f), new Quaternion(0, 0f, 0, playerTransform.rotation.w)));
-                    StartCoroutine(UnloadScene("Village"));
+                    destinationPosition = new Vector3(37.116f, 0.1399994f, 37.678f);
+                    destinationQuaternion = new Quaternion(0, 180f, 0, playerTransform.rotation.w);
+                    break;
+                case "FrontlineBase":
+                    if (from == "Forest") {
+                        destinationPosition = new Vector3(-12.58f, 0.03999966f, 6.5f);
+                        destinationQuaternion = new Quaternion(0, 180, 0, playerTransform.rotation.w);
+                    } else if (from == "Ruins") {
+                        destinationPosition = new Vector3(1.916f, 0f, 0f);
+                        destinationQuaternion = new Quaternion(0, 0, 0, playerTransform.rotation.w);
+                    }
+                    break;
+                case "Ruins":
+                    destinationPosition = new Vector3(33.34057f, 5.034346f, 6.439279f);
+                    destinationQuaternion = new Quaternion(0, 0, 0, playerTransform.rotation.w);
                     break;
                 default:
+                    destinationPosition = new Vector3(0, 0, 0);
+                    destinationQuaternion = new Quaternion(0, 0, 0, playerTransform.rotation.w);
                     break;
             }
+            StartCoroutine(LoadScene(to, destinationPosition, destinationQuaternion));
+            StartCoroutine(UnloadScene(from));
         }
     }
 
@@ -57,7 +87,6 @@ public class LoadSceneManager : MonoBehaviour
         {
             yield return null;
         }
-
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
@@ -72,7 +101,7 @@ public class LoadSceneManager : MonoBehaviour
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
         if (sceneName == "Forest")
         {
-            SceneManager.GetActiveScene().GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
         }
         playerTransform.position = v3;
         playerTransform.rotation = q;
