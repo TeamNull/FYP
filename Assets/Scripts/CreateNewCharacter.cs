@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class CharacterSelection : MonoBehaviour {
+public class CreateNewCharacter : MonoBehaviour {
 
     private GameObject[] characterObjectList;
     private int index = 0;
@@ -17,7 +17,7 @@ public class CharacterSelection : MonoBehaviour {
         // Fill the characterobjectlist array with models
         for (int i = 0; i < transform.childCount; i++)
         {
-            characterObjectList[i] = transform.GetChild(i).gameObject;      
+            characterObjectList[i] = transform.GetChild(i).gameObject;
         }
 
         // Toogle off renderer for all elements in the list
@@ -66,6 +66,6 @@ public class CharacterSelection : MonoBehaviour {
     public void ConfirmSelection()
     {
         PlayerPrefs.SetInt("CharacterSelected", index);
-        SceneManager.LoadScene("VillageTesting");
+        SceneManager.LoadScene("Village");
     }
 }
