@@ -102,6 +102,7 @@ public class LoadSceneManager : MonoBehaviour
         if (sceneName == "Forest")
         {
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
         }
         playerTransform.position = v3;
         playerTransform.rotation = q;

@@ -221,7 +221,7 @@ public class Weather : MonoBehaviour
 		*/
 
 		// Display first skybox in m_LightAndSkyList
-		SwitchSkyBox(0);
+		SwitchSkyBox(3);
 
 		// Update UI Text elements
 		UpdateDetailsText();
@@ -289,7 +289,7 @@ public class Weather : MonoBehaviour
 	// Switch to a skybox by direction
 	// DiffNum less than 0 means previous skybox
 	// DiffNum larger than 0 means next skybox
-	void SwitchSkyBox(int DiffNum)
+	public void SwitchSkyBox(int DiffNum)
 	{
 		// Update add m_CurrentSkyBox with DiffNum
 		m_CurrentSkyBox += DiffNum;
