@@ -52,11 +52,12 @@ public class MissionSystem : MonoBehaviour {
 
         mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
 
-        //mission[2] = new MissionTypeNPC(2, 0, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
+        mission[2] = new MissionTypeNPC(2, 2, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
 
-        //mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders", "spider(Clone)", 3, "Forest", false);
+        mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "spider(Clone)", 3, "Chief of the warrior", "Forest", false);
 
-        //mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
+        mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
+
 
         //mission[5] = new MissionTypeLocation(5, 0, "Find out the Unknown!", "Go to the forest and find the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
 
@@ -154,8 +155,9 @@ public class MissionSystem : MonoBehaviour {
                 if (enemycount == mission[globalMissionID].Getcountcdienum())
                 {
                     enemycount = 0;
-                    progresstext.text = " ";
-                    MissionComplete(globalMissionID);
+                    progresstext.text = "completed";
+                    Missiontype2(mission[globalMissionID].Getreportnpc());
+                    //MissionComplete(globalMissionID);
                 }
                 //Debug.Log("this is " + enemycount);
 
@@ -165,11 +167,11 @@ public class MissionSystem : MonoBehaviour {
     }
 
 
-    public void Missiontype2(string npcname, string scenename)
+    public void Missiontype2(string npcname)
     {
         if (mission[globalMissionID].Gettype() == 2)
         {
-            if (mission[globalMissionID].Getnpc() == npcname && mission[globalMissionID].Getscene() == scenename)
+            if (mission[globalMissionID].Getnpc() == npcname)
             {
                 MissionComplete(globalMissionID);
             }

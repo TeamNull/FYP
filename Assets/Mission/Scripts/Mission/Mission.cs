@@ -14,6 +14,7 @@ public class Mission {
     private int countcdienum = 0;
     private string npc = "nothing";
     private int itemid;
+    private string reportnpc = "nothing";
 
 
 
@@ -84,6 +85,11 @@ public class Mission {
     {
         return itemid;
     }
-   
+
+    public virtual string Getreportnpc()
+    {
+        return reportnpc;
+    }
+
 
 }

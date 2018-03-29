@@ -8,11 +8,13 @@ public class MissionTypeEnemy : Mission {
     private string enemyname;
     private int countcdienum;
     private string scene;
+    private string reportnpc;
 
-    public MissionTypeEnemy(int missionID, int type, string description, string requirement, string enemyname, int countcdienum, string scene, bool complete) : base(missionID, type, description , requirement)
+    public MissionTypeEnemy(int missionID, int type, string description, string requirement, string enemyname, int countcdienum, string reportnpc, string scene, bool complete) : base(missionID, type, description , requirement)
     {
         this.complete = complete;
         this.enemyname = enemyname;
+        this.reportnpc = reportnpc;
         this.countcdienum = countcdienum;
         this.scene = scene;
     }
@@ -38,6 +40,11 @@ public class MissionTypeEnemy : Mission {
         return countcdienum;
     }
 
+
+    public override string Getreportnpc()
+    {
+        return reportnpc;
+    }
 
     public override string Getscene()
     {
