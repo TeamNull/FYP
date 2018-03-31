@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIinfo : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class UIinfo : MonoBehaviour
     void Start()
     {
         expAnim = GameObject.FindGameObjectWithTag("Exp").GetComponent<Animator>();
+        StartCoroutine(UnloadNewCharacter());
     }
 
     // Update is called once per frame
@@ -56,6 +58,14 @@ public class UIinfo : MonoBehaviour
 
     }
 
-
+    IEnumerator UnloadNewCharacter()
+    {
+        AsyncOperation unloadNewCharacter = SceneManager.UnloadSceneAsync("NewCharacter");
+        while (!unloadNewCharacter.isDone)
+        {
+            yield return null;
+        }
+        StaticVarAndFunction.isLoading = false;
+    }
 
 }

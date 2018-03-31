@@ -74,6 +74,8 @@ public class CreateNewCharacter : MonoBehaviour {
         StaticVarAndFunction.isLoading = true;
         StartCoroutine(LoadVillage());
         StartCoroutine(LoadUI());
+        //StartCoroutine(StaticVarAndFunction.UnloadNewCharacter());
+        //StaticVarAndFunction.helpUnloadNewCharacter();
     }
 
     IEnumerator LoadUI() {
@@ -110,7 +112,7 @@ public class CreateNewCharacter : MonoBehaviour {
         GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
         thirdPersonCamera.SetCamPos();
-        StaticVarAndFunction.UnloadNewCharacter();
+        //StaticVarAndFunction.UnloadNewCharacter();
     }
 
     IEnumerator LoadVillage(){

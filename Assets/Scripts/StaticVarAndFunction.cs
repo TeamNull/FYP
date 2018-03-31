@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
+
 
 public class StaticVarAndFunction : MonoBehaviour {
 
@@ -28,13 +29,7 @@ public class StaticVarAndFunction : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public static IEnumerator UnloadNewCharacter()
-    {
-        AsyncOperation unloadNewCharacter = SceneManager.UnloadSceneAsync("NewCharacter");
-        while (!unloadNewCharacter.isDone)
-        {
-            yield return null;
-        }
-        StaticVarAndFunction.isLoading = false;
-    }
+
+
+    
 }
