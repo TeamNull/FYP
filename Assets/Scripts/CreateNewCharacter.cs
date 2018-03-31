@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class CreateNewCharacter : MonoBehaviour {
 
+    static public string nameOfPlayer;
+    static public int numOfSelectedCharacter; //0 warriorBoy, 1 archerGirl, 2 magic
+    public Text temp;
     private GameObject[] characterObjectList;
-    private int index = 0;
 
-    private void Start()
+    public void Start()
     {
-        index = PlayerPrefs.GetInt("CharacterSelected");
+        
+        numOfSelectedCharacter = PlayerPrefs.GetInt("CharacterSelected");
 
         characterObjectList = new GameObject[transform.childCount];
 
@@ -27,45 +31,96 @@ public class CreateNewCharacter : MonoBehaviour {
         }
 
         // Toogle on current character
-        if (characterObjectList[index])
+        if (characterObjectList[numOfSelectedCharacter])
         {
-            characterObjectList[index].SetActive(true);
+            characterObjectList[numOfSelectedCharacter].SetActive(true);
         }
     }
 
     public void ToggleLeft()
     {
+        Debug.Log("confirmselection");
         // Toogle off the current model
-        characterObjectList[index].SetActive(false);
+        characterObjectList[numOfSelectedCharacter].SetActive(false);
 
-        index = index - 1;
-        if (index < 0)
+        numOfSelectedCharacter = numOfSelectedCharacter - 1;
+        if (numOfSelectedCharacter < 0)
         {
-            index = characterObjectList.Length - 1;
+            numOfSelectedCharacter = characterObjectList.Length - 1;
         }
 
         // Toogle on the current model
-        characterObjectList[index].SetActive(true);
+        characterObjectList[numOfSelectedCharacter].SetActive(true);
     }
 
     public void ToggleRight()
     {
         // Toogle off the current model
-        characterObjectList[index].SetActive(false);
+        characterObjectList[numOfSelectedCharacter].SetActive(false);
 
-        index = index + 1;
-        if (index == characterObjectList.Length)
+        numOfSelectedCharacter = numOfSelectedCharacter + 1;
+        if (numOfSelectedCharacter == characterObjectList.Length)
         {
-            index = 0;
+            numOfSelectedCharacter = 0;
         }
 
         // Toogle on the current model
-        characterObjectList[index].SetActive(true);
+        characterObjectList[numOfSelectedCharacter].SetActive(true);
     }
 
     public void ConfirmSelection()
     {
-        PlayerPrefs.SetInt("CharacterSelected", index);
-        SceneManager.LoadScene("Village");
+        nameOfPlayer = temp.text;
+        StaticVarAndFunction.isLoading = true;
+        StartCoroutine(LoadVillage());
+        StartCoroutine(LoadUI());
     }
+
+    IEnumerator LoadUI() {
+        AsyncOperation loadUI = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
+        while (!loadUI.isDone)
+        {
+            yield return null;
+        }
+        Debug.Log("loaded");
+        string tempJob = "";
+        switch (numOfSelectedCharacter)
+        {
+            case 0:
+                tempJob = "Warrior";
+                break;
+            case 1:
+                tempJob = "Archer";
+                break;
+            case 2:
+                tempJob = "Magician";
+                break;
+        }
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject player in players)
+        {
+            if (!Equals(player.name, tempJob))
+            {
+                Debug.Log("player: " + player);
+                player.tag = "Untagged";
+                player.SetActive(false);
+            }
+        }
+        StaticVarAndFunction.SetPlayer();
+        GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+        ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
+        thirdPersonCamera.SetCamPos();
+        StaticVarAndFunction.UnloadNewCharacter();
+    }
+
+    IEnumerator LoadVillage(){
+        AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive);
+        while (!loadVillage.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Village"));
+    }
+
+    
 }

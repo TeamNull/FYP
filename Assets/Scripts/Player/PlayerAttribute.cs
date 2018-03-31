@@ -115,8 +115,24 @@ public class PlayerAttribute : MonoBehaviour
     //initial
     void InitialPlayerAttribute()
     {
-        playerName = "Fish";
-        job = Classes.Warrior;
+        //playerName = "Fish";
+        //job = Classes.Warrior;
+
+        //set name
+        //set job,enable character,set staticvarandfunc
+        playerName = CreateNewCharacter.nameOfPlayer;
+        //switch by name later
+        switch (CreateNewCharacter.numOfSelectedCharacter) {
+            case 0:
+                job = Classes.Warrior;
+                break;
+            case 1:
+                job = Classes.Archer;
+                break;
+            case 2:
+                job = Classes.Magician;
+                break;
+        }        
 
         str = 5;
         _int = 5;

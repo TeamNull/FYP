@@ -14,7 +14,7 @@ public class ThirdPersonCamera : MonoBehaviour
 	void Start()
 	{
 		// 各参照の初期化
-		standardPos = GameObject.Find ("CamPos").transform;
+		standardPos = GameObject.Find ("MinimapCamPos").transform;
 
 		if(GameObject.Find ("JumpPos"))
 			jumpPos = GameObject.Find ("JumpPos").transform;
@@ -49,4 +49,17 @@ public class ThirdPersonCamera : MonoBehaviour
 		transform.position = Vector3.Lerp(transform.position, jumpPos.position, Time.fixedDeltaTime * smooth);	
 		transform.forward = Vector3.Lerp(transform.forward, jumpPos.forward, Time.fixedDeltaTime * smooth);		
 	}
+
+    public void SetCamPos() {
+
+        // 各参照の初期化
+        standardPos = GameObject.Find("CamPos").transform;
+
+        if (GameObject.Find("JumpPos"))
+            jumpPos = GameObject.Find("JumpPos").transform;
+
+        //カメラをスタートする
+        transform.position = standardPos.position;
+        transform.forward = standardPos.forward;
+    }
 }

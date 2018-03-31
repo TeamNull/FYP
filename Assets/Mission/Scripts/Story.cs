@@ -446,7 +446,7 @@ public class Story : MonoBehaviour
 
             yield return new WaitForSeconds(time);
 
-            storytext.text = playername + ": ............"; ";
+            storytext.text = playername + ": ............"; 
 
             yield return new WaitForSeconds(time);
 
