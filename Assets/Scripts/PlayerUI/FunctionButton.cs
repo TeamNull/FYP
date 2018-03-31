@@ -11,6 +11,7 @@ public class FunctionButton : MonoBehaviour
     public GameObject Setting;
     public GameObject Bag;
     public GameObject Mission;
+    public GameObject Skill;
     #endregion
 
     #region LifeCycle
@@ -51,6 +52,10 @@ public class FunctionButton : MonoBehaviour
     public void EnableMission()
     {
         Mission.SetActive(!Mission.activeSelf);
+    }
+
+    public void EnableSkill() {
+        Skill.SetActive(!Skill.activeSelf);
     }
     #endregion
 
