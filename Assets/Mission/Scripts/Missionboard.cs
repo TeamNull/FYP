@@ -7,9 +7,10 @@ using System.Linq;
 using System;
 using UnityEditor;
 
-public class Missionboard : MonoBehaviour {
+public class Missionboard : MonoBehaviour
+{
 
-   
+
     public GameObject originalcanves; // the original canves
     public Bag inventory; // inventory
     public Button btn; // the button show on the mission canves
@@ -68,30 +69,32 @@ public class Missionboard : MonoBehaviour {
 
     void Update()
     {
-        
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-       RaycastHit hit;
+        if (StaticVarAndFunction.mainCamRendered)
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-        if (missiontype[0].Returnstart()) CheckMissioncompleteless();
+            if (missiontype[0].Returnstart()) CheckMissioncompleteless();
 
-       if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
-       {
-           //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
-           //Debug.Log(hit.transform.name);
-          if (hit.distance <= 5)
-          {
-             if (hit.transform.name == "missionboard")
-             {
-                 completext.enabled = true;
-                 Missionininitialize();
-                 Missionboardsystem();
-             }
-          }
-          
+            if (Input.GetMouseButton(0) && Physics.Raycast(ray, out hit))
+            {
+                //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+                //Debug.Log(hit.transform.name);
+                if (hit.distance <= 5)
+                {
+                    if (hit.transform.name == "missionboard")
+                    {
+                        completext.enabled = true;
+                        Missionininitialize();
+                        Missionboardsystem();
+                    }
+                }
 
+
+            }
         }
 
-}
+    }
 
     void Missionininitialize()
     {
@@ -104,8 +107,8 @@ public class Missionboard : MonoBehaviour {
 
     void Missionboardsystem()
     {
-    
-       
+
+
         if (!missiontype[0].Returnstart())
         {
             completext.text = missiontype[0].Returndetail();
@@ -128,8 +131,8 @@ public class Missionboard : MonoBehaviour {
 
         Debug.Log("hi");
         Debug.Log(inventory.Cotainitem(missiontype[0].Returnitemid()));
- 
-        
+
+
     }
 
     void CheckMissioncompleteless()
