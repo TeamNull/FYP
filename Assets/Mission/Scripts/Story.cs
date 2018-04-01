@@ -12,7 +12,7 @@ public class Story : MonoBehaviour
     public GameObject storyBoard;
     public Text storytext;
     public Button nextline;
-    private int counter = 0;
+    //private int counter = 0;
     private string playername = "Player";
     private int time = 1;
     void Start()

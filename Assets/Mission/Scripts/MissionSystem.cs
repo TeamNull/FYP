@@ -200,7 +200,7 @@ public class MissionSystem : MonoBehaviour {
         if (mission[missionID+1] != null)
         {
             //player.GetComponent<Story>().Loadstory(globalMissionID);
-            player.GetComponent<Story>().Callstory(globalMissionID);
+            //player.GetComponent<Story>().Callstory(globalMissionID);
             missionID++;
             MissionStart(missionID);
             
