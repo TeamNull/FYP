@@ -13,6 +13,7 @@ public class StaticVarAndFunction : MonoBehaviour {
     public static Bag bag;
     public static Inventory inventory;
     public static ArmedEquipment armedEquipment;
+    public static bool mainCamRendered;
     //public static Item[] itemlist;
 
     // Use this for initialization

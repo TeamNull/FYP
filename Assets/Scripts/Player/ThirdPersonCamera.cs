@@ -21,7 +21,8 @@ public class ThirdPersonCamera : MonoBehaviour
 
 		//カメラをスタートする
 		transform.position = standardPos.position;	
-		transform.forward = standardPos.forward;	
+		transform.forward = standardPos.forward;
+        StaticVarAndFunction.mainCamRendered = true;
 	}
 
 	

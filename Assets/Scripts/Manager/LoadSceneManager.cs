@@ -11,10 +11,15 @@ public class LoadSceneManager : MonoBehaviour
     GameObject loadingScene;
     Transform playerTransform;
     Transform BeginPosition;
+    bool initialized;
 
     // Use this for initialization
     void Start()
     {
+        
+    }
+
+    void Init() {
         GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
         foreach (GameObject go in uiGameObjectArray)
         {
@@ -25,6 +30,7 @@ public class LoadSceneManager : MonoBehaviour
         }
         playerTransform = StaticVarAndFunction.player.transform;
         SceneManager.sceneUnloaded += DeactiveLoadingScene;
+        initialized = true;
     }
 
     // Update is called once per frame
@@ -35,6 +41,7 @@ public class LoadSceneManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (!initialized) Init();
         if (other.gameObject.tag == "Player")
         {
             Vector3 destinationPosition = new Vector3();
