@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CreateNewCharacter : MonoBehaviour {
+public class CreateNewCharacter : MonoBehaviour
+{
 
     static public string nameOfPlayer;
     static public int numOfSelectedCharacter; //0 warriorBoy, 1 archerGirl, 2 magic
@@ -13,7 +14,7 @@ public class CreateNewCharacter : MonoBehaviour {
 
     public void Start()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
         numOfSelectedCharacter = PlayerPrefs.GetInt("CharacterSelected");
 
         characterObjectList = new GameObject[transform.childCount];
@@ -78,16 +79,8 @@ public class CreateNewCharacter : MonoBehaviour {
         //StaticVarAndFunction.helpUnloadNewCharacter();
     }
 
-    IEnumerator UnloadNewCharacter()
+    IEnumerator LoadUI()
     {
-        AsyncOperation unloadForest = SceneManager.UnloadSceneAsync("NewCharacter");
-        while (!unloadForest.isDone)
-        {
-            yield return null;
-        }
-    }
-
-    IEnumerator LoadUI() {
         AsyncOperation loadUI = SceneManager.LoadSceneAsync("UI", LoadSceneMode.Additive);
         while (!loadUI.isDone)
         {
@@ -122,9 +115,12 @@ public class CreateNewCharacter : MonoBehaviour {
         ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
         thirdPersonCamera.SetCamPos();
         //StaticVarAndFunction.UnloadNewCharacter();
+        StaticVarAndFunction.isLoading = false;
+        Destroy(this.gameObject);
     }
 
-    IEnumerator LoadVillage(){
+    IEnumerator LoadVillage()
+    {
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Single);
         while (!loadVillage.isDone)
         {
@@ -132,6 +128,4 @@ public class CreateNewCharacter : MonoBehaviour {
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("Village"));
     }
-
-    
 }

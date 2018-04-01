@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class StaticVarAndFunction : MonoBehaviour {
 
-    public static bool PlayerIsDead = false;
-    public static bool isLoading = false;
+    public static bool PlayerIsDead;
+    public static bool isLoading;
     //public static GameObject player = GameObject.FindGameObjectWithTag("Player");
     public static GameObject player;
     public static Bag bag;
