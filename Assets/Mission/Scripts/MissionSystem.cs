@@ -10,6 +10,8 @@ public class MissionSystem : MonoBehaviour {
     private int enemycount = 0 ;
     Mission[] mission = new Mission[missionnumber];
     GameObject player;
+    private bool missiontype1enemy = false;
+    private bool missiontype3item = false;
 
     // Use this for initialization
     void Start () {
@@ -48,18 +50,17 @@ public class MissionSystem : MonoBehaviour {
 
         //real
 
-        mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
+        //mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
 
-        mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
+        //mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
 
-        mission[2] = new MissionTypeNPC(2, 2, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
+        //mission[2] = new MissionTypeNPC(2, 2, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
 
-        mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "spider(Clone)", 3, "Chief of the warrior", "Forest", false);
+        //mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "spider(Clone)", 3, "Chief of the warrior", "Forest", false);
 
-        mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
+        mission[0] = new MissionTypeItem(0, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
 
-
-        //mission[5] = new MissionTypeLocation(5, 0, "Find out the Unknown!", "Go to the forest and find the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
+        mission[1] = new MissionTypeLocation(1, 0, "Find out the Unknown!", "Go to the forest and find the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
 
         //mission[6] = new MissionTypeLocation(6, 0, "Make a new front map", "Visit the Ruins and explore the new map", "Mission6", "Ruins", false);
 
@@ -131,7 +132,7 @@ public class MissionSystem : MonoBehaviour {
     }
 
 
-    void OnTriggerEnter(Collider other) // missiontype1
+    void OnTriggerEnter(Collider other) // missiontype0
     {
         
         if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
@@ -154,9 +155,11 @@ public class MissionSystem : MonoBehaviour {
 
                 if (enemycount == mission[globalMissionID].Getcountcdienum())
                 {
+                    missiontype1enemy = true;
+                    Debug.Log(missiontype1enemy);
                     enemycount = 0;
                     progresstext.text = "completed";
-                    Missiontype2(mission[globalMissionID].Getreportnpc());
+                    //Missiontype1handling(mission[globalMissionID].Getreportnpc());
                     //MissionComplete(globalMissionID);
                 }
                 //Debug.Log("this is " + enemycount);
@@ -164,6 +167,20 @@ public class MissionSystem : MonoBehaviour {
             }
         }
 
+    }
+
+    public void Missiontype1handling(string npcname)
+    {
+
+        if (missiontype1enemy && mission[globalMissionID].Gettype() == 1)
+        {
+            if (mission[globalMissionID].Getreportnpc() == npcname)
+            {
+                missiontype1enemy = false;
+                MissionComplete(globalMissionID);
+            }
+        }
+       
     }
 
 
@@ -185,25 +202,38 @@ public class MissionSystem : MonoBehaviour {
         {
             if (mission[globalMissionID].Getitemid() == iteamid)
             {
-                MissionComplete(globalMissionID);
+                progresstext.text = "completed";
+                missiontype3item = true;
             }
         }
 
     }
 
+    public void Missiontype3handling()
+    {
+        if (mission[globalMissionID].Gettype() == 3)
+        {
+            missiontype3item = false;
+            MissionComplete(globalMissionID);
+        }
+    }
 
-    void MissionComplete(int missionID)
+        void MissionComplete(int missionID)
     {
         
         mission[missionID].Setcomplete(true);
 
         if (mission[missionID+1] != null)
         {
+            if (player == null)
+            {
+                player = StaticVarAndFunction.player;
+            }
             //player.GetComponent<Story>().Loadstory(globalMissionID);
-            //player.GetComponent<Story>().Callstory(globalMissionID);
+            player.GetComponent<Story>().Callstory(globalMissionID);
             missionID++;
             MissionStart(missionID);
-            
+
             return;
         }
 

@@ -8,6 +8,7 @@ public class Bag : MonoBehaviour
     const int itemSlotsNum = 24; //total solts
     public List<Item> itemList = new List<Item>(); //testing use
     public List<Transform> itemUIList = new List<Transform>();
+    GameObject player;
 
     int itemInBag;
 
@@ -48,6 +49,11 @@ public class Bag : MonoBehaviour
         itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
         itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = true;
         itemInBag++;
+        if (player == null)
+        {
+           player = StaticVarAndFunction.player;
+        }
+        player.GetComponent<MissionSystem>().Missiontype3(item.id);
     }
 
     public void RemoveItem(int bagId)

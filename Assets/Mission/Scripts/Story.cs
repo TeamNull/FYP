@@ -15,10 +15,6 @@ public class Story : MonoBehaviour
     //private int counter = 0;
     private string playername = "Player";
     private int time = 1;
-    void Start()
-    {
-      
-    }
 
     public void Callstory(int mission)
     {
