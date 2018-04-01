@@ -23,7 +23,7 @@ public class UIinfo : MonoBehaviour
     void Start()
     {
         expAnim = GameObject.FindGameObjectWithTag("Exp").GetComponent<Animator>();
-        StartCoroutine(UnloadNewCharacter());
+        //StartCoroutine(UnloadNewCharacter());
     }
 
     // Update is called once per frame

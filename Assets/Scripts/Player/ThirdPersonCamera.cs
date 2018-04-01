@@ -14,7 +14,7 @@ public class ThirdPersonCamera : MonoBehaviour
 	void Start()
 	{
 		// 各参照の初期化
-		standardPos = GameObject.Find ("MinimapCamPos").transform;
+        standardPos = GameObject.Find ("MiniMapCamera").transform;
 
 		if(GameObject.Find ("JumpPos"))
 			jumpPos = GameObject.Find ("JumpPos").transform;

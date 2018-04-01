@@ -74,8 +74,17 @@ public class CreateNewCharacter : MonoBehaviour {
         StaticVarAndFunction.isLoading = true;
         StartCoroutine(LoadVillage());
         StartCoroutine(LoadUI());
-        //StartCoroutine(StaticVarAndFunction.UnloadNewCharacter());
+        //StartCoroutine(UnloadNewCharacter());
         //StaticVarAndFunction.helpUnloadNewCharacter();
+    }
+
+    IEnumerator UnloadNewCharacter()
+    {
+        AsyncOperation unloadForest = SceneManager.UnloadSceneAsync("NewCharacter");
+        while (!unloadForest.isDone)
+        {
+            yield return null;
+        }
     }
 
     IEnumerator LoadUI() {
@@ -116,7 +125,7 @@ public class CreateNewCharacter : MonoBehaviour {
     }
 
     IEnumerator LoadVillage(){
-        AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Additive);
+        AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Single);
         while (!loadVillage.isDone)
         {
             yield return null;
