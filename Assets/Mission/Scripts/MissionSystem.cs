@@ -58,11 +58,11 @@ public class MissionSystem : MonoBehaviour {
 
         //mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "spider(Clone)", 3, "Chief of the warrior", "Forest", false);
 
-        mission[0] = new MissionTypeItem(0, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
+        //mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
 
-        mission[1] = new MissionTypeLocation(1, 0, "Find out the Unknown!", "Go to the forest and find the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
+        mission[0] = new MissionTypeLocation(0, 0, "Find out the Unknown!", "Go to the forest and kill the unknown", "Mission5", "Forest", false); // auto generate unknows and close the portal
 
-        //mission[6] = new MissionTypeLocation(6, 0, "Make a new front map", "Visit the Ruins and explore the new map", "Mission6", "Ruins", false);
+        mission[1] = new MissionTypeLocation(1, 0, "Make a new front map", "Visit the Ruins and explore the new map", "Mission6", "Ruins", false);
 
         //mission[7] = new MissionTypeNPC(7, 2, "Find the Chief of army", "Find the location of Chief of army", "Chief of army", "Villiage", false);
 
@@ -218,7 +218,7 @@ public class MissionSystem : MonoBehaviour {
         }
     }
 
-        void MissionComplete(int missionID)
+    void MissionComplete(int missionID)
     {
         
         mission[missionID].Setcomplete(true);
