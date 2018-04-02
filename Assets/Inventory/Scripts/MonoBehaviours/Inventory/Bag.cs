@@ -36,6 +36,11 @@ public class Bag : MonoBehaviour
         {
             if (itemList[i].id == item.id)  // find the item in inventory
             {
+                if (player == null)
+                {
+                    player = StaticVarAndFunction.player;
+                }
+                player.GetComponent<MissionSystem>().Missiontype3(item.id);
                 itemList[i].UpdateUnit(unit);
                 itemUIList[i].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
                 return;

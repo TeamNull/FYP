@@ -30,7 +30,7 @@ public class NPCresponse : MonoBehaviour {
         dist = Vector3.Distance(player.transform.position, this.transform.position);
 
         if(dist < 3)
-        {
+        {   
             player.GetComponent<MissionSystem>().Missiontype1handling(this.gameObject.transform.name);
             player.GetComponent<MissionSystem>().Missiontype2(this.gameObject.transform.name);
             player.GetComponent<MissionSystem>().Missiontype3handling();

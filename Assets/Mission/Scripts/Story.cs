@@ -171,33 +171,6 @@ public class Story : MonoBehaviour
 
         }
 
-        if (mission == 4)
-        {
-            storytext.text = "Chief of the warrior: You are a qualified warrior now.";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = "Chief of the warrior: I have received a news from the front line of the military.";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = "Chief of the warrior: One unknown has passed through our defense line.";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = "Chief of the warrior: Can you go to find out the unknown and bring me some information about it ?";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = playername + ": This is my honor.";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = "Chief of the warrior: Go my son. Be careful, don’t lose your life.";
-
-            yield return new WaitForSeconds(time);
-
-        }
 
         if (mission == 5)
         {
