@@ -114,6 +114,8 @@ public class CreateNewCharacter : MonoBehaviour
         GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
         thirdPersonCamera.SetCamPos();
+        Minimap miniMapCamera = GameObject.Find("MiniMapCamera").GetComponent<Minimap>();
+        miniMapCamera.Init();
         //StaticVarAndFunction.UnloadNewCharacter();
         StaticVarAndFunction.isLoading = false;
         Destroy(this.gameObject);
