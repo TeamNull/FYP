@@ -109,10 +109,12 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
                                 if (myDadItem != null)            // If destination cell has item
                                 {
                                     // Fill event descriptor
-                                    DropEventDescriptor descAutoswap = new DropEventDescriptor();
-                                    descAutoswap.item = myDadItem;
-                                    descAutoswap.sourceCell = this;
-                                    descAutoswap.destinationCell = sourceCell;
+                                    DropEventDescriptor descAutoswap = new DropEventDescriptor
+                                    {
+                                        item = myDadItem,
+                                        sourceCell = this,
+                                        destinationCell = sourceCell
+                                    };
                                     SendRequest(descAutoswap);                      // Send drop request
                                     StartCoroutine(NotifyOnDragEnd(descAutoswap));  // Send notification after drop will be finished
                                     if (descAutoswap.permission == true)            // If drop permitted by application
@@ -192,32 +194,20 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         UpdateMyItem();
         if (myDadItem != null)
         {
-            DropEventDescriptor desc = new DropEventDescriptor();
-            // Fill event descriptor
-            desc.triggerType = TriggerType.ItemWillBeDestroyed;
-            desc.item = myDadItem;
-            desc.sourceCell = this;
-            desc.destinationCell = this;
-            SendNotification(desc);                                         // Notify application about item destruction
+            DropEventDescriptor desc = new DropEventDescriptor
+            {
+                // Fill event descriptor
+                triggerType = TriggerType.ItemWillBeDestroyed,
+                item = myDadItem,
+                sourceCell = this,
+                destinationCell = this
+            };
             if (myDadItem != null)
             {
                 Destroy(myDadItem.gameObject);
             }
         }
         myDadItem = null;
-    }
-
-    /// <summary>
-    /// Send drag and drop information to application
-    /// </summary>
-    /// <param name="desc"> drag and drop event descriptor </param>
-    private void SendNotification(DropEventDescriptor desc)
-    {
-        if (desc != null)
-        {
-            // Send message with DragAndDrop info to parents GameObjects
-            gameObject.SendMessageUpwards("OnSimpleDragAndDropEvent", desc, SendMessageOptions.DontRequireReceiver);
-        }
     }
 
     /// <summary>
@@ -232,7 +222,6 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         {
             desc.triggerType = TriggerType.DropRequest;
             desc.permission = true;
-            SendNotification(desc);
             result = desc.permission;
         }
         return result;
@@ -251,7 +240,6 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
             yield return new WaitForEndOfFrame();
         }
         desc.triggerType = TriggerType.DropEventEnd;
-        SendNotification(desc);
     }
 
     /// <summary>
@@ -280,13 +268,14 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         if (newItem != null)
         {
             PlaceItem(newItem);
-            DropEventDescriptor desc = new DropEventDescriptor();
-            // Fill event descriptor
-            desc.triggerType = TriggerType.ItemAdded;
-            desc.item = newItem;
-            desc.sourceCell = this;
-            desc.destinationCell = this;
-            SendNotification(desc);
+            DropEventDescriptor desc = new DropEventDescriptor
+            {
+                // Fill event descriptor
+                triggerType = TriggerType.ItemAdded,
+                item = newItem,
+                sourceCell = this,
+                destinationCell = this
+            };
         }
     }
 

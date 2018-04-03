@@ -7,7 +7,7 @@ using System.Collections;
 /// <summary>
 /// Drag and Drop item.
 /// </summary>
-public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
 {
 	public static bool dragDisabled = false;										// Drag start global disable
 
@@ -22,6 +22,8 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	private static Canvas canvas;                                                   // Canvas for item drag operation
 	private static string canvasName = "DragAndDropCanvas";                   		// Name of canvas
 	private static int canvasSortOrder = 100;										// Sort order for canvas
+
+    public Text Level;
 
 	/// <summary>
 	/// Awake this instance.
@@ -139,4 +141,12 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 	{
 		ResetConditions();
 	}
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (SkillEnableButton.SkillUpEnabled)
+        {
+            Level.text = "1";
+        }
+    }
 }
