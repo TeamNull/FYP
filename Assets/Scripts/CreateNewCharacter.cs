@@ -110,6 +110,16 @@ public class CreateNewCharacter : MonoBehaviour
                 player.SetActive(false);
             }
         }
+        GameObject[] icons = GameObject.FindGameObjectsWithTag("PlayerIcon");
+        foreach (GameObject icon in icons)
+        {
+            if (!Equals(icon.name, tempJob))
+            {
+                Debug.Log("playericon: " + icon);
+                icon.tag = "Untagged";
+                icon.SetActive(false);
+            }
+        }
         StaticVarAndFunction.SetPlayer();
         GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
