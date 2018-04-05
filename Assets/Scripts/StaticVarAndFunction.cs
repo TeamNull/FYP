@@ -4,7 +4,8 @@ using UnityEngine;
 
 
 
-public class StaticVarAndFunction : MonoBehaviour {
+public class StaticVarAndFunction : MonoBehaviour
+{
 
     public static bool PlayerIsDead;
     public static bool isLoading;
@@ -17,20 +18,20 @@ public class StaticVarAndFunction : MonoBehaviour {
     //public static Item[] itemlist;
 
     // Use this for initialization
-    void Awake() {
+    void Awake()
+    {
 
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
     }
 
-    public static void SetPlayer() {
+    public static void SetPlayer()
+    {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-
-
-    
 }

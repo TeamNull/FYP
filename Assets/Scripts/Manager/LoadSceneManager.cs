@@ -10,7 +10,6 @@ public class LoadSceneManager : MonoBehaviour
 
     GameObject loadingScene;
     Transform playerTransform;
-    Transform BeginPosition;
     bool initialized;
 
     // Use this for initialization

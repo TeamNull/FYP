@@ -43,7 +43,6 @@ public class PlayerAttack : MonoBehaviour
 
     void Attack()
     {
-        Ray ray = Camera.main.ScreenPointToRay(transform.position);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position;
         RaycastHit hit;

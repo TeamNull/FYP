@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class CreateNewCharacter : MonoBehaviour
 {
-
     static public string nameOfPlayer;
     static public int numOfSelectedCharacter; //0 warriorBoy, 1 archerGirl, 2 magic
     public Text temp;
@@ -126,6 +125,7 @@ public class CreateNewCharacter : MonoBehaviour
         thirdPersonCamera.SetCamPos();
         Minimap miniMapCamera = GameObject.Find("MiniMapCamera").GetComponent<Minimap>();
         miniMapCamera.Init();
+        SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.Find("Skill").GetComponent<UIController>().InitSkillUI();
         //StaticVarAndFunction.UnloadNewCharacter();
         StaticVarAndFunction.isLoading = false;
         Destroy(this.gameObject);

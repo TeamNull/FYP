@@ -13,6 +13,7 @@ public class PlayerAttribute : MonoBehaviour
     public UIinfo playerUiScript;
     public Attribute attributeScript;
     public GameObject levelUp;
+    public int[] Skill = new int[6];
     public int currentHP;
     public int currentMP;
     public int maxHP;
@@ -29,6 +30,7 @@ public class PlayerAttribute : MonoBehaviour
     public string playerName;
     public Classes job;
     public int AvailablePoint;
+    public int SkillPoint;
     public int currentLevel;
     public int currentExp;
     int totalExp;
@@ -104,6 +106,7 @@ public class PlayerAttribute : MonoBehaviour
             currentLevel++;
             isLvUp = true;
             AvailablePoint += 5;
+            SkillPoint++;
             currentHP = maxHP;
             currentMP = maxMP;
             if (LevelUp != null) LevelUp();
@@ -148,6 +151,7 @@ public class PlayerAttribute : MonoBehaviour
         currentExp = 0;
         needExp = baseExp;
         AvailablePoint = 0;
+        SkillPoint = 0;
 
         //exp ui update
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, false);
@@ -159,7 +163,7 @@ public class PlayerAttribute : MonoBehaviour
 
         //mp ui update
         playerUiScript.updateMP(currentMP, maxMP);
-
+        Skill.Initialize();
 
     }
 

@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
-using System.Collections;
 
 /// <summary>
 /// Example of control application for drag and drop events handle

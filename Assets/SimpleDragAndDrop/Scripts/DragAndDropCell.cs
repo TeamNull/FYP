@@ -32,10 +32,8 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         public bool permission;                                             // Decision need to be made on request
     }
 
-    [Tooltip("Functional type of this cell")]
     public CellType cellType = CellType.Swap;                               // Special type of this cell
-    [Tooltip("This cell has unlimited amount of items")]
-    public bool unlimitedSource = false;                                    // Item from this cell will be cloned on drag start
+    public bool unlimitedSource;                                    // Item from this cell will be cloned on drag start
 
     private DragAndDropItem myDadItem;										// Item of this DaD cell
 
@@ -194,18 +192,7 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         UpdateMyItem();
         if (myDadItem != null)
         {
-            DropEventDescriptor desc = new DropEventDescriptor
-            {
-                // Fill event descriptor
-                triggerType = TriggerType.ItemWillBeDestroyed,
-                item = myDadItem,
-                sourceCell = this,
-                destinationCell = this
-            };
-            if (myDadItem != null)
-            {
-                Destroy(myDadItem.gameObject);
-            }
+            Destroy(myDadItem.gameObject);
         }
         myDadItem = null;
     }
@@ -268,14 +255,6 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
         if (newItem != null)
         {
             PlaceItem(newItem);
-            DropEventDescriptor desc = new DropEventDescriptor
-            {
-                // Fill event descriptor
-                triggerType = TriggerType.ItemAdded,
-                item = newItem,
-                sourceCell = this,
-                destinationCell = this
-            };
         }
     }
 
@@ -316,4 +295,6 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
             secondCell.UpdateMyItem();
         }
     }
+
+
 }
