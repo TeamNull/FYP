@@ -20,9 +20,11 @@ public class PlayerAttribute : MonoBehaviour
     public int str;
     public int _int;
     public int agi;
-    public int additionalAtk;   //used for equipment
-    public int additionalDef;   //used for equipment
-    public int additionalSpeed; //used for equipment
+    public int additionalAtk;   //used for add
+    public int additionalDef;   //used for add
+    public int additionalSpeed; //used for add
+    public int additionalHP;    //used for add
+    public int additionalMP;    //used for add
     public int atk;             //total included additional
     public int def;             //total included additional
     public float attackSpeed;   //total included additional
@@ -141,7 +143,9 @@ public class PlayerAttribute : MonoBehaviour
         additionalAtk = 0;
         additionalDef = 0;
         additionalSpeed = 0;
-
+        additionalHP = 0;
+        additionalMP = 0;
+        
         UpdatePlayerValueByPoint(); //could be deleted if the save is loaded
 
         currentLevel = 1;
@@ -180,8 +184,8 @@ public class PlayerAttribute : MonoBehaviour
         }
         def = Mathf.CeilToInt(agi * 0.5f) + additionalDef;
         attackSpeed = 1 + additionalSpeed;    //Todo: Calculate attackSpeed by agi
-        maxHP = 100 + str * 8;
-        maxMP = 100 + _int * 5;
+        maxHP = 100 + str * 8 +additionalHP;
+        maxMP = 100 + _int * 5 +additionalMP;
         currentHP = (currentHP < maxHP) ? currentHP : maxHP;
         currentMP = (currentMP < maxMP) ? currentMP : maxMP;
 

@@ -3,7 +3,6 @@ guid: 555347809f306434aad71f438a5bf8ea
 timeCreated: 18446744011573954816
 TextureImporter:
   fileIDToRecycleName: {}
-  externalObjects: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -57,7 +56,6 @@ TextureImporter:
   platformSettings:
   - buildTarget: DefaultTexturePlatform
     maxTextureSize: 1024
-    resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
     compressionQuality: 50
