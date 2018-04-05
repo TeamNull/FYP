@@ -5,20 +5,21 @@ using UnityEngine;
 [CreateAssetMenu]
 public class Equipment : Item
 {
-    public int equipmentType = 1;
-    PlayerAttribute pa;
-    ArmedEquipment ae;
-    int hp = 1;
-    int mp = 1;
-    int str = 1;
-    int _int = 1;
-    int agi = 1;
-    int atk = 1;
-    int def = 1;
-    float speed = 0;    
+       
+    public int hp;
+    public int mp;
+    public int str;
+    public int _int;
+    public int agi;
+    public int atk;
+    public int def;
+    public float speed;    
+    public int equipmentType; //set in unity  
     // 0
     //123
     // 4
+    PlayerAttribute pa;
+    ArmedEquipment ae;
 
     void Start()
     {
@@ -47,9 +48,9 @@ public class Equipment : Item
 
     public void RemoveAction() {
         pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
-        pa.maxHP -= hp;
+        pa.additionalHP -= hp;
         pa.currentHP -= hp;
-        pa.maxMP -= mp;
+        pa.additionalMP -= mp;
         pa.currentMP -= mp;
         pa.str -= str;
         pa.agi -= agi;
