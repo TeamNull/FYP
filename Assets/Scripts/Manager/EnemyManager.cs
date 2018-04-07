@@ -34,6 +34,7 @@ public class EnemyManager : MonoBehaviour
             GameObject obj = Instantiate(enemy, t.position, t.rotation);
             obj.GetComponent<EnemyAttribute>().EnemyDeath += Spawn;
             enemyResourcePool.Add(obj);
+            Debug.Log("asd");
         }
     }
 
