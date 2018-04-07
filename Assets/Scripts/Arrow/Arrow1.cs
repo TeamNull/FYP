@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Arrow1 : MonoBehaviour {
     public static int arrowCounter=0;
@@ -10,6 +11,7 @@ public class Arrow1 : MonoBehaviour {
     public int a = 0;
     public int b = 0;
     public int c = 0;
+    public EnemyStatus es;
 
     GameObject player;
     //PlayerAttack playerAttack;
@@ -23,7 +25,8 @@ public class Arrow1 : MonoBehaviour {
     void Start () {        
         ridigB = GetComponent<Rigidbody>();
         initPos = transform.position;
-        transform.Rotate(new Vector3(a,b,c)); 
+        transform.Rotate(new Vector3(a,b,c));
+        es = SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.GetChild(11).GetComponent<EnemyStatus>();
     }
 
     private void Awake()
@@ -48,6 +51,7 @@ public class Arrow1 : MonoBehaviour {
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
             temp.TakeDamage(damage + playerAttribute.atk);
+            es.UpdateUI(temp);
             Destroy(gameObject);
             return;
         }       
