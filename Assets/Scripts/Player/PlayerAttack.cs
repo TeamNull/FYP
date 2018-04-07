@@ -44,7 +44,7 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 origin = transform.position;
+        Vector3 origin = transform.position+ new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
         if (Physics.Raycast(origin, forward, out hit, 2))
         {

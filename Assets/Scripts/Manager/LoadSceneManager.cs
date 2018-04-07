@@ -110,13 +110,13 @@ public class LoadSceneManager : MonoBehaviour
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init();
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[3].GetComponent<EnemyManager>().Init(); //boss
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
         }
         if (sceneName == "Ruins")
         {
             SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init();
-            //SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init(); //boss
         }
         playerTransform.position = v3;
         playerTransform.rotation = q;

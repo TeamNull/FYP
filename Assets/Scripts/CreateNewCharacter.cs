@@ -85,7 +85,6 @@ public class CreateNewCharacter : MonoBehaviour
         {
             yield return null;
         }
-        Debug.Log("loaded");
         string tempJob = "";
         switch (numOfSelectedCharacter)
         {
@@ -104,7 +103,6 @@ public class CreateNewCharacter : MonoBehaviour
         {
             if (!Equals(player.name, tempJob))
             {
-                Debug.Log("player: " + player);
                 player.tag = "Untagged";
                 player.SetActive(false);
             }
@@ -114,7 +112,6 @@ public class CreateNewCharacter : MonoBehaviour
         {
             if (!Equals(icon.name, tempJob))
             {
-                Debug.Log("playericon: " + icon);
                 icon.tag = "Untagged";
                 icon.SetActive(false);
             }
