@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class emitPoint : MonoBehaviour {
 
-    public int theRange = 1000;
+    public int theRange = 15;
     public GameObject theArrow;
     Vector3 theEmitPoint = Vector3.zero;
     //Vector3 theDirection = Vector3.zero;
@@ -16,8 +16,7 @@ public class emitPoint : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        player = StaticVarAndFunction.player;
-        playerAttack = player.GetComponent<PlayerAttack>();
+        
     }
 	
 	// Update is called once per frame
@@ -41,6 +40,8 @@ public class emitPoint : MonoBehaviour {
     }
 
     public void AttackByShoot() {
+        player = StaticVarAndFunction.player;
+        playerAttack = player.GetComponent<PlayerAttack>();
         GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);        
         cloneArrow.transform.position = theEmitPoint;
         cloneArrow.transform.rotation = transform.rotation;

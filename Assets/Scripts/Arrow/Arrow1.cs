@@ -7,6 +7,9 @@ public class Arrow1 : MonoBehaviour {
     public int theSpeed=50;
     public int damage = 20;
     public int range = 100;
+    public int a = 0;
+    public int b = 0;
+    public int c = 0;
 
     GameObject player;
     //PlayerAttack playerAttack;
@@ -20,7 +23,7 @@ public class Arrow1 : MonoBehaviour {
     void Start () {        
         ridigB = GetComponent<Rigidbody>();
         initPos = transform.position;
-        //transform.rotation = ;
+        transform.Rotate(new Vector3(a,b,c)); 
     }
 
     private void Awake()
