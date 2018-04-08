@@ -15,7 +15,7 @@ public class LoadSceneManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        
+        DontDestroyOnLoad(this.gameObject);
     }
 
     void Init() {
@@ -28,7 +28,6 @@ public class LoadSceneManager : MonoBehaviour
             }
         }
         playerTransform = StaticVarAndFunction.player.transform;
-        SceneManager.sceneUnloaded += DeactiveLoadingScene;
         initialized = true;
     }
 
@@ -93,6 +92,9 @@ public class LoadSceneManager : MonoBehaviour
         {
             yield return null;
         }
+        loadingScene.SetActive(false);
+        StaticVarAndFunction.isLoading = false;
+        Destroy(this.gameObject);
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
@@ -120,11 +122,5 @@ public class LoadSceneManager : MonoBehaviour
         }
         playerTransform.position = v3;
         playerTransform.rotation = q;
-    }
-
-    void DeactiveLoadingScene(Scene scene)
-    {
-        if (loadingScene != null) loadingScene.SetActive(false);
-        StaticVarAndFunction.isLoading = false;
     }
 }

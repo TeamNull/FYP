@@ -4,20 +4,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MissionSystem : MonoBehaviour {
+public class MissionSystem : MonoBehaviour
+{
 
     private int globalMissionID = 0;
-    private int enemycount = 0 ;
+    private int enemycount = 0;
     Mission[] mission = new Mission[missionnumber];
     GameObject player;
     private bool missiontype1enemy = false;
     private bool missiontype3item = false;
+    GameObject loadingScene;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         Setmission();
         MissionStart(globalMissionID);
         player = StaticVarAndFunction.player;
+        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
+        foreach (GameObject go in uiGameObjectArray)
+        {
+            if (go.name == "PlayerUI")
+            {
+                loadingScene = go.transform.Find("Loading Scene").gameObject;
+            }
+        }
     }
 
     public Text titletext; // mission number of the mission
@@ -27,6 +38,51 @@ public class MissionSystem : MonoBehaviour {
 
 
     public const int missionnumber = 24; // totoal mission number 
+
+
+    void ChangeScene(Vector3 v, Quaternion q, string to, string from)
+    {
+        StartCoroutine(LoadScene(to, v, q));
+        StartCoroutine(UnloadScene(from));
+    }
+
+    IEnumerator UnloadScene(string sceneName)
+    {
+        AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
+        while (!unloadForest.isDone)
+        {
+            yield return null;
+        }
+        loadingScene.SetActive(false);
+        StaticVarAndFunction.isLoading = false;
+    }
+
+    IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
+    {
+        loadingScene.SetActive(true);
+        StaticVarAndFunction.isLoading = true;
+        AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        while (!loadVillage.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        if (sceneName == "Forest")
+        {
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[3].GetComponent<EnemyManager>().Init(); //boss
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
+        }
+        if (sceneName == "Ruins")
+        {
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
+            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init(); //boss
+        }
+        player.transform.position = v3;
+        player.transform.rotation = q;
+    }
 
     void SetglobalMissionID(int missionID)
     {
@@ -50,7 +106,7 @@ public class MissionSystem : MonoBehaviour {
 
         //real
 
-        mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1","Villiage", false); //37.37792,03999996,38.11484 
+        mission[0] = new MissionTypeLocation(0, 0, "Go to village", "Find a path to village", "Mission1", "Villiage", false); //37.37792,03999996,38.11484 
 
         mission[1] = new MissionTypeLocation(1, 0, "Go to church", "Find a path to church", "Mission2", "Villiage", false);
 
@@ -104,23 +160,23 @@ public class MissionSystem : MonoBehaviour {
         requirementtext.text = mission[missionID].Getrequirement();
         //Debug.Log("this is global" + globalMissionID);
         //Debug.Log("this is missionID" + mission[missionID].GetmissionID());
- /*       if (mission[missionID].Gettype() == 0)
-        {
+        /*       if (mission[missionID].Gettype() == 0)
+               {
 
-            descriptiontext.text = mission[missionID].Getdescription();
+                   descriptiontext.text = mission[missionID].Getdescription();
 
-            //GameObject[] uiGameObjectArray = SceneManager.GetSceneByName(mission[missionID].Getscene()).GetRootGameObjects();
-            //foreach (GameObject target in uiGameObjectArray)
-            //{
-            //    if (target.name == mission[missionID].Getrectname())
-            //    {
-            //        target.SetActive(true);
-            //    }
-            //}
-            return;
-        }
+                   //GameObject[] uiGameObjectArray = SceneManager.GetSceneByName(mission[missionID].Getscene()).GetRootGameObjects();
+                   //foreach (GameObject target in uiGameObjectArray)
+                   //{
+                   //    if (target.name == mission[missionID].Getrectname())
+                   //    {
+                   //        target.SetActive(true);
+                   //    }
+                   //}
+                   return;
+               }
 
- */   
+        */
         if (mission[missionID].Gettype() == 1)
         {
             progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
@@ -128,13 +184,13 @@ public class MissionSystem : MonoBehaviour {
         }
 
         return;
- 
+
     }
 
 
     void OnTriggerEnter(Collider other) // missiontype0
     {
-        
+
         if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
         {
             MissionComplete(globalMissionID);
@@ -180,7 +236,7 @@ public class MissionSystem : MonoBehaviour {
                 MissionComplete(globalMissionID);
             }
         }
-       
+
     }
 
 
@@ -222,17 +278,17 @@ public class MissionSystem : MonoBehaviour {
 
     void MissionComplete(int missionID)
     {
-        
+
         mission[missionID].Setcomplete(true);
 
-        if (mission[missionID+1] != null)
+        if (mission[missionID + 1] != null)
         {
             if (player == null)
             {
                 player = StaticVarAndFunction.player;
             }
             //player.GetComponent<Story>().Loadstory(globalMissionID);
-            if(globalMissionID != 5 && globalMissionID != 6 && globalMissionID != 9 && globalMissionID != 18)
+            if (globalMissionID != 5 && globalMissionID != 6 && globalMissionID != 9 && globalMissionID != 18)
             {
                 player.GetComponent<Story>().Callstory(globalMissionID);
             }
