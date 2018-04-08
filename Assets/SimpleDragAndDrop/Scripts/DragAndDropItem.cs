@@ -7,7 +7,7 @@ using System.Collections;
 /// <summary>
 /// Drag and Drop item.
 /// </summary>
-public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerClickHandler
+public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public static bool dragDisabled = false;                                        // Drag start global disable
 
@@ -23,8 +23,6 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private static string canvasName = "DragAndDropCanvas";                         // Name of canvas
     private static int canvasSortOrder = 100;										// Sort order for canvas
 
-    UIController uic;
-
     /// <summary>
     /// Awake this instance.
     /// </summary>
@@ -37,7 +35,6 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = canvasSortOrder;
         }
-        uic = this.gameObject.transform.parent.parent.parent.GetComponent<UIController>();
     }
 
     /// <summary>
@@ -141,23 +138,5 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     void OnDisable()
     {
         ResetConditions();
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (eventData.button == PointerEventData.InputButton.Left)
-        {
-            if (uic.SkillUpEnabled)
-            {
-                uic.UpdateLocalSkill(int.Parse(name), true);
-            }
-        }
-        else if (eventData.button == PointerEventData.InputButton.Right)
-        {
-            if (uic.SkillUpEnabled)
-            {
-                uic.UpdateLocalSkill(int.Parse(name), false);
-            }
-        }
     }
 }

@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour {
 
     void Start()
     {
-        //CreateNewCharacter.UILoadComplete += InitSkillUI;
+        
     }
 
     public void SkillUpSwitch()
@@ -43,6 +43,7 @@ public class UIController : MonoBehaviour {
             SkillUI[i].text = LocalSkill[i].ToString();
         }
         UpdateTitle(pa.SkillPoint);
+        pa.LevelUp += PlayerLevelUp;
     }
 
     public void UpdateLocalSkill(int index, bool isAdd)
@@ -53,10 +54,33 @@ public class UIController : MonoBehaviour {
             {
                 if (LocalSkill[index] < 10)
                 {
-                    LocalSkill[index]++;
-                    SkillUI[index].text = LocalSkill[index].ToString();
-                    UsedPoint++;
-                    UpdateTitle(pa.SkillPoint - UsedPoint);
+                    bool canAdd = false;
+                    switch (index)
+                    {
+                        case 0:
+                            canAdd = true;
+                            break;
+                        case 1:
+                            if (LocalSkill[0] > 0) canAdd = true;
+                            break;
+                        case 2:
+                        case 3:
+                            if (LocalSkill[0] > 0 && LocalSkill[1] > 0) canAdd = true;
+                            break;
+                        case 4:
+                            if (LocalSkill[0] > 0) canAdd = true;
+                            break;
+                        case 5:
+                            if (LocalSkill[0] > 0 && LocalSkill[4] > 0) canAdd = true;
+                            break;
+                    }
+                    if (canAdd)
+                    {
+                        LocalSkill[index]++;
+                        SkillUI[index].text = LocalSkill[index].ToString();
+                        UsedPoint++;
+                        UpdateTitle(pa.SkillPoint - UsedPoint);
+                    }
                 }
             }
         }
@@ -73,6 +97,10 @@ public class UIController : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void PlayerLevelUp() {
+        UpdateTitle(pa.SkillPoint);
     }
 
     void UpdateTitle(int point)
