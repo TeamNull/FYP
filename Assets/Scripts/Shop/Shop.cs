@@ -27,8 +27,7 @@ public class Shop : MonoBehaviour {
         {
             itemUIList.Add(transform.GetChild(i));
             Destroy(transform.GetChild(i).gameObject.GetComponent<BagGrid>());
-            transform.GetChild(i).gameObject.AddComponent<ShopGrid>();
-            
+            transform.GetChild(i).gameObject.AddComponent<ShopGrid>();            
         }
         itemUIList.OrderBy(x => x.name);
         for (int i=0;i< goods.Length;i++) {
@@ -36,6 +35,7 @@ public class Shop : MonoBehaviour {
             itemUIList[i].GetChild(0).GetComponent<Image>().enabled = true;
             itemUIList[i].GetComponent<ShopGrid>().item = goods[i];
             itemUIList[i].GetComponent<ShopGrid>().coin = coin;
+            //itemUIList[i].GetComponent<ShopGrid>().popUp = popUp;
         }
         this.gameObject.transform.parent.gameObject.SetActive(false);
     }

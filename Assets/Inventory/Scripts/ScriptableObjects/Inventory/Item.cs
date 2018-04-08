@@ -7,6 +7,7 @@ public class Item : ScriptableObject
     public int id;
     public int unit;
     public int price;
+    public string description="default";
 
     public void UpdateUnit(int increaseUnit)
     {

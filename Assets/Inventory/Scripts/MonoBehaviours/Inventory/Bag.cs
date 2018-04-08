@@ -53,6 +53,7 @@ public class Bag : MonoBehaviour
         itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = true;
         itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
         itemUIList[itemInBag].GetChild(1).GetComponent<Text>().enabled = true;
+        itemUIList[itemInBag].GetComponent<BagGrid>().item = item;
         itemInBag++;
         if (player == null)
         {

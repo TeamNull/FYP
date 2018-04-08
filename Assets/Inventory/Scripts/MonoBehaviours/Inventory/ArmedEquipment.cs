@@ -44,6 +44,8 @@ public class ArmedEquipment : MonoBehaviour
         equipmentUIList[Equipment.equipmentType].GetComponent<RawImage>().enabled = false;        
         equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().sprite = Equipment.sprite;
         equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().enabled = true;
+        equipmentUIList[Equipment.equipmentType].GetComponent<ArmedEquipmentSlot>().item = Equipment;
+        //itemUIList[i].GetComponent<ShopGrid>().item = goods[i];
     }
 
     public void RemoveEquipment(int bagId)
