@@ -21,7 +21,7 @@ public class BagGrid : MonoBehaviour, IPointerClickHandler {
 
     public void OnPointerClick(PointerEventData eventData) {
         if (eventData.button == PointerEventData.InputButton.Right) {
-            //Debug.Log(gridId);
+            Debug.Log(gridId);
             bag.RemoveItem(gridId);
         }
     }

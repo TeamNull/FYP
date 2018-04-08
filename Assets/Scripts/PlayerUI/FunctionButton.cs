@@ -7,11 +7,12 @@ public class FunctionButton : MonoBehaviour
 
     #region Variable
     public GameObject Attribute;
-    public GameObject DragDropTest;
+    //public GameObject DragDropTest;
     public GameObject Setting;
     public GameObject Bag;
     public GameObject Mission;
     public GameObject Skill;
+    public GameObject Shop;
     #endregion
 
     #region LifeCycle
@@ -36,7 +37,7 @@ public class FunctionButton : MonoBehaviour
 
     public void EnableDragDropTest()
     {
-        DragDropTest.SetActive(!DragDropTest.activeSelf);
+        //DragDropTest.SetActive(!DragDropTest.activeSelf);
     }
 
     public void EnableSetting()
@@ -56,6 +57,11 @@ public class FunctionButton : MonoBehaviour
 
     public void EnableSkill() {
         Skill.SetActive(!Skill.activeSelf);
+    }
+
+    public void EnableShop()
+    {
+        Shop.SetActive(!Shop.activeSelf);
     }
     #endregion
 

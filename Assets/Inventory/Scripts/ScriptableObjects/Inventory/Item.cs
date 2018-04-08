@@ -6,6 +6,7 @@ public class Item : ScriptableObject
     public Sprite sprite;
     public int id;
     public int unit;
+    public int price;
 
     public void UpdateUnit(int increaseUnit)
     {
