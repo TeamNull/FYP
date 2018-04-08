@@ -22,6 +22,7 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private static Canvas canvas;                                                   // Canvas for item drag operation
     private static string canvasName = "DragAndDropCanvas";                         // Name of canvas
     private static int canvasSortOrder = 100;										// Sort order for canvas
+    UIController uic;
 
     /// <summary>
     /// Awake this instance.
@@ -35,6 +36,7 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = canvasSortOrder;
         }
+        uic = StaticVarAndFunction.instance.uic;
     }
 
     /// <summary>
@@ -43,7 +45,7 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (dragDisabled == false)
+        if (dragDisabled == false && uic.LocalSkill[int.Parse(name)] > 0)
         {
             sourceCell = GetCell();                                                 // Remember source cell
             draggedItem = this;                                                     // Set as dragged item

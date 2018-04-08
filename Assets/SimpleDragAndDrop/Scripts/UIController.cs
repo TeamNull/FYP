@@ -31,6 +31,7 @@ public class UIController : MonoBehaviour {
             }
             SkillUpEnabled = !SkillUpEnabled;
             ButtonText.text = SkillUpEnabled ? "Complete" : "Add";
+            DragAndDropItem.dragDisabled = SkillUpEnabled;
         }
     }
 
@@ -44,6 +45,7 @@ public class UIController : MonoBehaviour {
         }
         UpdateTitle(pa.SkillPoint);
         pa.LevelUp += PlayerLevelUp;
+        StaticVarAndFunction.instance.uic = this;
     }
 
     public void UpdateLocalSkill(int index, bool isAdd)

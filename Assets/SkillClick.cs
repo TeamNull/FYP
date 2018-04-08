@@ -9,7 +9,7 @@ public class SkillClick : MonoBehaviour, IPointerClickHandler {
 
     void Awake()
     {
-        uic = this.gameObject.transform.parent.parent.parent.GetComponent<UIController>();
+        uic = StaticVarAndFunction.instance.uic;
     }
 
     public void OnPointerClick(PointerEventData eventData)
