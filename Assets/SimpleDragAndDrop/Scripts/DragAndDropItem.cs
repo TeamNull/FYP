@@ -141,4 +141,8 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         ResetConditions();
     }
+
+    public void PerformAction() {
+        
+    }
 }

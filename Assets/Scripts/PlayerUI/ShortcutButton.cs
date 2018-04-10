@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class ShortcutButton : MonoBehaviour {
-    int key0Counter = 0;
+public class ShortcutButton : MonoBehaviour, IPointerClickHandler {
+    public int keyIndex;
     // Use this for initialization
     void Start () {
-        //Debug.Log("ShortcutBtn0");
+        
     }
 	
 	// Update is called once per frame
@@ -14,8 +15,13 @@ public class ShortcutButton : MonoBehaviour {
 		
 	}
 
-    public void ShortcutBtn()
+    public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("ShortcutKey" + key0Counter++);
+        Transform item = transform.GetChild(0);
+        if (item != null)
+        {
+            item.GetComponent<DragAndDropItem>().PerformAction();
+            Debug.Log("ShortcutKey" + keyIndex.ToString());
+        }
     }
 }
