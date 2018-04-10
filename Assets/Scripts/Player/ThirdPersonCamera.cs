@@ -3,7 +3,10 @@ using System.Collections;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
-	public float smooth = 10f;		// Camera following speed
+    public float a,b,c;
+    public float d, e, f;
+
+    public float smooth = 10f;		// Camera following speed
 	Transform standardPos;			// Camera normal position
 	Transform jumpPos;			// Jump Camera locater
 	
@@ -21,7 +24,7 @@ public class ThirdPersonCamera : MonoBehaviour
 
 		//カメラをスタートする
 		transform.position = standardPos.position;	
-		transform.forward = standardPos.forward;
+		transform.forward = standardPos.forward;        
         StaticVarAndFunction.mainCamRendered = true;
 	}
 
@@ -32,7 +35,10 @@ public class ThirdPersonCamera : MonoBehaviour
         {
             // the camera to standard position and direction
             transform.position = Vector3.Lerp(transform.position, standardPos.position, Time.fixedDeltaTime * smooth);
+            transform.position += new Vector3(0,(float)0.15,0);
+            //Vector3 temp = transform.forward + new Vector3(d, e, f);
             transform.forward = Vector3.Lerp(transform.forward, standardPos.forward, Time.fixedDeltaTime * smooth);
+            //transform.Rotate(d, e, f);
         }
         else
         {
