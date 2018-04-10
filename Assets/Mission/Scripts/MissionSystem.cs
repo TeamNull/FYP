@@ -10,7 +10,7 @@ public class MissionSystem : MonoBehaviour
     private int globalMissionID = 0;
     private int enemycount = 0;
     Mission[] mission = new Mission[missionnumber];
-
+    GameObject player;
     private bool missiontype1enemy = false;
     private bool missiontype3item = false;
     private bool vulture = false;
@@ -18,20 +18,19 @@ public class MissionSystem : MonoBehaviour
     private bool vulturecreated = false;
     private bool vultureBossecreate = false;
 
-    GameObject player;
     GameObject loadingScene;
-    
+    GameObject[] ForestGameObjectArray = SceneManager.GetSceneByName("Forest").GetRootGameObjects();
+    GameObject[] RuinsGameObjectArray = SceneManager.GetSceneByName("Ruins").GetRootGameObjects();
 
     // Use this for initialization
     void Start()
     {
-       Setmission();
-       MissionStart(globalMissionID);
-       player = StaticVarAndFunction.player;
+        Setmission();
+        MissionStart(globalMissionID);
+        player = StaticVarAndFunction.player;
 
-       GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
-       
-
+        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
+        
        foreach (GameObject go in uiGameObjectArray)    
        {
            if (go.name == "PlayerUI")            
@@ -204,9 +203,6 @@ public class MissionSystem : MonoBehaviour
 
     void Createmonster(string monstername)
     {
-        GameObject[] ForestGameObjectArray = SceneManager.GetSceneByName("Forest").GetRootGameObjects();
-        GameObject[] RuinsGameObjectArray = SceneManager.GetSceneByName("Ruins").GetRootGameObjects();
-
         if (monstername == "Vulture" && !vulturecreated)
         {
             foreach (GameObject go in ForestGameObjectArray)
