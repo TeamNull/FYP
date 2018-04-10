@@ -60,8 +60,6 @@ public class PlayerAttribute : MonoBehaviour
 
     #region Method
 
-
-
     public void TakeDamge(int damage)
     {
         if (StaticVarAndFunction.PlayerIsDead) return;
@@ -204,6 +202,10 @@ public class PlayerAttribute : MonoBehaviour
         //update attribute page
         //attributeScript.UpdatePlayerInfo();
 
+    }
+
+    public void PerformSkill(int i) {
+        
     }
 
     /*
