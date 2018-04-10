@@ -112,6 +112,7 @@ public class PlayerAttribute : MonoBehaviour
             if (LevelUp != null) LevelUp();
         }
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
+        playerUiScript.updateHP(currentHP, maxHP);
         if (isLvUp) levelUp.SetActive(true);
     }
 
