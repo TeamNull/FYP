@@ -13,7 +13,14 @@ public class MissionSystem : MonoBehaviour
     GameObject player;
     private bool missiontype1enemy = false;
     private bool missiontype3item = false;
+    private bool vulture = false;
+    private bool vultureBoss = false;
+    private bool vulturecreated = false;
+    private bool vultureBossecreate = false;
+
     GameObject loadingScene;
+    GameObject[] ForestGameObjectArray = SceneManager.GetSceneByName("Forest").GetRootGameObjects();
+    GameObject[] RuinsGameObjectArray = SceneManager.GetSceneByName("Ruins").GetRootGameObjects();
 
     // Use this for initialization
     void Start()
@@ -21,16 +28,20 @@ public class MissionSystem : MonoBehaviour
         Setmission();
         MissionStart(globalMissionID);
         player = StaticVarAndFunction.player;
-        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
-        foreach (GameObject go in uiGameObjectArray)
-        {
-            if (go.name == "PlayerUI")
-            {
-                loadingScene = go.transform.Find("Loading Scene").gameObject;
-            }
-        }
-    }
 
+        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
+        
+       foreach (GameObject go in uiGameObjectArray)    
+       {
+           if (go.name == "PlayerUI")            
+           {  
+               loadingScene = go.transform.Find("Loading Scene").gameObject;       
+           }           
+       }
+    }
+    public GameObject vulture1;
+    public Scene forest;
+    public Scene ruins;
     public Text titletext; // mission number of the mission
     public Text descriptiontext; // the text show on the mission canves
     public Text requirementtext;
@@ -40,49 +51,50 @@ public class MissionSystem : MonoBehaviour
     public const int missionnumber = 24; // totoal mission number 
 
 
-    void ChangeScene(Vector3 v, Quaternion q, string to, string from)
-    {
-        StartCoroutine(LoadScene(to, v, q));
-        StartCoroutine(UnloadScene(from));
-    }
+    void ChangeScene(Vector3 v, Quaternion q, string to, string from)	
+   {	
+       StartCoroutine(LoadScene(to, v, q));	
+       StartCoroutine(UnloadScene(from));
+   }
+   IEnumerator UnloadScene(string sceneName)
+   {
+       AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
+       while (!unloadForest.isDone)
+       {
+           yield return null;
+       }	
+       loadingScene.SetActive(false);
+       StaticVarAndFunction.isLoading = false;	
+   }
 
-    IEnumerator UnloadScene(string sceneName)
-    {
-        AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
-        while (!unloadForest.isDone)
-        {
-            yield return null;
-        }
-        loadingScene.SetActive(false);
-        StaticVarAndFunction.isLoading = false;
-    }
+   IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
+   {
+       loadingScene.SetActive(true);	
+       StaticVarAndFunction.isLoading = true;	
+       AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);	
+       while (!loadVillage.isDone)
+       {
+           yield return null;
+       }
+       SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));	
+       if (sceneName == "Forest")	
+       {	
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();	
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init();	
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();	
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[3].GetComponent<EnemyManager>().Init(); //boss
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
+       }	
+       if (sceneName == "Ruins")	
+       {
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
+           SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init(); //boss
 
-    IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
-    {
-        loadingScene.SetActive(true);
-        StaticVarAndFunction.isLoading = true;
-        AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
-        while (!loadVillage.isDone)
-        {
-            yield return null;
-        }
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-        if (sceneName == "Forest")
-        {
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init();
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[2].GetComponent<EnemyManager>().Init();
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[3].GetComponent<EnemyManager>().Init(); //boss
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<Weather>().SwitchSkyBox(3);
-        }
-        if (sceneName == "Ruins")
-        {
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[0].GetComponent<EnemyManager>().Init();
-            SceneManager.GetSceneByName(sceneName).GetRootGameObjects()[1].GetComponent<EnemyManager>().Init(); //boss
-        }
-        player.transform.position = v3;
-        player.transform.rotation = q;
-    }
+       }	
+       player.transform.position = v3;	
+       player.transform.rotation = q;	
+   }
+
 
     void SetglobalMissionID(int missionID)
     {
@@ -112,7 +124,7 @@ public class MissionSystem : MonoBehaviour
 
         mission[2] = new MissionTypeNPC(2, 2, "Find the Chief of the warrior", "Find a path to Chief of the warrior", "Chief of the warrior", "Villiage", false);
 
-        mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "spider(Clone)", 3, "Chief of the warrior", "Forest", false);
+        mission[3] = new MissionTypeEnemy(3, 1, "Go to forest and kill 3 Spiders", "Kill 3 Spiders and report to the Chief of the warrior", "Minotaur(Clone)", 3, "Chief of the warrior", "Forest", false);
 
         mission[4] = new MissionTypeItem(4, 3, "Collect item 1", "Go to the village and pick up item 1", 100, "Village", false); // wait for the item list complete
 
@@ -155,28 +167,13 @@ public class MissionSystem : MonoBehaviour
     void MissionStart(int missionID)
     {
         globalMissionID = missionID;
+
         titletext.text = "Mission " + (missionID + 1).ToString();
+
         descriptiontext.text = mission[missionID].Getdescription();
+
         requirementtext.text = mission[missionID].Getrequirement();
-        //Debug.Log("this is global" + globalMissionID);
-        //Debug.Log("this is missionID" + mission[missionID].GetmissionID());
-        /*       if (mission[missionID].Gettype() == 0)
-               {
 
-                   descriptiontext.text = mission[missionID].Getdescription();
-
-                   //GameObject[] uiGameObjectArray = SceneManager.GetSceneByName(mission[missionID].Getscene()).GetRootGameObjects();
-                   //foreach (GameObject target in uiGameObjectArray)
-                   //{
-                   //    if (target.name == mission[missionID].Getrectname())
-                   //    {
-                   //        target.SetActive(true);
-                   //    }
-                   //}
-                   return;
-               }
-
-        */
         if (mission[missionID].Gettype() == 1)
         {
             progresstext.text = enemycount.ToString() + " out of " + mission[globalMissionID].Getcountcdienum().ToString();
@@ -187,12 +184,74 @@ public class MissionSystem : MonoBehaviour
 
     }
 
+    public void Thebossmonsterisdead(string monstername)
+    {
+        if (monstername == "Vulture")
+        {
+            vulture = true;
+            //teleport function(x , y , scene); 
+            MissionComplete(globalMissionID);
+        }
 
+        if (monstername == "VultureBoss")
+        {
+            vultureBoss = true;
+
+            MissionComplete(globalMissionID);
+        }
+    }
+
+    void Createmonster(string monstername)
+    {
+        if (monstername == "Vulture" && !vulturecreated)
+        {
+            foreach (GameObject go in ForestGameObjectArray)
+            {
+                if (go.name == monstername)
+                {
+                    go.SetActive(true);
+                    vulturecreated = true;
+                }
+            }
+        }
+
+        if (monstername == "vultureBosse" && !vultureBossecreate)
+        {
+            foreach (GameObject go in RuinsGameObjectArray)
+            {
+                if (go.name == monstername)
+                {
+                    go.SetActive(true);
+                    vultureBossecreate = true;
+                }
+            }
+        }
+    }
+
+    public void Missiontype0handling(string npcname)
+    {
+
+        if (mission[globalMissionID].Gettype() == 0 && globalMissionID == 6)
+        {
+            MissionComplete(globalMissionID);
+        }
+
+    }
     void OnTriggerEnter(Collider other) // missiontype0
     {
 
-        if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
+        if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0 && globalMissionID != 6)
         {
+            if (globalMissionID == 5)
+            {
+                Createmonster("Vulture");
+            }
+
+            if (globalMissionID == 18)
+            {
+                Createmonster("VultureBoss");
+            }
+
             MissionComplete(globalMissionID);
             return;
         }
@@ -215,10 +274,8 @@ public class MissionSystem : MonoBehaviour
                     Debug.Log(missiontype1enemy);
                     enemycount = 0;
                     progresstext.text = "completed";
-                    //Missiontype1handling(mission[globalMissionID].Getreportnpc());
-                    //MissionComplete(globalMissionID);
                 }
-                //Debug.Log("this is " + enemycount);
+
 
             }
         }
@@ -287,12 +344,10 @@ public class MissionSystem : MonoBehaviour
             {
                 player = StaticVarAndFunction.player;
             }
-            //player.GetComponent<Story>().Loadstory(globalMissionID);
             if (globalMissionID != 5 && globalMissionID != 6 && globalMissionID != 9 && globalMissionID != 18)
             {
                 player.GetComponent<Story>().Callstory(globalMissionID);
             }
-            //player.GetComponent<Story>().Callstory(globalMissionID);
             progresstext.text = "";
             missionID++;
             MissionStart(missionID);
