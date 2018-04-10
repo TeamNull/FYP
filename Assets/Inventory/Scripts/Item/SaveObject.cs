@@ -26,7 +26,7 @@ public class SaveObject : MonoBehaviour
             {
                 //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
                 //Debug.Log(hit.transform.name);
-                if (hit.distance <= 5)
+                if (hit.distance <= 50)
                 {
                     if (hit.transform.gameObject == this.gameObject)
                     {
