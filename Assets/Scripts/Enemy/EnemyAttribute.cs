@@ -88,11 +88,7 @@ public class EnemyAttribute : MonoBehaviour
             currentHealth = 0;
             anim.SetTrigger("Dead");
             player.GetComponent<PlayerAttribute>().GainExp(exp, currentLevel);
-            if (this.gameObject.transform.name == "Vulture" || this.gameObject.transform.name == "VultureBoss")
-            {
-                player.GetComponent<MissionSystem>().Thebossmonsterisdead(this.gameObject.transform.name);
-            }
-            //print(this.gameObject.transform.name);
+            print(this.gameObject.transform.name);
             player.GetComponent<MissionSystem>().Missiontype1(1, this.gameObject.transform.name);
             if (EnemyDeath != null) EnemyDeath();
             for (int i = 0; i < DropItemList.Count; i++) {
