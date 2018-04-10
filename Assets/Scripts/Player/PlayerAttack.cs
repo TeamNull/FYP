@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerAttack : MonoBehaviour
 {
-
     public bool isAttacking = false;
     public emitPoint emitPoint;
     public EnemyStatus es;
@@ -71,5 +70,9 @@ public class PlayerAttack : MonoBehaviour
     public void AttackEnd()
     {
         isAttacking = false;
+    }
+
+    public void UseSkill(int skillNumber) {
+        
     }
 }

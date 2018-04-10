@@ -205,10 +205,6 @@ public class PlayerAttribute : MonoBehaviour
 
     }
 
-    public void PerformSkill(int i) {
-        
-    }
-
     /*
     delegate int PointDekegate(int originalPoint, int playerPoint);
     delegate int ValueDelegate(int originalValue, int playerValue);

@@ -12,16 +12,19 @@ public class ShortcutButton : MonoBehaviour, IPointerClickHandler {
 	
 	// Update is called once per frame
 	void Update () {
-		
+        if (Input.GetKeyUp(keyIndex.ToString())) {
+            OnPointerClick(null);
+        }
 	}
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Transform item = transform.GetChild(0);
-        if (item != null)
+        Debug.Log("ShortcutKey" + keyIndex.ToString());
+        int childNum = transform.childCount;
+        if (childNum != 0)
         {
-            item.GetComponent<DragAndDropItem>().PerformAction();
-            Debug.Log("ShortcutKey" + keyIndex.ToString());
+            transform.GetChild(0).GetComponent<DragAndDropItem>().PerformAction();
+
         }
     }
 }
