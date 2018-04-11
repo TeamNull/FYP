@@ -15,10 +15,10 @@ public class InGameLog : MonoBehaviour {
             logList[i].GetComponent<Text>().text="";
         }
         logList.OrderBy(x => x.name);
-        for (int i = 0; i < totalLogNum; i++)
-        {
-            AddLog("");
-        }
+        GameManager.inGameLog = this;
+        GameManager.inGameLog.AddLog("Welcome to this world.",Color.blue);
+        GameManager.inGameLog.AddLog("Here is a gift for you.", Color.blue);
+        GameManager.inGameLog.AddLog("You have earned 10 coins.", Color.yellow);
     }
 	
 	// Update is called once per frame
@@ -26,11 +26,12 @@ public class InGameLog : MonoBehaviour {
 		
 	}
 
-    public void AddLog(string logText) {
+    public void AddLog(string logText, Color textColor) {
         for (int i = totalLogNum-1; i > 0; i--)
         {
             logList[i].GetComponent<Text>().text = logList[i-1].GetComponent<Text>().text;            
         }
         logList[0].GetComponent<Text>().text = logText;
+        logList[0].GetComponent<Text>().color = textColor;
     }
 }

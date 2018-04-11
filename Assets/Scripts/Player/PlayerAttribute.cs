@@ -94,15 +94,22 @@ public class PlayerAttribute : MonoBehaviour
         currentExp += sourceExp;
         totalExp += sourceExp;
         //check if level up
+        string tempLogText = "You have earned "+sourceExp+" EXP.";
+        GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.",Color.blue);
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
-            float expCoefficient = 1 + (currentLevel / 10) * 0.1f - ((currentLevel % 10) * 0.01f * (currentLevel / 10));
-            if (currentLevel < 10)
+            //Debug.Log("cur lv " + currentLevel+ " cur lv/10 " + (currentLevel / 10)+ " cur lv%10 " + (currentLevel % 10));
+            float expCoeLvRange = 3-(currentLevel / 10);
+            float expCoeLvTune = 10-(currentLevel % 10);
+            if (currentLevel >= 30)
             {
-                expCoefficient = 2 - 0.1f * currentLevel;
+                expCoeLvRange = (currentLevel / 10);
+                expCoeLvTune = (currentLevel % 10);
             }
-            needExp = (int)Mathf.Floor((baseExp * Mathf.Pow(expCoefficient, currentLevel)));
+            float expCoefficient = 1 + expCoeLvRange * 0.05f + expCoeLvTune * 0.005f;
+            needExp = (int)Mathf.Floor(needExp* expCoefficient);
+            Debug.Log("lv "+currentLevel+"needed " + needExp);
             currentLevel++;
             isLvUp = true;
             AvailablePoint += 5;
@@ -114,6 +121,7 @@ public class PlayerAttribute : MonoBehaviour
         playerUiScript.updateEXP(currentLevel, currentExp, needExp, isLvUp);
         playerUiScript.updateHP(currentHP, maxHP);
         if (isLvUp) levelUp.SetActive(true);
+        isLvUp = false;
     }
 
     //initial

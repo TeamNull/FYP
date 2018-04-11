@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static Inventory inventory;
     public static ArmedEquipment armedEquipment;
     public static bool mainCamRendered;
+    public static InGameLog inGameLog;
     public UIController uic;
     //public static Item[] itemlist;
 
