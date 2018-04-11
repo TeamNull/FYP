@@ -31,7 +31,7 @@ public class Arrow1 : MonoBehaviour {
 
     private void Awake()
     {
-        player = StaticVarAndFunction.player;        
+        player = GameManager.player;        
         playerAttribute = player.GetComponent<PlayerAttribute>();
         //transform.rotation = Quaternion.LookRotation(ridigB.velocity);
     }

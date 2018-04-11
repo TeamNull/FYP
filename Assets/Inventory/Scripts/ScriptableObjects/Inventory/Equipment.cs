@@ -28,8 +28,8 @@ public class Equipment : Item
     }
 
     public override void ApplyAction() {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
-        ae = StaticVarAndFunction.armedEquipment;
+        pa = GameManager.player.GetComponent<PlayerAttribute>();
+        ae = GameManager.armedEquipment;
         //Debug.Log("applyaction in equipment");
         pa.maxHP += hp;
         pa.currentHP += hp;
@@ -47,7 +47,7 @@ public class Equipment : Item
     }
 
     public void RemoveAction() {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        pa = GameManager.player.GetComponent<PlayerAttribute>();
         pa.additionalHP -= hp;
         pa.currentHP -= hp;
         pa.additionalMP -= mp;

@@ -37,7 +37,7 @@ public class UIController : MonoBehaviour {
 
     public void InitSkillUI()
     {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        pa = GameManager.player.GetComponent<PlayerAttribute>();
         for (int i = 0; i < 6; i++)
         {
             LocalSkill[i] = pa.Skill[i];
@@ -45,7 +45,7 @@ public class UIController : MonoBehaviour {
         }
         UpdateTitle(pa.SkillPoint);
         pa.LevelUp += PlayerLevelUp;
-        StaticVarAndFunction.instance.uic = this;
+        GameManager.Instance.uic = this;
     }
 
     public void UpdateLocalSkill(int index, bool isAdd)

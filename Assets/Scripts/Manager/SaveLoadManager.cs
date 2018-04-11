@@ -24,7 +24,7 @@ public class SaveLoadManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        player = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        player = GameManager.player.GetComponent<PlayerAttribute>();
         builder = new SqlConnectionStringBuilder
         {
             DataSource = "team-null-fyp.database.windows.net",
@@ -43,10 +43,10 @@ public class SaveLoadManager : MonoBehaviour
         {
             //Todo: Show save success message;
             LoadingScreen.SetActive(true);
-            StaticVarAndFunction.isLoading = true;
+            GameManager.isLoading = true;
             saveBtnClicked = false;
             bool isSuccess = Save();
-            StaticVarAndFunction.isLoading = false;
+            GameManager.isLoading = false;
             LoadingScreen.SetActive(false);
             Debug.Log("Save" + isSuccess);
 
@@ -56,10 +56,10 @@ public class SaveLoadManager : MonoBehaviour
         {
             //Todo: Show load success message;
             LoadingScreen.SetActive(true);
-            StaticVarAndFunction.isLoading = true;
+            GameManager.isLoading = true;
             loadBtnClicked = false;
             bool isSuccess = Load();
-            StaticVarAndFunction.isLoading = false;
+            GameManager.isLoading = false;
             LoadingScreen.SetActive(false);
             Debug.Log("Load" + isSuccess);
 
@@ -257,8 +257,8 @@ public class SaveLoadManager : MonoBehaviour
                 //Save Player Attribute
                 sb.Append("Update Player Set PlayerLevel = " + player.currentLevel.ToString() + ", Exp = " + player.currentExp.ToString() +
                           ", STR = " + player.str.ToString() + ", _Int = " + player._int.ToString() + ", Agi = " + player.agi.ToString() +
-                          ", AVBLPOINT = " + player.AvailablePoint.ToString() + ", Position_x = " + StaticVarAndFunction.player.transform.position.x.ToString() +
-                          ", Position_y = " + StaticVarAndFunction.player.transform.position.y.ToString() + ", Position_z = " + StaticVarAndFunction.player.transform.position.z.ToString() +
+                          ", AVBLPOINT = " + player.AvailablePoint.ToString() + ", Position_x = " + GameManager.player.transform.position.x.ToString() +
+                          ", Position_y = " + GameManager.player.transform.position.y.ToString() + ", Position_z = " + GameManager.player.transform.position.z.ToString() +
                           ", Scene = '" + SceneManager.GetActiveScene().name + "', HP = " + player.currentHP.ToString() + ", MP = " + player.currentMP.ToString() +
                           ", Job = '" + player.job.ToString() + "' WHERE ID = '" + id + "'");
                 string attribute = sb.ToString();

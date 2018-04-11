@@ -19,7 +19,7 @@ public class ArmedEquipment : MonoBehaviour
 
     private void Awake()
     {
-        StaticVarAndFunction.armedEquipment = this;
+        GameManager.armedEquipment = this;
     }
 
     private void Start()
@@ -32,7 +32,7 @@ public class ArmedEquipment : MonoBehaviour
             equipmentUIList[i] = transform.GetChild(i);
         }
         //equipmentUIList.OrderBy(x => x.name);
-        bag = StaticVarAndFunction.bag;
+        bag = GameManager.bag;
     }
 
     public void ApplyEquipment(Equipment Equipment)

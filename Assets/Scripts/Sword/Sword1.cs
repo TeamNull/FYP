@@ -12,7 +12,7 @@ public class Sword1 : MonoBehaviour {
 
     private void Awake()
     {
-        player = StaticVarAndFunction.player;
+        player = GameManager.player;
         playerAttack = player.GetComponent<PlayerAttack>();
         playerAttribute = player.GetComponent<PlayerAttribute>();
     }

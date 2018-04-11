@@ -12,7 +12,7 @@ public class InventoryGrid : MonoBehaviour, IPointerClickHandler {
     void Start()
     {
         gridId = int.Parse(name);
-        inventory = StaticVarAndFunction.inventory;
+        inventory = GameManager.inventory;
     }
 
     // Update is called once per frame

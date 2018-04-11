@@ -27,7 +27,7 @@ public class MissionSystem : MonoBehaviour
     {
         Setmission();
         MissionStart(globalMissionID);
-        player = StaticVarAndFunction.player;
+        player = GameManager.player;
 
         GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
 
@@ -68,13 +68,13 @@ public class MissionSystem : MonoBehaviour
             yield return null;
         }
         loadingScene.SetActive(false);
-        StaticVarAndFunction.isLoading = false;
+        GameManager.isLoading = false;
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
         loadingScene.SetActive(true);
-        StaticVarAndFunction.isLoading = true;
+        GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
         {
@@ -180,7 +180,7 @@ public class MissionSystem : MonoBehaviour
         Vector3 destinationPosition2 = new Vector3();
         Quaternion destinationQuaternion = new Quaternion();
         Transform playerTransform;
-        playerTransform = StaticVarAndFunction.player.transform;
+        playerTransform = GameManager.player.transform;
 
         destinationPosition1 = new Vector3(-12.37f, 0f, -20.72f);
         destinationPosition2 = new Vector3(-1.21f, 0f, -14.11f);
@@ -354,7 +354,7 @@ public class MissionSystem : MonoBehaviour
         {
             if (player == null)
             {
-                player = StaticVarAndFunction.player;
+                player = GameManager.player;
             }
             if (missionID != 5 || missionID != 18)
             {

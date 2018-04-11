@@ -62,21 +62,21 @@ public class PlayerAttribute : MonoBehaviour
 
     public void TakeDamge(int damage)
     {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+        if (GameManager.PlayerIsDead) return;
 
         currentHP -= ((damage - def) > 1) ? (damage - def) : 1;
         playerUiScript.updateHP(currentHP, maxHP);
         anim.SetTrigger("Damaged");
         if (currentHP <= 0)
         {
-            StaticVarAndFunction.PlayerIsDead = true;
+            GameManager.PlayerIsDead = true;
             anim.SetTrigger("Dead");
         }
     }
 
     public void ConsumeMP(int value)
     {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+        if (GameManager.PlayerIsDead) return;
 
         currentMP -= value;
         playerUiScript.updateHP(currentMP, maxMP);
@@ -84,7 +84,7 @@ public class PlayerAttribute : MonoBehaviour
 
     public void GainExp(int sourceExp, int sourceLevel)
     {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+        if (GameManager.PlayerIsDead) return;
         //penalty and bonus for the level difference between player and monster
         //if sourceLevel==0 which is mission, no penaly or bonus will be apply
         float temp = sourceExp;

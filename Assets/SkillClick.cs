@@ -9,7 +9,7 @@ public class SkillClick : MonoBehaviour, IPointerClickHandler {
 
     void Awake()
     {
-        uic = StaticVarAndFunction.instance.uic;
+        uic = GameManager.Instance.uic;
     }
 
     public void OnPointerClick(PointerEventData eventData)

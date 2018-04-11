@@ -71,7 +71,7 @@ public class CreateNewCharacter : MonoBehaviour
     public void ConfirmSelection()
     {
         nameOfPlayer = temp.text;
-        StaticVarAndFunction.isLoading = true;
+        GameManager.isLoading = true;
         StartCoroutine(LoadVillage());
         StartCoroutine(LoadUI());
         //StartCoroutine(UnloadNewCharacter());
@@ -116,7 +116,7 @@ public class CreateNewCharacter : MonoBehaviour
                 icon.SetActive(false);
             }
         }
-        StaticVarAndFunction.SetPlayer();
+        GameManager.SetPlayer();
         GameObject mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         ThirdPersonCamera thirdPersonCamera = mainCamera.GetComponent<ThirdPersonCamera>();
         thirdPersonCamera.SetCamPos();
@@ -124,7 +124,7 @@ public class CreateNewCharacter : MonoBehaviour
         miniMapCamera.Init();
         SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.Find("Skill").GetComponent<UIController>().InitSkillUI();
         //StaticVarAndFunction.UnloadNewCharacter();
-        StaticVarAndFunction.isLoading = false;
+        GameManager.isLoading = false;
         Destroy(this.gameObject);
     }
 

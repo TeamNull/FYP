@@ -14,7 +14,7 @@ public class NPCresponse : MonoBehaviour {
 
     void Start()
     {
-        player = StaticVarAndFunction.player;     
+        player = GameManager.player;     
     }
 
 
@@ -24,7 +24,7 @@ public class NPCresponse : MonoBehaviour {
         //Debug.Log(scene.name);
         if(player == null)
         {
-            player = StaticVarAndFunction.player;
+            player = GameManager.player;
         }
 
         dist = Vector3.Distance(player.transform.position, this.transform.position);

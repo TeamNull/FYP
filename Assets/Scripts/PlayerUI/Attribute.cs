@@ -16,7 +16,7 @@ public class Attribute : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();      
+        pa = GameManager.player.GetComponent<PlayerAttribute>();      
         pa.LevelUp += UpdatePlayerInfo;
         UpdatePlayerInfo();
     }

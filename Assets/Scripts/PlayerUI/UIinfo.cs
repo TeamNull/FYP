@@ -65,7 +65,7 @@ public class UIinfo : MonoBehaviour
         {
             yield return null;
         }
-        StaticVarAndFunction.isLoading = false;
+        GameManager.isLoading = false;
     }
 
 }
