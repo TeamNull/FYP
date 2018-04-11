@@ -14,7 +14,7 @@ public class Bag : MonoBehaviour
 
     private void Awake()
     {
-        StaticVarAndFunction.bag = this;
+        GameManager.bag = this;
     }
 
     private void Start()
@@ -38,7 +38,7 @@ public class Bag : MonoBehaviour
             {
                 if (player == null)
                 {
-                    player = StaticVarAndFunction.player;
+                    player = GameManager.player;
                 }
                 player.GetComponent<MissionSystem>().Missiontype3(item.id);
                 itemList[i].UpdateUnit(unit);
@@ -57,7 +57,7 @@ public class Bag : MonoBehaviour
         itemInBag++;
         if (player == null)
         {
-           player = StaticVarAndFunction.player;
+           player = GameManager.player;
         }
         player.GetComponent<MissionSystem>().Missiontype3(item.id);
     }
@@ -66,11 +66,11 @@ public class Bag : MonoBehaviour
     {
         if (itemInBag == 0 || bagId + 1 > itemInBag) return;
 
-        if (StaticVarAndFunction.inventory != null)
+        if (GameManager.inventory != null)
         {
-            if (StaticVarAndFunction.inventory.transform.parent.gameObject.activeSelf == true)
+            if (GameManager.inventory.transform.parent.gameObject.activeSelf == true)
             {
-                StaticVarAndFunction.inventory.AddItem(itemList[bagId], 1);
+                GameManager.inventory.AddItem(itemList[bagId], 1);
             }
         }
 

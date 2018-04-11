@@ -40,7 +40,7 @@ public class emitPoint : MonoBehaviour {
     }
 
     public void AttackByShoot() {
-        player = StaticVarAndFunction.player;
+        player = GameManager.player;
         playerAttack = player.GetComponent<PlayerAttack>();
         GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);        
         cloneArrow.transform.position = theEmitPoint;

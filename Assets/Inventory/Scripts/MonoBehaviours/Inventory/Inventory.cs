@@ -14,7 +14,7 @@ public class Inventory : MonoBehaviour {
 
     private void Awake()
     {
-        StaticVarAndFunction.inventory = this;
+        GameManager.inventory = this;
     }
 
     private void Start()

@@ -27,7 +27,7 @@ public class LoadSceneManager : MonoBehaviour
                 loadingScene = go.transform.Find("Loading Scene").gameObject;
             }
         }
-        playerTransform = StaticVarAndFunction.player.transform;
+        playerTransform = GameManager.player.transform;
         initialized = true;
     }
 
@@ -93,14 +93,14 @@ public class LoadSceneManager : MonoBehaviour
             yield return null;
         }
         loadingScene.SetActive(false);
-        StaticVarAndFunction.isLoading = false;
+        GameManager.isLoading = false;
         Destroy(this.gameObject);
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
         loadingScene.SetActive(true);
-        StaticVarAndFunction.isLoading = true;
+        GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
         {

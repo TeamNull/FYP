@@ -72,7 +72,7 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 // 以下、メイン処理.リジッドボディと絡めるので、FixedUpdate内で処理を行う.
 	void FixedUpdate ()
 	{
-        if (StaticVarAndFunction.PlayerIsDead || this.GetComponent<PlayerAttack>().isAttacking || StaticVarAndFunction.isLoading) return;
+        if (GameManager.PlayerIsDead || this.GetComponent<PlayerAttack>().isAttacking || GameManager.isLoading) return;
 		float h = Input.GetAxis("Horizontal");				// 入力デバイスの水平軸をhで定義
 		float v = Input.GetAxis("Vertical");				// 入力デバイスの垂直軸をvで定義
 		anim.SetFloat("Speed", v);							// Animator側で設定している"Speed"パラメタにvを渡す

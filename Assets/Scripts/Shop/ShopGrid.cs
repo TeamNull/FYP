@@ -37,7 +37,7 @@ public class ShopGrid : MonoBehaviour
             if (coin.unit >= item.price) {
                 coin.unit -= item.price;
                 //item.unit++;
-                StaticVarAndFunction.bag.AddItem(item,1);
+                GameManager.bag.AddItem(item,1);
             }                       
         }
     }

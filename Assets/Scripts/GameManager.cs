@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticVarAndFunction : MonoBehaviour
+public class GameManager : MonoBehaviour
 {
-    public static StaticVarAndFunction instance = null;
+    private static GameManager instance;
     public static bool PlayerIsDead;
     public static bool isLoading;
     //public static GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -16,23 +16,18 @@ public class StaticVarAndFunction : MonoBehaviour
     public UIController uic;
     //public static Item[] itemlist;
 
-    // Use this for initialization
-    void Awake()
+    private GameManager() {}
+
+    public static GameManager Instance
     {
-        //Check if instance already exists
-        if (instance == null)
-
-            //if not, set instance to this
-            instance = this;
-
-        //If instance already exists and it's not this:
-        else if (instance != this)
-
-            //Then destroy this. This enforces our singleton pattern, meaning there can only ever be one instance of a GameManager.
-            Destroy(gameObject);
-
-        //Sets this to not be destroyed when reloading scene
-        DontDestroyOnLoad(gameObject);
+        get
+        {
+            if (instance == null)
+            {
+                instance = new GameManager();
+            }
+            return instance;
+        }
     }
 
     // Update is called once per frame

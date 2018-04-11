@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= pa.attackSpeed && !StaticVarAndFunction.PlayerIsDead && !StaticVarAndFunction.isLoading && !EventSystem.current.IsPointerOverGameObject())
+        if (Input.GetButton("Fire1") && timer >= pa.attackSpeed && !GameManager.PlayerIsDead && !GameManager.isLoading && !EventSystem.current.IsPointerOverGameObject())
         {
             isAttacking = true;
             if (pa.job == PlayerAttribute.Classes.Warrior)

@@ -20,7 +20,7 @@ public class Potion : Item {
 
     public override void ApplyAction()
     {
-        pa = StaticVarAndFunction.player.GetComponent<PlayerAttribute>();
+        pa = GameManager.player.GetComponent<PlayerAttribute>();
         
         //Debug.Log("applyaction in equipment");
         pa.currentHP += hp;

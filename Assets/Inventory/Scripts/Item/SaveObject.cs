@@ -18,7 +18,7 @@ public class SaveObject : MonoBehaviour
 
     void Update()
     {
-        if (StaticVarAndFunction.mainCamRendered)
+        if (GameManager.mainCamRendered)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
@@ -32,7 +32,7 @@ public class SaveObject : MonoBehaviour
                     {
                         if (item.id != 0)
                         {
-                            bag = StaticVarAndFunction.bag;
+                            bag = GameManager.bag;
                             bag.AddItem(item, unit);
                         }
                         else

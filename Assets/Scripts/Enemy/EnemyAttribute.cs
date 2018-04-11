@@ -36,7 +36,7 @@ public class EnemyAttribute : MonoBehaviour
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
-        player = StaticVarAndFunction.player;
+        player = GameManager.player;
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         spawnPoint = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         spawnQuaternion = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z, this.transform.rotation.w);
@@ -45,7 +45,7 @@ public class EnemyAttribute : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (StaticVarAndFunction.PlayerIsDead) return;
+        if (GameManager.PlayerIsDead) return;
         timer += Time.deltaTime;
         if (Vector3.Distance(player.transform.position, transform.position) < 2)
         {

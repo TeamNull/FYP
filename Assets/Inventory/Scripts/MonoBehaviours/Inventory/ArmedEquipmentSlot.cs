@@ -17,7 +17,7 @@ public class ArmedEquipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerE
     void Start()
     {
         slotId = int.Parse(name);
-        armedEquipment = StaticVarAndFunction.armedEquipment;
+        armedEquipment = GameManager.armedEquipment;
     }
 
     // Update is called once per frame

@@ -16,7 +16,7 @@ public class BagGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 	// Use this for initialization
 	void Start () {
         gridId = int.Parse(name);
-        bag = StaticVarAndFunction.bag;
+        bag = GameManager.bag;
 	}
 	
 	// Update is called once per frame

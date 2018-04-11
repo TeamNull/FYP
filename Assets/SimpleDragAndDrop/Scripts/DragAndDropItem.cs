@@ -36,7 +36,7 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.sortingOrder = canvasSortOrder;
         }
-        uic = StaticVarAndFunction.instance.uic;
+        uic = GameManager.Instance.uic;
     }
 
     /// <summary>
@@ -143,6 +143,6 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     }
 
     public void PerformAction() {
-        StaticVarAndFunction.player.GetComponent<PlayerAttack>();
+        GameManager.player.GetComponent<PlayerAttack>();
     }
 }

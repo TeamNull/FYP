@@ -69,7 +69,7 @@ public class Missionboard : MonoBehaviour
 
     void Update()
     {
-        if (StaticVarAndFunction.mainCamRendered)
+        if (GameManager.mainCamRendered)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
