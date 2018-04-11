@@ -87,6 +87,8 @@ public class LoadSceneManager : MonoBehaviour
 
     IEnumerator UnloadScene(string sceneName)
     {
+        GameObject[] goArray = GameObject.FindGameObjectsWithTag("Portal");
+
         AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
         while (!unloadForest.isDone)
         {
@@ -94,7 +96,11 @@ public class LoadSceneManager : MonoBehaviour
         }
         loadingScene.SetActive(false);
         GameManager.isLoading = false;
-        Destroy(this.gameObject);
+        foreach(GameObject go in goArray) {
+            if (go.GetComponent<LoadSceneManager>().from == sceneName) {
+                Destroy(go);
+            }
+        }
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)

@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour
     public UIController uic;
     //public static Item[] itemlist;
 
-    private GameManager() {}
+    void Awake() {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public static GameManager Instance
     {
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = new GameManager();
+                instance = new GameObject("Game").AddComponent<GameManager>();
             }
             return instance;
         }
