@@ -39,7 +39,8 @@ public class MissionSystem : MonoBehaviour
             }
         }
     }
-    public GameObject vulture1;
+
+
     public Scene forest;
     public Scene ruins;
     public Text titletext; // mission number of the mission
