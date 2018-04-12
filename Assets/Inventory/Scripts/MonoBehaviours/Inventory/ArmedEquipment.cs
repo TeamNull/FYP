@@ -42,8 +42,9 @@ public class ArmedEquipment : MonoBehaviour
         }
         equipmentList[Equipment.equipmentType] = Equipment;
         equipmentUIList[Equipment.equipmentType].GetComponent<RawImage>().enabled = false;        
-        equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().sprite = Equipment.sprite;
-        equipmentUIList[Equipment.equipmentType].GetChild(1).GetComponent<Image>().enabled = true;
+        equipmentUIList[Equipment.equipmentType].GetChild(2).GetComponent<Image>().sprite = Equipment.sprite;
+        equipmentUIList[Equipment.equipmentType].GetChild(2).GetComponent<Image>().enabled = true;
+        equipmentUIList[Equipment.equipmentType].GetChild(1).gameObject.SetActive(true);
         equipmentUIList[Equipment.equipmentType].GetComponent<ArmedEquipmentSlot>().item = Equipment;
         //itemUIList[i].GetComponent<ShopGrid>().item = goods[i];
     }
@@ -54,7 +55,8 @@ public class ArmedEquipment : MonoBehaviour
         bag.AddItem(equipmentList[bagId],1);
         equipmentList[bagId]=null;
         
-        equipmentUIList[bagId].GetChild(1).GetComponent<Image>().enabled = false;
+        equipmentUIList[bagId].GetChild(2).GetComponent<Image>().enabled = false;
+        equipmentUIList[bagId].GetChild(1).gameObject.SetActive(true);
         equipmentUIList[bagId].GetComponent<RawImage>().enabled = true;
     }
 
