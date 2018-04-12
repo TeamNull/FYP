@@ -7,7 +7,10 @@ public class Item : ScriptableObject
     public int id;
     public int unit;
     public int price;
+    public string name = "default";
     public string description="default";
+
+    //public GameObject<TextAreaAttribute> description;
 
     public void UpdateUnit(int increaseUnit)
     {
