@@ -12,7 +12,7 @@ public class Arrow1 : MonoBehaviour {
     public int b = 0;
     public int c = 0;
     public EnemyStatus es;
-
+    public float controlTimer = 0.2f;
     GameObject player;
     //PlayerAttack playerAttack;
     PlayerAttribute playerAttribute;
@@ -20,6 +20,7 @@ public class Arrow1 : MonoBehaviour {
     Rigidbody ridigB;
 
     bool isColl=false;
+    float timer = 0f;
 
     // Use this for initialization
     void Start () {        
@@ -37,11 +38,14 @@ public class Arrow1 : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update () {        
-        if(!isColl)transform.Translate(Vector3.left* theSpeed*Time.deltaTime);
-        
-        if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
+    void Update () {
+        timer += Time.deltaTime;
+        if (timer >= controlTimer)
+        {
+            if (!isColl) transform.Translate(Vector3.left * theSpeed * Time.deltaTime);
 
+            if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
+        }
 	}
 
     void OnTriggerEnter(Collider other)
