@@ -62,6 +62,7 @@ public class FunctionButton : MonoBehaviour
     public void EnableShop()
     {
         Shop.SetActive(!Shop.activeSelf);
+        Bag.SetActive(Shop.activeSelf);
     }
     #endregion
 
