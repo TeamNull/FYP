@@ -14,6 +14,7 @@ public class ShopGrid : MonoBehaviour
     public Item item;
     //public static int tempCount = 0;
     public GameObject popUp;
+    public GameObject coinText;
     
     // Use this for initialization
     void Start () {
@@ -38,6 +39,7 @@ public class ShopGrid : MonoBehaviour
                 coin.unit -= item.price;
                 //item.unit++;
                 GameManager.bag.AddItem(item,1);
+                coinText.GetComponent<Coin>().updateCoin();
             }                       
         }
     }

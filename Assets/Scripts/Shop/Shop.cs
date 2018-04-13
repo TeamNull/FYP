@@ -11,6 +11,7 @@ public class Shop : MonoBehaviour {
     public List<Transform> itemUIList = new List<Transform>();
     public Item[] goods;
     public Item coin;
+    public GameObject coinText;
     GameObject player;
 
     int itemInShop;
@@ -35,6 +36,7 @@ public class Shop : MonoBehaviour {
             itemUIList[i].GetChild(0).GetComponent<Image>().enabled = true;
             itemUIList[i].GetComponent<ShopGrid>().item = goods[i];
             itemUIList[i].GetComponent<ShopGrid>().coin = coin;
+            itemUIList[i].GetComponent<ShopGrid>().coinText = coinText;
             //itemUIList[i].GetComponent<ShopGrid>().popUp = popUp;
         }
         this.gameObject.transform.parent.gameObject.SetActive(false);
