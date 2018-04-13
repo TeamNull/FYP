@@ -58,7 +58,7 @@ public class EnemyAttribute : MonoBehaviour
                 timer = 0;
             }
         }
-        else if (Vector3.Distance(player.transform.position, transform.position) < 6)
+        else if (Vector3.Distance(player.transform.position, transform.position) < 15)
         {
             nav.enabled = true;
             anim.SetBool("IsMoving", true);
