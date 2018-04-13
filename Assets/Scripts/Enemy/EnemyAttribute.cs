@@ -21,6 +21,7 @@ public class EnemyAttribute : MonoBehaviour
     public int currentMp;
     public int exp = 10;
     public int attack = 10;
+    public int defence = 10;
     public int currentLevel;
     public bool isDead;
 
