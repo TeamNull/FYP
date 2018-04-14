@@ -53,11 +53,14 @@ public class ArmedEquipment : MonoBehaviour
     {
         equipmentList[bagId].RemoveAction();
         bag.AddItem(equipmentList[bagId],1);
+
         equipmentList[bagId]=null;
-        
-        equipmentUIList[bagId].GetChild(2).GetComponent<Image>().enabled = false;
-        equipmentUIList[bagId].GetChild(1).gameObject.SetActive(true);
         equipmentUIList[bagId].GetComponent<RawImage>().enabled = true;
+        equipmentUIList[bagId].GetChild(2).GetComponent<Image>().enabled = false;
+        //equipmentUIList[Equipment.equipmentType].GetChild(2).GetComponent<Image>().sprite = Equipment.sprite;
+        equipmentUIList[bagId].GetChild(1).gameObject.SetActive(false);
+        equipmentUIList[bagId].GetComponent<ArmedEquipmentSlot>().item = null;
+
     }
 
 }
