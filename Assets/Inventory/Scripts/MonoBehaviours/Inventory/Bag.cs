@@ -8,8 +8,10 @@ public class Bag : MonoBehaviour
     const int itemSlotsNum = 24; //total solts
     public List<Item> itemList = new List<Item>(); //testing use
     public List<Transform> itemUIList = new List<Transform>();
+    public GameObject shop;
+    public Item coin;
+    public GameObject coinText;
     GameObject player;
-
     int itemInBag;
 
     private void Awake()
@@ -73,13 +75,21 @@ public class Bag : MonoBehaviour
                 GameManager.inventory.AddItem(itemList[bagId], 1);
             }
         }
-
-        itemList[bagId].ApplyAction();
+        if (shop.activeSelf)
+        {
+            coin.unit += (int)(itemList[bagId].price*0.2);
+            coinText.GetComponent<Coin>().updateCoin();
+        }
+        else
+        {
+            itemList[bagId].ApplyAction();
+        }
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
         {            
             itemInBag--;
             itemList.RemoveAt(bagId);
+            itemUIList[itemInBag].GetComponent<BagGrid>().item = null;
         }
         UpdateImageList();
     }

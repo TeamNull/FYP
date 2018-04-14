@@ -38,7 +38,7 @@ public class BagGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
             //popUp.GetComponentInChildren<Text>().text = item.description;
             popUp.transform.GetChild(0).GetComponent<Text>().text= item.name;
             popUp.transform.GetChild(2).GetComponent<Text>().text = item.description;
-            popUp.transform.GetChild(4).GetComponent<Text>().text = item.price.ToString();
+            popUp.transform.GetChild(4).GetComponent<Text>().text = (item.price*0.2).ToString();
             popUp.transform.position = this.transform.position;
             popUp.transform.position += (new Vector3(80, -40, 0));
         }
