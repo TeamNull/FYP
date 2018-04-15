@@ -48,6 +48,8 @@ public class Arrow2 : MonoBehaviour {
             Destroy(gameObject);
             return;
         }
+        if (other.tag == "Player"|| other.tag == "Arrow")
+            return;
 
         ridigB.velocity = Vector3.zero;
         ridigB.useGravity = false;

@@ -36,7 +36,10 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-                AttackByArrowRain();
+                //AttackByShoot();
+                //AttackByTripleShoot();
+                //AttackByArrowRain();
+                //AttackByJumpShoot();
             }
         }
     }
@@ -68,32 +71,43 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackByShoot");
     }
 
+    void AttackByJumpShoot()
+    {
+        emitPoint.AttackByJumpShoot();
+        timer = 0f;
+        anim.SetTrigger("AttackBySkill1");
+    }
+
+    void AttackByTripleShoot()
+    {
+        emitPoint.AttackByTripleShoot();
+        timer = 0f;
+        anim.SetTrigger("AttackBySkill2");
+    }
+
     void AttackByArrowRain()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
-        if (Physics.Raycast(origin, forward, out hit, 2))
+        if (Physics.Raycast(origin, forward, out hit,15))
         {
             //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
             //Debug.Log(hit.transform.name);
             if (hit.transform.gameObject.tag == "Enemy")
             {
-                //EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                //ea.TakeDamage(pa.atk);
-                //es.UpdateUI(ea);
-
                 //creat arrow rain at the head of monster x,z fix y10
-                GameObject obj = Instantiate(arrawRain, hit.transform.gameObject.transform.position+new Vector3(0, 10, 0), hit.transform.gameObject.transform.rotation);
-                //arrawRain.transform.position = hit.transform.gameObject.transform.position;
-                //arrawRain.transform.position += new Vector3(0,10,0);
-                //arrawRain.SetActive(true);
+                float tempX = (this.transform.position.x + hit.transform.position.x) / 2;
+                float tempZ = (this.transform.position.z + hit.transform.position.z) / 2;
+                //float tempX = hit.transform.position.x;
+                //float tempZ = hit.transform.position.z;
+                GameObject obj = Instantiate(arrawRain, new Vector3(tempX, 3, tempZ), hit.transform.gameObject.transform.rotation);
+                //anim.SetTrigger("AttackBySkill0");
                 Destroy(obj, 5f);
-            }
+                timer = 0f;
+                anim.SetTrigger("AttackBySkill0");
+            }           
         }
-        timer = 0f;
-        anim.SetTrigger("Attack");
-        //anim attack by skill 1
     }
 
     public void AttackEnd()

@@ -28,7 +28,7 @@ public class SaveObject : MonoBehaviour
                 //Debug.Log(hit.transform.name);
                 if (hit.distance <= 50)
                 {
-                    Debug.Log(hit.transform.gameObject.name);
+                    //Debug.Log(hit.transform.gameObject.name);
                     if (hit.transform.gameObject == this.gameObject)
                     {
                         if (item.id != 0)

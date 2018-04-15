@@ -9,7 +9,7 @@ public class Arrow1 : MonoBehaviour {
     public int range = 100;
 
     public EnemyStatus es;
-    public float controlTimer = 0.2f;
+    public float controlTimer = 0.0f;
     GameObject player;
     PlayerAttribute playerAttribute;
     Vector3 initPos;
@@ -53,7 +53,10 @@ public class Arrow1 : MonoBehaviour {
             es.UpdateUI(temp);
             Destroy(gameObject);
             return;
-        }       
+        }
+
+        if (other.tag == "Player" || other.tag == "Arrow")
+            return;
 
         ridigB.velocity = Vector3.zero;
         ridigB.useGravity = false;
