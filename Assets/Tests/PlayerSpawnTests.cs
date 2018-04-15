@@ -15,7 +15,7 @@ namespace Tests
             playerSpawner.Construct(playerPrefab);
             yield return null;
 
-            var playerInGame = GameObject.FindWithTag("Player");
+            var playerInGame = GameObject.FindWithTag("CleanPlayer");
             var prefabOfTheSpawnedPlayer = PrefabUtility.GetPrefabParent(playerInGame);
 
             Assert.AreEqual(playerPrefab, prefabOfTheSpawnedPlayer);
