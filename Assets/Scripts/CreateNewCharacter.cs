@@ -71,9 +71,9 @@ public class CreateNewCharacter : MonoBehaviour
     public void ConfirmSelection()
     {
         nameOfPlayer = temp.text;
-        GameManager.isLoading = true;
-        StartCoroutine(LoadVillage());
-        //StartCoroutine(LoadForest());
+        //GameManager.isLoading = true;
+        //StartCoroutine(LoadVillage());
+        StartCoroutine(LoadForest());
         StartCoroutine(LoadUI());
         //StartCoroutine(UnloadNewCharacter());
         //StaticVarAndFunction.helpUnloadNewCharacter();
