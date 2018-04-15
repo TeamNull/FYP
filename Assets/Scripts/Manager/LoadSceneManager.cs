@@ -93,6 +93,7 @@ public class LoadSceneManager : MonoBehaviour
         AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
         while (!unloadForest.isDone)
         {
+            loadingScene.transform.GetChild(1).transform.Rotate(0, 0, -100.0f * Time.deltaTime);
             yield return null;
         }
         loadingScene.SetActive(false);
@@ -107,11 +108,11 @@ public class LoadSceneManager : MonoBehaviour
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
         loadingScene.SetActive(true);
-        Slider progressBar = loadingScene.GetComponentInChildren<Slider>();
         GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
         {
+            loadingScene.transform.GetChild(1).transform.Rotate(0, 0, -100.0f * Time.deltaTime);
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
