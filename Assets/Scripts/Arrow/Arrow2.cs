@@ -3,33 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Arrow1 : MonoBehaviour {
-    public int theSpeed=50;
+public class Arrow2 : MonoBehaviour {
     public int damage = 20;
-    public int range = 100;
-
     public EnemyStatus es;
     public float controlTimer = 0.2f;
     GameObject player;
     PlayerAttribute playerAttribute;
-    Vector3 initPos;
     Rigidbody ridigB;
 
-    bool isColl=false;
+    bool isColl = false;
     float timer = 0f;
 
     // Use this for initialization
-    void Start () {        
+    void Start () {
         ridigB = GetComponent<Rigidbody>();
-        initPos = transform.position;
-        transform.Rotate(new Vector3(0,0,0));
         es = SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.GetChild(11).GetComponent<EnemyStatus>();
     }
 
     private void Awake()
     {
-        player = GameManager.player;        
-        playerAttribute = player.GetComponent<PlayerAttribute>();        
+        player = GameManager.player;
+        playerAttribute = player.GetComponent<PlayerAttribute>();
     }
 
     // Update is called once per frame
@@ -37,14 +31,14 @@ public class Arrow1 : MonoBehaviour {
         timer += Time.deltaTime;
         if (timer >= controlTimer)
         {
-            if (!isColl) transform.Translate(Vector3.left * theSpeed * Time.deltaTime);
+            if (!isColl) ridigB.useGravity = true; 
 
-            if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
+            //if (Vector3.Distance(initPos, transform.position) > range) Destroy(gameObject);
         }
-	}
+    }
 
     void OnTriggerEnter(Collider other)
-    {     
+    {
         //if (other.tag == "Enemy" && playerAttack.isAttacking)
         if (other.tag == "Enemy")
         {
@@ -53,13 +47,13 @@ public class Arrow1 : MonoBehaviour {
             es.UpdateUI(temp);
             Destroy(gameObject);
             return;
-        }       
+        }
 
         ridigB.velocity = Vector3.zero;
         ridigB.useGravity = false;
-        ridigB.isKinematic = true;
-        isColl = true;        
-        Destroy(gameObject,1f);
+        //ridigB.isKinematic = true;
+        isColl = true;
+        Destroy(gameObject, 1f);
 
     }
 }

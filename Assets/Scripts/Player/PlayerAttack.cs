@@ -61,10 +61,33 @@ public class PlayerAttack : MonoBehaviour
     }
 
     void AttackByShoot()
-    {
+    {      
+        emitPoint.AttackByShoot();        
         timer = 0f;
-        emitPoint.AttackByShoot();
         anim.SetTrigger("AttackByShoot");
+    }
+
+    void AttackByArrowRain()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+        RaycastHit hit;
+        if (Physics.Raycast(origin, forward, out hit, 2))
+        {
+            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+            //Debug.Log(hit.transform.name);
+            if (hit.transform.gameObject.tag == "Enemy")
+            {
+                //EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+                //ea.TakeDamage(pa.atk);
+                //es.UpdateUI(ea);
+
+                //creat arrow rain at the head of monster x,z fix y10
+            }
+        }
+        timer = 0f;
+        anim.SetTrigger("Attack");
+        //anim attack by skill 1
     }
 
     public void AttackEnd()
