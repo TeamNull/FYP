@@ -9,6 +9,7 @@ public class PlayerAttack : MonoBehaviour
     public bool isAttacking = false;
     public emitPoint emitPoint;
     public EnemyStatus es;
+    public GameObject arrawRain;
 
     float timer = 0f;
     Animator anim;
@@ -35,7 +36,7 @@ public class PlayerAttack : MonoBehaviour
             }
             else
             {
-                AttackByShoot();
+                AttackByArrowRain();
             }
         }
     }
@@ -83,6 +84,11 @@ public class PlayerAttack : MonoBehaviour
                 //es.UpdateUI(ea);
 
                 //creat arrow rain at the head of monster x,z fix y10
+                GameObject obj = Instantiate(arrawRain, hit.transform.gameObject.transform.position+new Vector3(0, 10, 0), hit.transform.gameObject.transform.rotation);
+                //arrawRain.transform.position = hit.transform.gameObject.transform.position;
+                //arrawRain.transform.position += new Vector3(0,10,0);
+                //arrawRain.SetActive(true);
+                Destroy(obj, 5f);
             }
         }
         timer = 0f;

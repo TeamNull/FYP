@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Arrow2 : MonoBehaviour {
     public int damage = 20;
     public EnemyStatus es;
-    public float controlTimer = 0.2f;
+    public float controlTimer = 0.0f;
     GameObject player;
     PlayerAttribute playerAttribute;
     Rigidbody ridigB;

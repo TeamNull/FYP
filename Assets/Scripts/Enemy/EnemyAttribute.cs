@@ -37,7 +37,7 @@ public class EnemyAttribute : MonoBehaviour
     {
         currentHealth = startingHealth;
         anim = GetComponent<Animator>();
-        //player = GameManager.player;
+        player = GameManager.player;
         nav = GetComponent<UnityEngine.AI.NavMeshAgent>();
         spawnPoint = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
         spawnQuaternion = new Quaternion(this.transform.rotation.x, this.transform.rotation.y, this.transform.rotation.z, this.transform.rotation.w);
