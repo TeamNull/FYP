@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadSceneManager : MonoBehaviour
 {
@@ -106,6 +107,7 @@ public class LoadSceneManager : MonoBehaviour
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
         loadingScene.SetActive(true);
+        Slider progressBar = loadingScene.GetComponentInChildren<Slider>();
         GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
