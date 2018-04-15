@@ -25,7 +25,6 @@ public class Story : MonoBehaviour
     {
         playerUI.SetActive(false);
         storyBoard.SetActive(true);
-
         if (mission == 0)
         {
             storytext.text = playername + ": Where should I go?";
@@ -534,17 +533,6 @@ public class Story : MonoBehaviour
 
         }
 
-        if (mission == 17)
-        {
-            storytext.text = playername + ": Why there is just some useless paperwork?";
-
-            yield return new WaitForSeconds(time);
-
-            storytext.text = playername + ": Never mind, let me continue to find. Oh NO! There is an unknown!";
-
-            yield return new WaitForSeconds(time);
-
-        }
 
         if (mission == 18)
         {
@@ -560,6 +548,13 @@ public class Story : MonoBehaviour
 
         if(mission == 19)
         {
+            storytext.text = playername + ": The unknown is dead and I am still alive.";
+
+            yield return new WaitForSeconds(time);
+
+            storytext.text = playername + ": Commander, why there is a brand on the floor? Why my name has print on it ? ";
+
+            yield return new WaitForSeconds(time);
             storytext.text = playername + ": Do you what this brand is?";
 
             yield return new WaitForSeconds(time);
@@ -569,7 +564,6 @@ public class Story : MonoBehaviour
             yield return new WaitForSeconds(time);
         }
 
-        
         storyBoard.SetActive(false);
         playerUI.SetActive(true);
 

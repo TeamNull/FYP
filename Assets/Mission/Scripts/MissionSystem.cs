@@ -16,7 +16,7 @@ public class MissionSystem : MonoBehaviour
     private bool vulture = false;
     private bool vultureBoss = false;
     private bool vulturecreated = false;
-    private bool vultureBossecreate = false;
+    private bool vultureBosscreated = false;
 
     GameObject player;
     GameObject loadingScene;
@@ -27,7 +27,7 @@ public class MissionSystem : MonoBehaviour
     {
         Setmission();
         MissionStart(globalMissionID);
-        player = GameManager.player;
+        player = this.gameObject;
 
         GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
 
@@ -54,35 +54,47 @@ public class MissionSystem : MonoBehaviour
 
     void ChangeScene(Vector3 v, Quaternion q, string to, string from)
     {
+        
         StartCoroutine(LoadScene(to, v, q));
         StartCoroutine(UnloadScene(from));
-        player.GetComponent<Story>().Callstory(globalMissionID);
+        
     }
 
     IEnumerator UnloadScene(string sceneName)
     {
-
+        GameObject[] goArray = GameObject.FindGameObjectsWithTag("Portal");
         AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
         while (!unloadForest.isDone)
         {
             yield return null;
         }
-        loadingScene.SetActive(false);
         GameManager.isLoading = false;
+        loadingScene.SetActive(false);
+
+        foreach (GameObject go in goArray)
+        {
+            if (go.GetComponent<LoadSceneManager>().from == sceneName)
+            {
+                Destroy(go);
+            }
+        }
     }
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
         loadingScene.SetActive(true);
-        GameManager.isLoading = true;
+        //GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
         {
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
+        Debug.Log(player);
+        Debug.Log(v3);
         player.transform.position = v3;
         player.transform.rotation = q;
+        
     }
 
 
@@ -140,7 +152,7 @@ public class MissionSystem : MonoBehaviour
 
         mission[15] = new MissionTypeNPC(15, 2, "Return to frontline base", "Go to frontline base and find the commander", "Commander", "FrontlineBase", false);
 
-        mission[16] = new MissionTypeItem(16, 3, "Collect material in the Ruins", "Go to Ruins and find out the material", 100, "Ruins", false); // wait for the item list complete
+        mission[16] = new MissionTypeItem(16, 3, "Collect material in the Ruins", "Go to Ruins and find out the material", 1111, "Ruins", false); // wait for the item list complete
 
         mission[17] = new MissionTypeLocation(17, 0, "Check here", "walk and check all the detail", "Mission17", "Ruins", false);
 
@@ -190,14 +202,17 @@ public class MissionSystem : MonoBehaviour
         {
             vulture = true;
             ChangeScene(destinationPosition1, destinationQuaternion, "Village", "Forest");
-            MissionComplete(globalMissionID);
+            progresstext.text = "Completed, talk with Chief of the warrior";
+            //player.GetComponent<Story>().Callstory(globalMissionID);
+            //MissionComplete(globalMissionID);
         }
 
         if (monstername == "VultureBoss")
         {
             vultureBoss = true;
-            ChangeScene(destinationPosition2, destinationQuaternion, "Ruins", "FrontlineBase");
-            MissionComplete(globalMissionID);
+            ChangeScene(destinationPosition2, destinationQuaternion, "FrontlineBase", "Ruins");
+            //player.GetComponent<Story>().Callstory(globalMissionID);
+            //MissionComplete(globalMissionID);
         }
     }
 
@@ -223,14 +238,14 @@ public class MissionSystem : MonoBehaviour
     {
         GameObject[] RuinsGameObjectArray = SceneManager.GetSceneByName("Ruins").GetRootGameObjects();
 
-        if (monstername == "vultureBosse" && !vultureBossecreate)
+        if (monstername == "VultureBoss" && !vultureBosscreated)
         {
             foreach (GameObject go in RuinsGameObjectArray)
             {
                 if (go.name == monstername)
                 {
                     go.SetActive(true);
-                    vultureBossecreate = true;
+                    vultureBosscreated = true;
                 }
             }
         }
@@ -238,8 +253,22 @@ public class MissionSystem : MonoBehaviour
 
     public void Missiontype0handling(string npcname)
     {
+        if ( vulture && globalMissionID == 5)
+        {
+            MissionComplete(globalMissionID);
+        }
 
-        if (mission[globalMissionID].Gettype() == 0 && globalMissionID == 6)
+        if (vultureBoss && globalMissionID == 18)
+        {
+            MissionComplete(globalMissionID);
+        }
+
+        if (mission[globalMissionID].Gettype() == 0  && globalMissionID == 6 && mission[globalMissionID].Getcomplete())
+        {
+            MissionComplete(globalMissionID);
+        }
+
+        if (mission[globalMissionID].Gettype() == 0 && globalMissionID == 9 && mission[globalMissionID].Getcomplete())
         {
             MissionComplete(globalMissionID);
         }
@@ -247,8 +276,7 @@ public class MissionSystem : MonoBehaviour
     }
     void OnTriggerEnter(Collider other) // missiontype0
     {
-
-        if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0 && globalMissionID != 6)
+        if (other.name == mission[globalMissionID].Getrectname() && mission[globalMissionID].Gettype() == 0)
         {
             if (globalMissionID == 5)
             {
@@ -260,7 +288,21 @@ public class MissionSystem : MonoBehaviour
                 Createmonster1("VultureBoss");
             }
 
-            if (globalMissionID != 5 && globalMissionID != 18)
+            if (globalMissionID == 6)
+            {
+                mission[globalMissionID].Setcomplete(true);
+                progresstext.text = "Completed, talk with Chief of the warrior";
+
+            }
+
+            if (globalMissionID == 9)
+            {
+                mission[globalMissionID].Setcomplete(true);
+                progresstext.text = "Completed, talk with Chief of the warrior";
+
+            }
+
+            if (globalMissionID != 5 && globalMissionID != 18 && globalMissionID != 6 && globalMissionID != 9) 
             {
                 MissionComplete(globalMissionID);
             }
@@ -325,12 +367,19 @@ public class MissionSystem : MonoBehaviour
     {
         if (mission[globalMissionID].Gettype() == 3)
         {
-            if (mission[globalMissionID].Getitemid() == iteamid)
+            if (mission[globalMissionID].Getitemid() == iteamid && globalMissionID != 16)
             {
                 progresstext.text = "completed";
                 missiontype3item = true;
                 Debug.Log("missiontype3");
+
             }
+        }
+
+        if (mission[globalMissionID].Getitemid() == iteamid && globalMissionID == 16)
+        {
+            progresstext.text = "completed";
+            MissionComplete(globalMissionID);
         }
 
     }
@@ -356,10 +405,11 @@ public class MissionSystem : MonoBehaviour
             {
                 player = GameManager.player;
             }
-            if (missionID != 5 || missionID != 18)
-            {
-                player.GetComponent<Story>().Callstory(globalMissionID);
-            }
+            //if (missionID != 5 || missionID != 18)
+            //{
+            //    player.GetComponent<Story>().Callstory(globalMissionID);
+            //}
+            player.GetComponent<Story>().Callstory(globalMissionID);
             progresstext.text = "";
             missionID++;
             MissionStart(missionID);
