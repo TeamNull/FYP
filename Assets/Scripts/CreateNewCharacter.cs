@@ -72,7 +72,8 @@ public class CreateNewCharacter : MonoBehaviour
     {
         nameOfPlayer = temp.text;
         GameManager.isLoading = true;
-        StartCoroutine(LoadVillage());
+        //StartCoroutine(LoadVillage());
+        StartCoroutine(LoadForest());
         StartCoroutine(LoadUI());
         //StartCoroutine(UnloadNewCharacter());
         //StaticVarAndFunction.helpUnloadNewCharacter();
@@ -136,5 +137,15 @@ public class CreateNewCharacter : MonoBehaviour
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("Village"));
+    }
+
+    IEnumerator LoadForest()
+    {
+        AsyncOperation loadForest = SceneManager.LoadSceneAsync("Forest", LoadSceneMode.Single);
+        while (!loadForest.isDone)
+        {
+            yield return null;
+        }
+        SceneManager.SetActiveScene(SceneManager.GetSceneByName("Forest"));
     }
 }
