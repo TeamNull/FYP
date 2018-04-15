@@ -15,8 +15,8 @@ public class PlayerAttribute : MonoBehaviour
     public int[] Skill = new int[6];
     public int currentHP;
     public int currentMP;
-    public int maxHP;
-    public int maxMP;
+    public int maxHP;           //Include additionalHP
+    public int maxMP;           //Include additionalMP
     public int str;
     public int _int;
     public int agi;
@@ -38,6 +38,7 @@ public class PlayerAttribute : MonoBehaviour
     int needExp;
     const int baseExp = 100;
     Animator anim;
+    float timer;
     #endregion
 
     #region LifeCycle
@@ -53,7 +54,14 @@ public class PlayerAttribute : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        timer += Time.deltaTime;
+        if (timer > 1) {
+            currentHP = currentHP + 1 > maxHP ? maxHP : currentHP + 1;
+            currentMP = currentMP + 1 > maxMP ? maxMP : currentMP + 1;
+            playerUiScript.updateHP(currentHP, maxHP);
+            playerUiScript.updateMP(currentMP, maxMP);
+            timer = 0;
+        }
     }
     #endregion
 
