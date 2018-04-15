@@ -72,8 +72,8 @@ public class CreateNewCharacter : MonoBehaviour
     {
         nameOfPlayer = temp.text;
         GameManager.isLoading = true;
-        //StartCoroutine(LoadVillage());
-        StartCoroutine(LoadForest());
+        StartCoroutine(LoadVillage());
+        //StartCoroutine(LoadForest());
         StartCoroutine(LoadUI());
         //StartCoroutine(UnloadNewCharacter());
         //StaticVarAndFunction.helpUnloadNewCharacter();
