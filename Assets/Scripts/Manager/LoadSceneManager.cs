@@ -93,7 +93,6 @@ public class LoadSceneManager : MonoBehaviour
         AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
         while (!unloadForest.isDone)
         {
-            loadingScene.transform.GetChild(1).transform.Rotate(0, 0, -100.0f * Time.deltaTime);
             yield return null;
         }
         loadingScene.SetActive(false);
@@ -112,7 +111,6 @@ public class LoadSceneManager : MonoBehaviour
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         while (!loadVillage.isDone)
         {
-            loadingScene.transform.GetChild(1).transform.Rotate(0, 0, -100.0f * Time.deltaTime);
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
