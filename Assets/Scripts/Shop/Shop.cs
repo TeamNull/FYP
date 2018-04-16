@@ -12,9 +12,6 @@ public class Shop : MonoBehaviour {
     public Item[] goods;
     public Item coin;
     public GameObject coinText;
-    GameObject player;
-
-    int itemInShop;
 
     private void Awake()
     {
@@ -42,7 +39,14 @@ public class Shop : MonoBehaviour {
         this.gameObject.transform.parent.gameObject.SetActive(false);
     }
 
-    
+    public Item findItemByID(int id) {
+        foreach (Item item in goods) {
+            if (item.id == id) {
+                return item;
+            }
+        }
+        return null;
+    }
 
 
 }
