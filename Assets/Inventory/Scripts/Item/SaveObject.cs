@@ -35,11 +35,12 @@ public class SaveObject : MonoBehaviour
                         {
                             bag = GameManager.bag;
                             bag.AddItem(item, unit);
+                            GameManager.inGameLog.AddLog("You have collected " + item.name + ".", Color.blue);
                         }
                         else
                         {
                             item.unit += unit;
-                            GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);
+                            GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);                            
                         }
                         Destroy(this.gameObject);
                     }
