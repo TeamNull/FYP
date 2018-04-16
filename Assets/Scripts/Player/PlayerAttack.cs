@@ -32,18 +32,18 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
             if (pa.job == PlayerAttribute.Classes.Warrior)
             {
-                //Attack();
+                Attack();
                 //AttackByStrike();
-                AttackByCyclone();
+                //AttackByCyclone();
                 //AttackByStrong();
             }
             else
             {
-                //AttackByShoot();
+                AttackByShoot();
                 //AttackByTripleShoot();
                 //AttackByArrowRain();
                 //AttackByJumpShoot();
-                Attack();
+                //Attack();
             }
         }
     }
