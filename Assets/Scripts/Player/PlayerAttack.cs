@@ -40,6 +40,7 @@ public class PlayerAttack : MonoBehaviour
                 //AttackByTripleShoot();
                 //AttackByArrowRain();
                 //AttackByJumpShoot();
+                Attack();
             }
         }
     }
@@ -108,6 +109,20 @@ public class PlayerAttack : MonoBehaviour
                 anim.SetTrigger("AttackBySkill0");
             }           
         }
+    }
+
+    void AttackByCyclone() {
+
+    }
+
+    void AttackByStrike()
+    {
+
+    }
+
+    void AttackByStrong()
+    {
+
     }
 
     public void AttackEnd()
