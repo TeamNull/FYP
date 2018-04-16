@@ -22,6 +22,7 @@ public class MissionSystem : MonoBehaviour
     GameObject loadingScene;
 
 
+
     // Use this for initialization
     void Start()
     {
@@ -394,14 +395,14 @@ public class MissionSystem : MonoBehaviour
         }
     }
 
-    void MissionComplete(int missionID)
+    public void MissionComplete(int missionID)
     {
         GameManager.inGameLog.AddLog("You have finished Mission" + (missionID + 1) + ".", Color.green);
         GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("MissionComplete");
         player.GetComponent<PlayerAttribute>().GainExp(50, player.GetComponent<PlayerAttribute>().currentLevel);
         mission[missionID].Setcomplete(true);
 
-        if (mission[missionID + 1] != null)
+        if (missionID < 19)
         {
             if (player == null)
             {
@@ -420,10 +421,13 @@ public class MissionSystem : MonoBehaviour
         }
 
 
-        if (mission[missionID + 1] == null)
+        if (missionID == 19)
         {
+            player.GetComponent<Story>().Callstory(globalMissionID);
             descriptiontext.text = "Mission complete";
             requirementtext.text = "";
+
+
             return;
         }
     }
