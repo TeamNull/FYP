@@ -12,4 +12,9 @@ public class ChangeAudioVolume : MonoBehaviour {
     {
         myAudio.volume = Volume.value;
     }
+
+    public void Deactivethescript()
+    {
+        this.enabled = false;
+    }
 }

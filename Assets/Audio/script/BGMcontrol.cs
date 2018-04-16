@@ -41,6 +41,7 @@ public class BGMcontrol : MonoBehaviour {
 
     public void SetBGM(string bgm)
     {
+        GameManager.AudioManager.GetComponent<ChangeAudioVolume>().Deactivethescript(); 
         BGMSource.Stop();
         switch(bgm)
         { 
