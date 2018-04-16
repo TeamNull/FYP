@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Shortcut : MonoBehaviour {
 
-    public GameObject[] ShortCutArray = new GameObject[10];
+    public GameObject[] ShortCutArray = new GameObject[7];
 	// Use this for initialization
 	void Start () {
 		
