@@ -10,6 +10,7 @@ public class Story : MonoBehaviour
     public Scene UI;
     public GameObject playerUI;
     public GameObject storyBoard;
+    public GameObject endgamescene;
     public Text storytext;
     public Button nextline;
     //private int counter = 0;
@@ -546,8 +547,14 @@ public class Story : MonoBehaviour
 
         }
 
-        if(mission == 19)
+        storyBoard.SetActive(false);
+        playerUI.SetActive(true);
+
+        if (mission == 19)
         {
+            playerUI.SetActive(false);
+            storyBoard.SetActive(true);
+
             storytext.text = playername + ": The unknown is dead and I am still alive.";
 
             yield return new WaitForSeconds(time);
@@ -561,11 +568,13 @@ public class Story : MonoBehaviour
 
             storytext.text = "Commander: This..........Oh.........., You are..........";
 
-            yield return new WaitForSeconds(time);
+            yield return new WaitForSeconds(5);
+
+            storyBoard.SetActive(false);
+            endgamescene.SetActive(true);
         }
 
-        storyBoard.SetActive(false);
-        playerUI.SetActive(true);
+        
 
       
     }
