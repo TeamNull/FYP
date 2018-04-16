@@ -49,7 +49,7 @@ public class MissionSystem : MonoBehaviour
     public Text progresstext;
 
 
-    public const int missionnumber = 24; // totoal mission number 
+    public const int missionnumber = 20; // totoal mission number 
 
 
     void ChangeScene(Vector3 v, Quaternion q, string to, string from)
