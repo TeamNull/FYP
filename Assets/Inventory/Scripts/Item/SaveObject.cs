@@ -42,6 +42,7 @@ public class SaveObject : MonoBehaviour
                             item.unit += unit;
                             GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);                            
                         }
+                        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("PickUpObject");
                         Destroy(this.gameObject);
                     }
                 }

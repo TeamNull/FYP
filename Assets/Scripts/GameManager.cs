@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static bool isLoading;
     //public static GameObject player = GameObject.FindGameObjectWithTag("Player");
     public static GameObject player;
+    public static GameObject AudioManager;
     public static Bag bag;
     public static Inventory inventory;
     public static ArmedEquipment armedEquipment;
@@ -43,5 +44,11 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
+
+    public static void SetBGM()
+    {
+        AudioManager = GameObject.FindGameObjectWithTag("AudioManager");
+    }
+
 
 }

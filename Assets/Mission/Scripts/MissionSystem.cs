@@ -397,6 +397,7 @@ public class MissionSystem : MonoBehaviour
     void MissionComplete(int missionID)
     {
         GameManager.inGameLog.AddLog("You have finished Mission" + missionID + ".", Color.green);
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("MissionComplete");
         mission[missionID].Setcomplete(true);
 
         if (mission[missionID + 1] != null)

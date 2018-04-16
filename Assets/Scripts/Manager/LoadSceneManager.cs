@@ -9,6 +9,7 @@ public class LoadSceneManager : MonoBehaviour
     public string from;
     public string to;
 
+    GameObject AudioManager;
     GameObject loadingScene;
     Transform playerTransform;
     bool initialized;
@@ -30,6 +31,7 @@ public class LoadSceneManager : MonoBehaviour
         }
         playerTransform = GameManager.player.transform;
         initialized = true;
+
     }
 
     // Update is called once per frame
@@ -40,6 +42,7 @@ public class LoadSceneManager : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("Portal");
         if (!initialized) Init();
         if (other.gameObject.tag == "Player")
         {
@@ -106,6 +109,7 @@ public class LoadSceneManager : MonoBehaviour
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().SetBGM(sceneName);
         loadingScene.SetActive(true);
         GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);

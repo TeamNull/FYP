@@ -131,12 +131,14 @@ public class CreateNewCharacter : MonoBehaviour
 
     IEnumerator LoadVillage()
     {
+        
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Single);
         while (!loadVillage.isDone)
         {
             yield return null;
         }
         SceneManager.SetActiveScene(SceneManager.GetSceneByName("Village"));
+        GameManager.AudioManager.GetComponent<BGMcontrol>().SetBGM("Village");
     }
 
     IEnumerator LoadForest()
