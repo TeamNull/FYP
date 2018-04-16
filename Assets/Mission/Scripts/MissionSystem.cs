@@ -9,7 +9,7 @@ public class MissionSystem : MonoBehaviour
 
     private int globalMissionID = 0;
     private int enemycount = 0;
-    Mission[] mission = new Mission[missionnumber];
+    public Mission[] mission = new Mission[missionnumber];
 
     private bool missiontype1enemy = false;
     private bool missiontype3item = false;
@@ -396,7 +396,7 @@ public class MissionSystem : MonoBehaviour
 
     void MissionComplete(int missionID)
     {
-
+        GameManager.inGameLog.AddLog("You have finished Mission" + missionID + ".", Color.green);
         mission[missionID].Setcomplete(true);
 
         if (mission[missionID + 1] != null)
