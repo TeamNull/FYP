@@ -102,7 +102,7 @@ public class PlayerAttribute : MonoBehaviour
         totalExp += sourceExp;
         //check if level up
         string tempLogText = "You have earned "+sourceExp+" EXP.";
-        GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.",Color.blue);
+        GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.",Color.magenta);
         while (currentExp >= needExp)
         {
             currentExp -= needExp;
