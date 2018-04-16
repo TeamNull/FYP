@@ -39,6 +39,7 @@ public class SaveObject : MonoBehaviour
                         else
                         {
                             item.unit += unit;
+                            GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);
                         }
                         Destroy(this.gameObject);
                     }
