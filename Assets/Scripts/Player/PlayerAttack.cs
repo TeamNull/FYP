@@ -32,7 +32,10 @@ public class PlayerAttack : MonoBehaviour
             isAttacking = true;
             if (pa.job == PlayerAttribute.Classes.Warrior)
             {
-                Attack();
+                //Attack();
+                //AttackByStrike();
+                AttackByCyclone();
+                //AttackByStrong();
             }
             else
             {
@@ -45,6 +48,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    //below for warrior
     void Attack()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -65,6 +69,80 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("Attack");
     }
 
+    void AttackByCyclone()
+    {
+        //Vector3 forward = transform.TransformDirection(Vector3.forward);
+        //Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+        //RaycastHit hit;
+        //if (Physics.OverlapSphere(origin, 2,transform.forward ,out hit, 2))
+        //{
+        //    //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+        //    //Debug.Log(hit.transform.name);
+        //    if (hit.transform.gameObject.tag == "Enemy")
+        //    {
+        //        EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+        //        ea.TakeDamage(pa.atk);
+        //        es.UpdateUI(ea);
+        //    }
+        //}
+
+        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y +1.0f, transform.position.z), 3);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if (hitColliders[i].gameObject.tag == "Enemy")
+            {
+                EnemyAttribute ea = hitColliders[i].transform.gameObject.GetComponent<EnemyAttribute>();
+                ea.TakeDamage(pa.atk);
+                es.UpdateUI(ea);
+            }
+            i++;
+        }
+        timer = 0f;
+        anim.SetTrigger("AttackBySkill0");
+    }
+
+    void AttackByStrike()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+        RaycastHit hit;
+        if (Physics.Raycast(origin, forward, out hit, 2))
+        {
+            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+            //Debug.Log(hit.transform.name);
+            if (hit.transform.gameObject.tag == "Enemy")
+            {
+                EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+                ea.TakeDamage(pa.atk);
+                es.UpdateUI(ea);
+            }
+        }
+        timer = 0f;
+        anim.SetTrigger("AttackBySkill1");
+    }
+
+    void AttackByStrong()
+    {
+        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+        RaycastHit hit;
+        if (Physics.Raycast(origin, forward, out hit, 2))
+        {
+            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+            //Debug.Log(hit.transform.name);
+            if (hit.transform.gameObject.tag == "Enemy")
+            {
+                EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+                ea.TakeDamage(pa.atk);
+                es.UpdateUI(ea);
+            }
+        }
+        timer = 0f;
+        anim.SetTrigger("AttackBySkill2");
+    }
+
+    //below for archer
     void AttackByShoot()
     {      
         emitPoint.AttackByShoot();        
@@ -111,19 +189,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void AttackByCyclone() {
 
-    }
-
-    void AttackByStrike()
-    {
-
-    }
-
-    void AttackByStrong()
-    {
-
-    }
 
     public void AttackEnd()
     {
