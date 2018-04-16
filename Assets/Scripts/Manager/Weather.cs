@@ -232,18 +232,7 @@ public class Weather : MonoBehaviour
 	// http://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html
 	void Update ()
 	{
-		// User press Left key
-		if(Input.GetKeyUp(KeyCode.Z))
-		{
-			// Show previous skybox
-			OnPreviousSkybox();
-		}
-		// User press Right key
-		if(Input.GetKeyUp(KeyCode.X))
-		{
-			// Show next skybox
-			OnNextSkybox();
-		}
+        
 	}
 	
 	// OnTriggerExit is called when the Collider other has stopped touching the trigger.
