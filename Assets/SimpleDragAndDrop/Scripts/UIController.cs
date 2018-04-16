@@ -4,8 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class UIController : MonoBehaviour {
-    public int[] LocalSkill = new int[6];
-    public Text[] SkillUI = new Text[6];
+    public int[] LocalSkill = new int[5];
+    public Text[] SkillUI = new Text[5];
     public bool SkillUpEnabled;
     public Text ButtonText;
     public Text SkillTitle;
@@ -24,7 +24,7 @@ public class UIController : MonoBehaviour {
         {
             if (SkillUpEnabled)
             {
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     pa.Skill[i] = LocalSkill[i];
                 }
@@ -38,7 +38,7 @@ public class UIController : MonoBehaviour {
     public void InitSkillUI()
     {
         pa = GameManager.player.GetComponent<PlayerAttribute>();
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 5; i++)
         {
             LocalSkill[i] = pa.Skill[i];
             SkillUI[i].text = LocalSkill[i].ToString();
@@ -66,14 +66,13 @@ public class UIController : MonoBehaviour {
                             if (LocalSkill[0] > 0) canAdd = true;
                             break;
                         case 2:
-                        case 3:
                             if (LocalSkill[0] > 0 && LocalSkill[1] > 0) canAdd = true;
                             break;
-                        case 4:
+                        case 3:
                             if (LocalSkill[0] > 0) canAdd = true;
                             break;
-                        case 5:
-                            if (LocalSkill[0] > 0 && LocalSkill[4] > 0) canAdd = true;
+                        case 4:
+                            if (LocalSkill[0] > 0 && LocalSkill[3] > 0) canAdd = true;
                             break;
                     }
                     if (canAdd)

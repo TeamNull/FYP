@@ -12,7 +12,7 @@ public class PlayerAttribute : MonoBehaviour
     public UIinfo playerUiScript;
     public Attribute attributeScript;
     public GameObject levelUp;
-    public int[] Skill = new int[6];
+    public int[] Skill = new int[5];
     public int currentHP;
     public int currentMP;
     public int maxHP;           //Include additionalHP
@@ -119,7 +119,7 @@ public class PlayerAttribute : MonoBehaviour
             Debug.Log("lv "+currentLevel+"needed " + needExp);
             currentLevel++;
             isLvUp = true;
-            AvailablePoint += 5;
+            AvailablePoint += 1;
             SkillPoint++;
             currentHP = maxHP;
             currentMP = maxMP;
