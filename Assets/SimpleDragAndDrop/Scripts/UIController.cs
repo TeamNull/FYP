@@ -109,4 +109,18 @@ public class UIController : MonoBehaviour {
     {
         SkillTitle.text = "Skill - Available Point: " + point.ToString();
     }
+
+    public DragAndDropItem FindSkillDADItemByID(int id) {
+        foreach (GameObject go in SkillItem) {
+            DragAndDropItem dadItem = go.GetComponent<DragAndDropItem>();
+            if (dadItem.ItemId == id) {
+                return dadItem;
+            }
+        }
+        return null;
+    }
+
+    public DragAndDropItem GetASkillDaDItem() {
+        return new DragAndDropItem();
+    }
 }

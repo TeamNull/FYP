@@ -51,6 +51,7 @@ public class Bag : MonoBehaviour
         
         itemList.Add(item);
         itemList[itemInBag].unit++;
+        itemUIList[itemInBag].GetChild(0).GetComponent<DragAndDropItem>().item = item;
         itemUIList[itemInBag].GetChild(0).GetComponent<Image>().sprite = item.sprite;
         itemUIList[itemInBag].GetChild(0).GetComponent<Image>().enabled = true;
         itemUIList[itemInBag].GetChild(1).GetComponent<Text>().text = item.unit.ToString();
@@ -64,7 +65,7 @@ public class Bag : MonoBehaviour
         player.GetComponent<MissionSystem>().Missiontype3(item.id);
     }
 
-    public void RemoveItem(int bagId)
+    public void RemoveItem(int bagId, bool callFromShortCut = false)
     {
         if (itemInBag == 0 || bagId + 1 > itemInBag) return;
 
@@ -75,14 +76,14 @@ public class Bag : MonoBehaviour
                 GameManager.inventory.AddItem(itemList[bagId], 1);
             }
         }
-        if (shop.activeSelf)
+        if (shop.activeSelf && !callFromShortCut)
         {
             coin.unit += (int)(itemList[bagId].price*0.2);
             coinText.GetComponent<Coin>().updateCoin();
         }
         else
         {
-            itemList[bagId].ApplyAction();
+            if (!callFromShortCut) itemList[bagId].ApplyAction();
         }
         itemList[bagId].unit--;
         if (itemList[bagId].unit == 0)
@@ -90,6 +91,7 @@ public class Bag : MonoBehaviour
             itemInBag--;
             itemList.RemoveAt(bagId);
             itemUIList[itemInBag].GetComponent<BagGrid>().item = null;
+            itemUIList[itemInBag].GetChild(0).GetComponent<DragAndDropItem>().item = null;
         }
         UpdateImageList();
     }
@@ -98,7 +100,7 @@ public class Bag : MonoBehaviour
         itemList.Clear();
     }
 
-    void UpdateImageList()
+    public void UpdateImageList()
     {
         for (int i = 0; i < itemSlotsNum; i++) {
             if (i < itemInBag) {
@@ -115,15 +117,15 @@ public class Bag : MonoBehaviour
         }
     }
 
-    public bool Cotainitem(int itemId)
+    public int GetItemIDInBag(int itemId)
     {
         for (int itemBagId = 0; itemBagId < itemSlotsNum; itemBagId++) // loop the inventory
         {
             if (itemList[itemBagId].id == itemId)
-                return true;
+                return itemBagId;
         }
 
-        return false;
+        return -1;
     }
 }
 

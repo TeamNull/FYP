@@ -161,7 +161,7 @@ public class DragAndDropCell : MonoBehaviour, IDropHandler
     /// Put item into this cell.
     /// </summary>
     /// <param name="item">Item.</param>
-    private void PlaceItem(DragAndDropItem item)
+    public void PlaceItem(DragAndDropItem item)
     {
         if (item != null)
         {

@@ -130,14 +130,14 @@ public class Missionboard : MonoBehaviour
         missiontype[0].Setstart(true);
 
         Debug.Log("hi");
-        Debug.Log(inventory.Cotainitem(missiontype[0].Returnitemid()));
+        Debug.Log(inventory.GetItemIDInBag(missiontype[0].Returnitemid()) > -1);
 
 
     }
 
     void CheckMissioncompleteless()
     {
-        if (inventory.Cotainitem(missiontype[0].Returnitemid()))
+        if (inventory.GetItemIDInBag(missiontype[0].Returnitemid()) > -1) 
         {
             Debug.Log("hi123");
             missiontype[0].Setcompleteless(true);

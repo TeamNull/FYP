@@ -23,21 +23,31 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private static string canvasName = "DragAndDropCanvas";                         // Name of canvas
     private static int canvasSortOrder = 100;										// Sort order for canvas
 
+    public bool isSkill;
     public Skill[] SkillItem = new Skill[3];
-    public int skillID
+    public Item item;
+    public int ItemId
     {
         get
         {
-            switch (GameManager.player.GetComponent<PlayerAttribute>().job)
+            if (isSkill)
             {
-                case PlayerAttribute.Classes.Archer:
-                    return SkillItem[0].id;
-                case PlayerAttribute.Classes.Magician:
-                    return SkillItem[1].id;
-                case PlayerAttribute.Classes.Warrior:
-                    return SkillItem[2].id;
-                default: return -1;
+                switch (GameManager.player.GetComponent<PlayerAttribute>().job)
+                {
+                    case PlayerAttribute.Classes.Archer:
+                        return SkillItem[0].id;
+                    case PlayerAttribute.Classes.Magician:
+                        return SkillItem[1].id;
+                    case PlayerAttribute.Classes.Warrior:
+                        return SkillItem[2].id;
+                }
             }
+            if (item != null)
+            {
+                return item.id;
+            }
+
+            return -1;
         }
     }
     UIController uic;
@@ -63,31 +73,46 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     /// <param name="eventData"></param>
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (dragDisabled == false && uic.LocalSkill[int.Parse(name)] > 0)
+        if (isSkill)
         {
-            sourceCell = GetCell();                                                 // Remember source cell
-            draggedItem = this;                                                     // Set as dragged item
-                                                                                    // Create item's icon
-            icon = new GameObject();
-            icon.transform.SetParent(canvas.transform);
-            icon.name = "Icon";
-            Image myImage = GetComponent<Image>();
-            myImage.raycastTarget = false;                                          // Disable icon's raycast for correct drop handling
-            Image iconImage = icon.AddComponent<Image>();
-            iconImage.raycastTarget = false;
-            iconImage.sprite = myImage.sprite;
-            RectTransform iconRect = icon.GetComponent<RectTransform>();
-            // Set icon's dimensions
-            RectTransform myRect = GetComponent<RectTransform>();
-            iconRect.pivot = new Vector2(0.5f, 0.5f);
-            iconRect.anchorMin = new Vector2(0.5f, 0.5f);
-            iconRect.anchorMax = new Vector2(0.5f, 0.5f);
-            iconRect.sizeDelta = new Vector2(myRect.rect.width, myRect.rect.height);
-
-            if (OnItemDragStartEvent != null)
+            if (dragDisabled == false && uic.LocalSkill[int.Parse(name)] > 0)
             {
-                OnItemDragStartEvent(this);                                         // Notify all items about drag start for raycast disabling
+                dragItem();
             }
+        }
+        else
+        {
+            if (dragDisabled == false && item.id > 0 && item.id < 5)
+            {
+                dragItem();
+            }
+        }
+    }
+
+    void dragItem()
+    {
+        sourceCell = GetCell();                                                 // Remember source cell
+        draggedItem = this;                                                     // Set as dragged item
+                                                                                // Create item's icon
+        icon = new GameObject();
+        icon.transform.SetParent(canvas.transform);
+        icon.name = "Icon";
+        Image myImage = GetComponent<Image>();
+        myImage.raycastTarget = false;                                          // Disable icon's raycast for correct drop handling
+        Image iconImage = icon.AddComponent<Image>();
+        iconImage.raycastTarget = false;
+        iconImage.sprite = myImage.sprite;
+        RectTransform iconRect = icon.GetComponent<RectTransform>();
+        // Set icon's dimensions
+        RectTransform myRect = GetComponent<RectTransform>();
+        iconRect.pivot = new Vector2(0.5f, 0.5f);
+        iconRect.anchorMin = new Vector2(0.5f, 0.5f);
+        iconRect.anchorMax = new Vector2(0.5f, 0.5f);
+        iconRect.sizeDelta = new Vector2(myRect.rect.width, myRect.rect.height);
+
+        if (OnItemDragStartEvent != null)
+        {
+            OnItemDragStartEvent(this);                                         // Notify all items about drag start for raycast disabling
         }
     }
 
@@ -162,6 +187,21 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void PerformAction()
     {
-        GameManager.player.GetComponent<PlayerAttack>();
+        if (isSkill) {
+            switch (GameManager.player.GetComponent<PlayerAttribute>().job)
+            {
+                case PlayerAttribute.Classes.Archer:
+                    SkillItem[0].ApplyAction();
+                    break;
+                case PlayerAttribute.Classes.Magician:
+                    SkillItem[1].ApplyAction();
+                    break;
+                case PlayerAttribute.Classes.Warrior:
+                    SkillItem[2].ApplyAction();
+                    break;
+            }
+        } else {
+            item.ApplyAction();
+        }
     }
 }
