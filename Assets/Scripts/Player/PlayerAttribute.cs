@@ -105,6 +105,7 @@ public class PlayerAttribute : MonoBehaviour
         GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.",Color.magenta);
         while (currentExp >= needExp)
         {
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("LevelUp");
             currentExp -= needExp;
             //Debug.Log("cur lv " + currentLevel+ " cur lv/10 " + (currentLevel / 10)+ " cur lv%10 " + (currentLevel % 10));
             float expCoeLvRange = 3-(currentLevel / 10);

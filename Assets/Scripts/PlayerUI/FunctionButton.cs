@@ -32,6 +32,7 @@ public class FunctionButton : MonoBehaviour
     #region Method
     public void EnableAttribute()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Attribute.SetActive(!Attribute.activeSelf);        
     }
 
@@ -42,25 +43,30 @@ public class FunctionButton : MonoBehaviour
 
     public void EnableSetting()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Setting.SetActive(!Setting.activeSelf);
     }
 
     public void EnableBag()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Bag.SetActive(!Bag.activeSelf);
     }
 
     public void EnableMission()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Mission.SetActive(!Mission.activeSelf);
     }
 
     public void EnableSkill() {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Skill.SetActive(!Skill.activeSelf);
     }
 
     public void EnableShop()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         Shop.SetActive(!Shop.activeSelf);
         Bag.SetActive(Shop.activeSelf);
     }

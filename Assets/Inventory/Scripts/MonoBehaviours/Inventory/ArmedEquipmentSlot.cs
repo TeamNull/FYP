@@ -30,6 +30,7 @@ public class ArmedEquipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerE
     {
         if (eventData.button == PointerEventData.InputButton.Right)
         {
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
             Debug.Log(slotId);
             if(armedEquipment!=null)armedEquipment.RemoveEquipment(slotId);
         }

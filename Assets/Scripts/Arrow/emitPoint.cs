@@ -54,6 +54,7 @@ public class emitPoint : MonoBehaviour
     IEnumerator ArrowOut(float second)
     {
         yield return new WaitForSeconds(second);
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ArcheryAttack");
         GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);
         cloneArrow.transform.position = theEmitPoint;
         cloneArrow.transform.rotation = transform.rotation;

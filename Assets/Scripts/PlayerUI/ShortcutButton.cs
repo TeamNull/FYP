@@ -20,6 +20,7 @@ public class ShortcutButton : MonoBehaviour, IPointerClickHandler {
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("ShortcutKey" + keyIndex.ToString());
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         int childNum = transform.childCount;
         if (childNum != 0)
         {

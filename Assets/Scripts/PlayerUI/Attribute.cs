@@ -56,6 +56,7 @@ public class Attribute : MonoBehaviour
     }
     
     public void addStr() {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (tempAvailablePoint <= 0) return;
         isEditing = true;
         tempAvailablePoint -= 1;
@@ -65,6 +66,7 @@ public class Attribute : MonoBehaviour
     }
 
     public void minusStr() {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (usedSTR <= 0) return;
         isEditing = true;
         usedSTR -= 1;
@@ -76,6 +78,7 @@ public class Attribute : MonoBehaviour
     
     public void addAgi()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (tempAvailablePoint <= 0) return;
         isEditing = true;
         tempAvailablePoint -= 1;
@@ -86,6 +89,7 @@ public class Attribute : MonoBehaviour
 
     public void minusAgi()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (usedAGI <= 0) return;
         isEditing = true;
         usedAGI -= 1;
@@ -97,6 +101,7 @@ public class Attribute : MonoBehaviour
 
     public void add_Int()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (tempAvailablePoint <= 0) return;
         isEditing = true;
         tempAvailablePoint -= 1;
@@ -107,6 +112,7 @@ public class Attribute : MonoBehaviour
 
     public void minus_Int()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (used_INT <= 0) return;
         isEditing = true;
         used_INT -= 1;
@@ -117,6 +123,7 @@ public class Attribute : MonoBehaviour
     }
 
     public void confirmPluaAndMinus() {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         pa.AvailablePoint -= (usedSTR+ usedAGI+ used_INT);
         pa.str += usedSTR;
         pa.agi += usedAGI;

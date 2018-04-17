@@ -76,26 +76,12 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         timer = 0f;
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
         anim.SetTrigger("Attack");
     }
 
     void AttackByCyclone()
     {
-        //Vector3 forward = transform.TransformDirection(Vector3.forward);
-        //Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
-        //RaycastHit hit;
-        //if (Physics.OverlapSphere(origin, 2,transform.forward ,out hit, 2))
-        //{
-        //    //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
-        //    //Debug.Log(hit.transform.name);
-        //    if (hit.transform.gameObject.tag == "Enemy")
-        //    {
-        //        EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-        //        ea.TakeDamage(pa.atk);
-        //        es.UpdateUI(ea);
-        //    }
-        //}
-
         Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y +1.0f, transform.position.z), 3);
         int i = 0;
         while (i < hitColliders.Length)
@@ -109,6 +95,7 @@ public class PlayerAttack : MonoBehaviour
             i++;
         }
         timer = 0f;
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
         anim.SetTrigger("AttackBySkill0");
     }
 
@@ -129,6 +116,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         timer = 0f;
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
         anim.SetTrigger("AttackBySkill1");
     }
 
@@ -149,6 +137,7 @@ public class PlayerAttack : MonoBehaviour
             }
         }
         timer = 0f;
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
         anim.SetTrigger("AttackBySkill2");
     }
 
@@ -185,6 +174,7 @@ public class PlayerAttack : MonoBehaviour
             //Debug.Log(hit.transform.name);
             if (hit.transform.gameObject.tag == "Enemy")
             {
+                GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ArcheryAttack");
                 //creat arrow rain at the head of monster x,z fix y10
                 float tempX = (this.transform.position.x + hit.transform.position.x) / 2;
                 float tempZ = (this.transform.position.z + hit.transform.position.z) / 2;

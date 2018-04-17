@@ -75,23 +75,23 @@ public class BGMcontrol : MonoBehaviour {
         soundSource.volume = 0.1f;
         switch (sound)
         {
-            case "ArcheryAttack":
+            case "ArcheryAttack"://done
                 soundSource.clip = ArcheryAttack;
                 break;
 
-            case "ClickButton":
+            case "ClickButton": //wait bigmap,setting window,skill window
                 soundSource.clip = ClickButton;
                 break;
 
-            case "Drink": 
+            case "Drink": //done
                 soundSource.clip = Drink;
                 break;
 
-            case "LevelUp": 
+            case "LevelUp": //done
                 soundSource.clip = LevelUp;
                 break;
 
-            case "MagicAttack":
+            case "MagicAttack"://done
                 soundSource.clip = MagicAttack;
                 break;
 
@@ -113,6 +113,10 @@ public class BGMcontrol : MonoBehaviour {
 
             case "SwingAttack":
                 soundSource.clip = SwingAttack;
+                break;
+
+            case "SwordAttack": //done
+                soundSource.clip = SwordAttack;
                 break;
 
             default:

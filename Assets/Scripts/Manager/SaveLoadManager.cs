@@ -73,11 +73,13 @@ public class SaveLoadManager : MonoBehaviour
     #region Method
     public void SaveBtnOnClick()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         saveBtnClicked = true;
     }
 
     public void LoadBtnOnClick()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         loadBtnClicked = true;
     }
 

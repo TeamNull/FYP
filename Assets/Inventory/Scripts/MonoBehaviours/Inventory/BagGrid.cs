@@ -25,6 +25,7 @@ public class BagGrid : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
 	}
 
     public void OnPointerClick(PointerEventData eventData) {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (eventData.button == PointerEventData.InputButton.Right) {
             Debug.Log(gridId);
             bag.RemoveItem(gridId);

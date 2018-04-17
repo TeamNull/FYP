@@ -21,7 +21,7 @@ public class Potion : Item {
     public override void ApplyAction()
     {
         pa = GameManager.player.GetComponent<PlayerAttribute>();
-        
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("Drink");
         //Debug.Log("applyaction in equipment");
         pa.currentHP += hp;
         pa.currentMP += mp;

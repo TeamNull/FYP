@@ -29,6 +29,7 @@ public class ShopGrid : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (eventData.button == PointerEventData.InputButton.Right&& item!=null)
         {            
             //bag.RemoveItem(gridId);
