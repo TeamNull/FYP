@@ -35,7 +35,7 @@ public class SaveObject : MonoBehaviour
                         {
                             bag = GameManager.bag;
                             bag.AddItem(item, unit);
-                            GameManager.inGameLog.AddLog("You have collected " + item.name + ".", Color.blue);
+                            GameManager.inGameLog.AddLog("You have collected " + item.itemName + ".", Color.blue);
                         }
                         else
                         {

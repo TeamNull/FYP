@@ -7,7 +7,7 @@ public class Item : ScriptableObject
     public int id;
     public int unit;
     public int price;
-    public string name = "default";
+    public string itemName = "default";
     public string description="default";
 
     //public GameObject<TextAreaAttribute> description;

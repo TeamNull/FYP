@@ -40,7 +40,7 @@ public class ArmedEquipmentSlot : MonoBehaviour, IPointerClickHandler, IPointerE
         {
             popUp = GameObject.FindGameObjectWithTag("PopUp");
             //popUp.GetComponentInChildren<Text>().text = item.description;
-            popUp.transform.GetChild(0).GetComponent<Text>().text = item.name;
+            popUp.transform.GetChild(0).GetComponent<Text>().text = item.itemName;
             popUp.transform.GetChild(2).GetComponent<Text>().text = item.description;
             popUp.transform.GetChild(3).gameObject.SetActive(false);
             popUp.transform.GetChild(4).gameObject.SetActive(false);
