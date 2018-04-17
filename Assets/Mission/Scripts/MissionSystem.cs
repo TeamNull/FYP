@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MissionSystem : MonoBehaviour
 {
 
-    private int globalMissionID = 0;
+    private int globalMissionID = 5;
     private int enemycount = 0;
     public Mission[] mission = new Mission[missionnumber];
 
@@ -63,6 +63,7 @@ public class MissionSystem : MonoBehaviour
 
     IEnumerator UnloadScene(string sceneName)
     {
+        yield return new WaitForSeconds(3f);
         GameObject[] goArray = GameObject.FindGameObjectsWithTag("Portal");
         AsyncOperation unloadForest = SceneManager.UnloadSceneAsync(sceneName);
         while (!unloadForest.isDone)
@@ -83,6 +84,7 @@ public class MissionSystem : MonoBehaviour
 
     IEnumerator LoadScene(string sceneName, Vector3 v3, Quaternion q)
     {
+        yield return new WaitForSeconds(2f);
         loadingScene.SetActive(true);
         //GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
