@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DigitalRuby.PyroParticles;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class PlayerAttack : MonoBehaviour
     public emitPoint emitPoint;
     public EnemyStatus es;
     public GameObject arrawRain;
-
+    public GameObject[] Prefabs;
+    private GameObject currentPrefabObject;
+    private FireBaseScript currentPrefabScript;
+    public int choices = 0;
     float timer = 0f;
     Animator anim;
     PlayerAttribute pa;
@@ -37,14 +41,19 @@ public class PlayerAttack : MonoBehaviour
                 //AttackByCyclone();
                 //AttackByStrong();
             }
-            else
+            if (pa.job == PlayerAttribute.Classes.Archer)
             {
                 AttackByShoot();
                 //AttackByTripleShoot();
                 //AttackByArrowRain();
                 //AttackByJumpShoot();
-                //Attack();
             }
+            if (pa.job == PlayerAttribute.Classes.Magician)
+            {
+                AttackByFire(choices);
+                isAttacking = false;
+            }
+            
         }
     }
 
@@ -189,7 +198,53 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    //below for magician
+    void AttackByFire(int skillNum) {
+        Vector3 pos;
+        float yRot = transform.rotation.eulerAngles.y;
+        Vector3 forwardY = Quaternion.Euler(0.0f, yRot, 0.0f) * Vector3.forward;
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+        Vector3 up = transform.up;
+        Quaternion rotation = Quaternion.identity;
+        currentPrefabObject = GameObject.Instantiate(Prefabs[skillNum]);
+        currentPrefabScript = currentPrefabObject.GetComponent<FireConstantBaseScript>();
 
+        if (currentPrefabScript == null)
+        {
+            // temporary effect, like a fireball
+            currentPrefabScript = currentPrefabObject.GetComponent<FireBaseScript>();
+            if (currentPrefabScript.IsProjectile)
+            {
+                // set the start point near the player
+                rotation = transform.rotation;
+                pos = transform.position + forward + right + up;
+            }
+            else
+            {
+                // set the start point in front of the player a ways
+                pos = transform.position + (forwardY * 10.0f);
+            }
+        }
+        else
+        {
+            // set the start point in front of the player a ways, rotated the same way as the player
+            pos = transform.position + (forwardY * 5.0f);
+            rotation = transform.rotation;
+            pos.y = 0.0f;
+        }
+
+        FireProjectileScript projectileScript = currentPrefabObject.GetComponentInChildren<FireProjectileScript>();
+        if (projectileScript != null)
+        {
+            // make sure we don't collide with other fire layers
+            projectileScript.ProjectileCollisionLayers &= (~UnityEngine.LayerMask.NameToLayer("FireLayer"));
+        }
+
+        currentPrefabObject.transform.position = pos;
+        currentPrefabObject.transform.rotation = rotation;
+
+    }
 
     public void AttackEnd()
     {
