@@ -25,7 +25,8 @@ public class Shop : MonoBehaviour {
         {
             itemUIList.Add(transform.GetChild(i));
             Destroy(transform.GetChild(i).gameObject.GetComponent<BagGrid>());
-            transform.GetChild(i).gameObject.AddComponent<ShopGrid>();            
+            transform.GetChild(i).gameObject.AddComponent<ShopGrid>();
+            this.gameObject.transform.parent.gameObject.SetActive(false);
         }
         itemUIList.OrderBy(x => x.name);
         for (int i=0;i< goods.Length;i++) {
