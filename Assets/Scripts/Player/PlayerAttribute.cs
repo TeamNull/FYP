@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttribute : MonoBehaviour
 {
@@ -38,6 +39,7 @@ public class PlayerAttribute : MonoBehaviour
     int needExp;
     const int baseExp = 100;
     Animator anim;
+    GameObject loadingScene;
     float timer;
     #endregion
 
@@ -51,11 +53,24 @@ public class PlayerAttribute : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        GameObject[] uiGameObjectArray = SceneManager.GetSceneByName("UI").GetRootGameObjects();
+
+        foreach (GameObject go in uiGameObjectArray)
+        {
+            if (go.name == "PlayerUI")
+            {
+                loadingScene = go.transform.Find("Loading Scene").gameObject;
+            }
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 1) {
+        if (timer > 1&&!GameManager.PlayerIsDead) {
             currentHP = currentHP + 1 > maxHP ? maxHP : currentHP + 1;
             currentMP = currentMP + 1 > maxMP ? maxMP : currentMP + 1;
             playerUiScript.updateHP(currentHP, maxHP);
@@ -78,7 +93,25 @@ public class PlayerAttribute : MonoBehaviour
         {
             GameManager.PlayerIsDead = true;
             anim.SetTrigger("Dead");
+            GameManager.inGameLog.AddLog("You are died.", Color.red);
+            StartCoroutine(dieAction());
+            //loadingScene.SetActive(true);
+            //if (SceneManager.GetActiveScene().name.Equals("Forest")) this.transform.position = new Vector3(57.46f, 1.572f,-4.608f);
+            //if (SceneManager.GetActiveScene().name.Equals("Runis")) this.transform.position = new Vector3(27.87f,6.18f,0.89f);
         }
+    }
+
+    IEnumerator dieAction()
+    {
+        yield return new WaitForSeconds(3f);
+        loadingScene.SetActive(true);
+        GameManager.PlayerIsDead = false;
+        currentHP = maxHP;
+        UpdatePlayerValueByPoint();
+        anim.SetTrigger("Attack");
+        GameManager.inGameLog.AddLog("You are recovered.", Color.white);
+        if (SceneManager.GetActiveScene().name.Equals("Forest")) this.transform.position = new Vector3(57.46f, 1.572f, -4.608f);
+        if (SceneManager.GetActiveScene().name.Equals("Ruins")) this.transform.position = new Vector3(27.87f, 6.18f, 0.89f);
     }
 
     public void ConsumeMP(int value)
