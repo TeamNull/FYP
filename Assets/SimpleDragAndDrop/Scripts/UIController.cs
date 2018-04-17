@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class UIController : MonoBehaviour {
     public int[] LocalSkill = new int[5];
     public Text[] SkillUI = new Text[5];
+    public GameObject[] SkillItem = new GameObject[5];
     public bool SkillUpEnabled;
     public Text ButtonText;
     public Text SkillTitle;

@@ -22,6 +22,24 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private static Canvas canvas;                                                   // Canvas for item drag operation
     private static string canvasName = "DragAndDropCanvas";                         // Name of canvas
     private static int canvasSortOrder = 100;										// Sort order for canvas
+
+    public Skill[] SkillItem = new Skill[3];
+    public int skillID
+    {
+        get
+        {
+            switch (GameManager.player.GetComponent<PlayerAttribute>().job)
+            {
+                case PlayerAttribute.Classes.Archer:
+                    return SkillItem[0].id;
+                case PlayerAttribute.Classes.Magician:
+                    return SkillItem[1].id;
+                case PlayerAttribute.Classes.Warrior:
+                    return SkillItem[2].id;
+                default: return -1;
+            }
+        }
+    }
     UIController uic;
 
     /// <summary>
@@ -142,7 +160,8 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         ResetConditions();
     }
 
-    public void PerformAction() {
+    public void PerformAction()
+    {
         GameManager.player.GetComponent<PlayerAttack>();
     }
 }
