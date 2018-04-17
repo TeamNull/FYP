@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+//using System;
 
 public class SaveObject : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class SaveObject : MonoBehaviour
                         }
                         else
                         {
-                            item.unit += unit;
+                            item.unit += Random.Range(10,20);
                             GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);                            
                         }
                         GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("PickUpObject");
