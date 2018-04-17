@@ -29,7 +29,7 @@ public class ShopGrid : MonoBehaviour
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.button == PointerEventData.InputButton.Left&& item!=null)
+        if (eventData.button == PointerEventData.InputButton.Right&& item!=null)
         {            
             //bag.RemoveItem(gridId);
             //check if enough money, if no nothing happen
