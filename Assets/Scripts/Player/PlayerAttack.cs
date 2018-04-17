@@ -14,7 +14,7 @@ public class PlayerAttack : MonoBehaviour
     public GameObject[] Prefabs;
     private GameObject currentPrefabObject;
     private FireBaseScript currentPrefabScript;
-    public int choices = 0;
+    public int choices = 2;
     float timer = 0f;
     Animator anim;
     PlayerAttribute pa;
@@ -50,7 +50,8 @@ public class PlayerAttack : MonoBehaviour
             }
             if (pa.job == PlayerAttribute.Classes.Magician)
             {
-                AttackByFire(choices);
+                //AttackByShoot();    //stone ball
+                AttackByFire(choices); //depends 0 small, 1 big
                 isAttacking = false;
             }
             

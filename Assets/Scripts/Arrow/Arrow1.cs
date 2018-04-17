@@ -44,10 +44,12 @@ public class Arrow1 : MonoBehaviour {
 	}
 
     void OnTriggerEnter(Collider other)
-    {     
+    {
+        //Debug.Log(other.name+" "+other.tag);
         //if (other.tag == "Enemy" && playerAttack.isAttacking)
         if (other.tag == "Enemy")
         {
+            
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
             temp.TakeDamage(damage + playerAttribute.atk);
             es.UpdateUI(temp);
@@ -55,7 +57,7 @@ public class Arrow1 : MonoBehaviour {
             return;
         }
 
-        if (other.tag == "Player" || other.tag == "Arrow")
+        if (other.tag == "Player")
             return;
 
         ridigB.velocity = Vector3.zero;
