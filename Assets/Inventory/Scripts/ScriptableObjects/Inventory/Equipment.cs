@@ -30,6 +30,7 @@ public class Equipment : Item
     public override void ApplyAction() {
         pa = GameManager.player.GetComponent<PlayerAttribute>();
         ae = GameManager.armedEquipment;
+        if ((equipmentType ==1)&& (pa.job.Equals("Warrior")&&id==111||pa.job.Equals("Archer")&&id==112|| pa.job.Equals("Magician") && id == 113)) return;
         //Debug.Log("applyaction in equipment");
         pa.maxHP += hp;
         pa.currentHP += hp;
