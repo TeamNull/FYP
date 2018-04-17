@@ -94,16 +94,17 @@ public class EnemyAttribute : MonoBehaviour
             player.GetComponent<MissionSystem>().Missiontype1(1, this.gameObject.transform.name);
             player.GetComponent<MissionSystem>().Thebossmonsterisdead(this.gameObject.transform.name);
             if (EnemyDeath != null) EnemyDeath();
-            for (int i = 0; i < DropItemList.Count; i++) {
-                float randomNumber = Random.Range(0.0f, 1.0f);
-                if (DropItemProbability[i] > 1) {
-                    DropItemProbability[i] = 1.0f;
-                }
+            //for (int i = 0; i < DropItemList.Count; i++) {
+            //    float randomNumber = Random.Range(0.0f, 1.0f);
+            //    if (DropItemProbability[i] > 1) {
+            //        DropItemProbability[i] = 1.0f;
+            //    }
 
-                if (randomNumber <= DropItemProbability[i]) {
-                    Instantiate(DropItemList[i], transform.position, DropItemList[i].transform.rotation);
-                }
-            }
+            //    if (randomNumber <= DropItemProbability[i]) {
+            //        Instantiate(DropItemList[i], transform.position, DropItemList[i].transform.rotation);
+            //    }
+            //}
+            Instantiate(DropItemList[0], transform.position, DropItemList[0].transform.rotation);
             this.gameObject.SetActive(false);
         }
     }

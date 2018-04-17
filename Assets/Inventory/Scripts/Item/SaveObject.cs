@@ -40,8 +40,9 @@ public class SaveObject : MonoBehaviour
                         }
                         else
                         {
-                            item.unit += Random.Range(10,20);
-                            GameManager.inGameLog.AddLog("You have earned " + unit + " coin.", Color.yellow);                            
+                            int temp= Random.Range(10, 20);
+                            item.unit += temp;
+                            GameManager.inGameLog.AddLog("You have earned " + temp + " coin.", Color.yellow);                            
                         }
                         GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("PickUpObject");
                         Destroy(this.gameObject);
