@@ -9,7 +9,10 @@ public class SaveLoadManager : MonoBehaviour
 {
     #region Variable
     public GameObject LoadingScreen;
-    public GameObject Grid;
+    public GameObject Bag;
+    public GameObject Shortcut;
+    public GameObject shopObject;
+    public GameObject skill;
 
     const string id = "BF1D24BE7DF041E4A40170B1E940BBD4";
 
