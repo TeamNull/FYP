@@ -30,8 +30,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 	public float backwardSpeed = 2.0f;
 	// 旋回速度
 	public float rotateSpeed = 2.0f;
-	// ジャンプ威力
-	public float jumpPower = 3.0f; 
 	// キャラクターコントローラ（カプセルコライダ）の参照
 	private CapsuleCollider col;
 	private Rigidbody rb;
@@ -49,7 +47,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 // アニメーター各ステートへの参照
 	static int idleState = Animator.StringToHash("Base Layer.Idle");
 	static int locoState = Animator.StringToHash("Base Layer.Locomotion");
-	static int jumpState = Animator.StringToHash("Base Layer.Jump");
 	static int restState = Animator.StringToHash("Base Layer.Rest");
 
 
@@ -93,20 +90,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 		} else if (v < -0.1) {
 			velocity *= backwardSpeed;	// 移動速度を掛ける
 		}
-		
-		if (Input.GetButtonDown("Jump")) {	// スペースキーを入力したら
-
-			//アニメーションのステートがLocomotionの最中のみジャンプできる
-            if (currentBaseState.fullPathHash == locoState){
-				//ステート遷移中でなかったらジャンプできる
-				if(!anim.IsInTransition(0))
-				{
-						rb.AddForce(Vector3.up * jumpPower, ForceMode.VelocityChange);
-						anim.SetBool("Jump", true);		// Animatorにジャンプに切り替えるフラグを送る
-				}
-			}
-		}
-		
 
 		// 上下のキー入力でキャラクターを移動させる
 		transform.localPosition += velocity * Time.fixedDeltaTime;
@@ -122,47 +105,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 			//カーブでコライダ調整をしている時は、念のためにリセットする
 			if(useCurves){
 				resetCollider();
-			}
-		}
-		// JUMP中の処理
-		// 現在のベースレイヤーがjumpStateの時
-        else if(currentBaseState.fullPathHash == jumpState)
-		{
-			cameraObject.SendMessage("setCameraPositionJumpView");	// ジャンプ中のカメラに変更
-			// ステートがトランジション中でない場合
-			if(!anim.IsInTransition(0))
-			{
-				
-				// 以下、カーブ調整をする場合の処理
-				if(useCurves){
-					// 以下JUMP00アニメーションについているカーブJumpHeightとGravityControl
-					// JumpHeight:JUMP00でのジャンプの高さ（0〜1）
-					// GravityControl:1⇒ジャンプ中（重力無効）、0⇒重力有効
-					float jumpHeight = anim.GetFloat("JumpHeight");
-					float gravityControl = anim.GetFloat("GravityControl"); 
-					if(gravityControl > 0)
-						rb.useGravity = false;	//ジャンプ中の重力の影響を切る
-										
-					// レイキャストをキャラクターのセンターから落とす
-					Ray ray = new Ray(transform.position + Vector3.up, -Vector3.up);
-					RaycastHit hitInfo = new RaycastHit();
-					// 高さが useCurvesHeight 以上ある時のみ、コライダーの高さと中心をJUMP00アニメーションについているカーブで調整する
-					if (Physics.Raycast(ray, out hitInfo))
-					{
-						if (hitInfo.distance > useCurvesHeight)
-						{
-							col.height = orgColHight - jumpHeight;			// 調整されたコライダーの高さ
-							float adjCenterY = orgVectColCenter.y + jumpHeight;
-							col.center = new Vector3(0, adjCenterY, 0);	// 調整されたコライダーのセンター
-						}
-						else{
-							// 閾値よりも低い時には初期値に戻す（念のため）					
-							resetCollider();
-						}
-					}
-				}
-				// Jump bool値をリセットする（ループしないようにする）				
-				anim.SetBool("Jump", false);
 			}
 		}
 		// IDLE中の処理
@@ -190,18 +132,6 @@ public class UnityChanControlScriptWithRgidBody : MonoBehaviour
 			}
 		}
 	}
-
-	void OnGUI()
-	{
-		/*GUI.Box(new Rect(Screen.width -260, 10 ,250 ,150), "Interaction");
-		GUI.Label(new Rect(Screen.width -245,30,250,30),"Up/Down Arrow : Go Forwald/Go Back");
-		GUI.Label(new Rect(Screen.width -245,50,250,30),"Left/Right Arrow : Turn Left/Turn Right");
-		GUI.Label(new Rect(Screen.width -245,70,250,30),"Hit Space key while Running : Jump");
-		GUI.Label(new Rect(Screen.width -245,90,250,30),"Hit Spase key while Stopping : Rest");
-		GUI.Label(new Rect(Screen.width -245,110,250,30),"Left Control : Front Camera");
-		GUI.Label(new Rect(Screen.width -245,130,250,30),"Alt : LookAt Camera");*/
-	}
-
 
 	// キャラクターのコライダーサイズのリセット関数
 	void resetCollider()
