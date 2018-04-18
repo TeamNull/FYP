@@ -7,7 +7,6 @@ public class PlayerAttribute : MonoBehaviour
 {
     #region Variable
     public enum Classes { Warrior, Archer, Magician }
-
     public delegate void LevelUpHandler();
     public event LevelUpHandler LevelUp;
     public UIinfo playerUiScript;
@@ -35,6 +34,12 @@ public class PlayerAttribute : MonoBehaviour
     public int SkillPoint;
     public int currentLevel;
     public int currentExp;
+    public int hpCoe;
+    public int mpCoe;
+    public int atkCoe;
+    public int atkLvCoe;
+    public int defCoe;
+    public int defLvCoe;
     int totalExp;
     int needExp;
     const int baseExp = 100;
@@ -70,7 +75,7 @@ public class PlayerAttribute : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 1&&!GameManager.PlayerIsDead) {
+        if (timer > 1 && !GameManager.PlayerIsDead) {
             currentHP = currentHP + 1 > maxHP ? maxHP : currentHP + 1;
             currentMP = currentMP + 1 > maxMP ? maxMP : currentMP + 1;
             playerUiScript.updateHP(currentHP, maxHP);
@@ -134,26 +139,26 @@ public class PlayerAttribute : MonoBehaviour
         currentExp += sourceExp;
         totalExp += sourceExp;
         //check if level up
-        string tempLogText = "You have earned "+sourceExp+" EXP.";
-        GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.",Color.magenta);
+        string tempLogText = "You have earned " + sourceExp + " EXP.";
+        GameManager.inGameLog.AddLog("You have earned " + sourceExp + " EXP.", Color.magenta);
         while (currentExp >= needExp)
         {
             GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("LevelUp");
             currentExp -= needExp;
             //Debug.Log("cur lv " + currentLevel+ " cur lv/10 " + (currentLevel / 10)+ " cur lv%10 " + (currentLevel % 10));
-            float expCoeLvRange = 3-(currentLevel / 10);
-            float expCoeLvTune = 10-(currentLevel % 10);
+            float expCoeLvRange = 3 - (currentLevel / 10);
+            float expCoeLvTune = 10 - (currentLevel % 10);
             if (currentLevel >= 30)
             {
                 expCoeLvRange = (currentLevel / 10);
                 expCoeLvTune = (currentLevel % 10);
             }
             float expCoefficient = 1 + expCoeLvRange * 0.05f + expCoeLvTune * 0.005f;
-            needExp = (int)Mathf.Floor(needExp* expCoefficient);
-            Debug.Log("lv "+currentLevel+"needed " + needExp);
+            needExp = (int)Mathf.Floor(needExp * expCoefficient);
+            Debug.Log("lv " + currentLevel + "needed " + needExp);
             currentLevel++;
             isLvUp = true;
-            AvailablePoint += 1;
+            AvailablePoint++;
             SkillPoint++;
             currentHP = maxHP;
             currentMP = maxMP;
@@ -163,6 +168,36 @@ public class PlayerAttribute : MonoBehaviour
         playerUiScript.updateHP(currentHP, maxHP);
         if (isLvUp) levelUp.SetActive(true);
         isLvUp = false;
+    }
+
+    public void SetCoe() {
+        switch (job)
+        {
+            case Classes.Warrior:
+                hpCoe = 7;
+                mpCoe = 10;
+                atkCoe = 5;
+                atkLvCoe = 1;
+                defCoe=1;
+                defLvCoe =3;
+                break;
+            case Classes.Archer:
+                hpCoe = 5;
+                mpCoe = 12;
+                atkCoe = 4;
+                atkLvCoe = 2;
+                defCoe = 2;
+                defLvCoe = 2;
+                break;
+            case Classes.Magician:
+                hpCoe = 5;
+                mpCoe = 15;
+                atkCoe = 2;
+                atkLvCoe = 1;
+                defCoe = 1;
+                defLvCoe = 2;
+                break;
+        }
     }
 
     //initial
@@ -178,18 +213,28 @@ public class PlayerAttribute : MonoBehaviour
         switch (CreateNewCharacter.numOfSelectedCharacter) {
             case 0:
                 job = Classes.Warrior;
+                str = 5;
+                _int = 5;
+                agi = 3;
+                maxHP = 300;
                 break;
             case 1:
                 job = Classes.Archer;
+                str = 3;
+                _int = 7;
+                agi = 3;
+                maxHP = 270;
                 break;
             case 2:
                 job = Classes.Magician;
+                str = 3;
+                _int = 3;
+                agi = 7;
+                maxHP = 250;
                 break;
-        }        
-
-        str = 5;
-        _int = 5;
-        agi = 5;
+        }
+        maxMP = 100;
+        SetCoe();
 
         additionalAtk = 0;
         additionalDef = 0;
