@@ -14,7 +14,6 @@ public class PlayerAttack : MonoBehaviour
     public GameObject[] Prefabs;
     private GameObject currentPrefabObject;
     private FireBaseScript currentPrefabScript;
-    public int choices = 2;
     float timer = 0f;
     Animator anim;
     PlayerAttribute pa;
@@ -51,10 +50,59 @@ public class PlayerAttack : MonoBehaviour
             if (pa.job == PlayerAttribute.Classes.Magician)
             {
                 //AttackByShoot();    //stone ball
-                AttackByFire(choices); //depends 0 small, 1 big
+                AttackByFire(0); //depends 0 small, 1 big, 2 fire rain
                 isAttacking = false;
             }
-            
+
+        }
+    }
+
+    public void UseSkill(int skillIndex)
+    {
+        switch (pa.job)
+        {
+            case PlayerAttribute.Classes.Archer:
+                switch (skillIndex)
+                {
+                    case 1:
+                        AttackByTripleShoot();
+                        break;
+                    case 2:
+                        AttackByJumpShoot();
+                        break;
+                    case 3:
+                        AttackByArrowRain();
+                        break;
+                }
+                break;
+            case PlayerAttribute.Classes.Magician:
+                switch (skillIndex)
+                {
+                    case 1:
+                        AttackByFire(1);
+                        break;
+                    case 2:
+                        AttackByShoot();
+                        break;
+                    case 3:
+                        AttackByFire(2);
+                        break;
+                }
+                break;
+            case PlayerAttribute.Classes.Warrior:
+                switch (skillIndex)
+                {
+                    case 1:
+                        AttackByStrong();
+                        break;
+                    case 2:
+                        AttackByStrike();
+                        break;
+                    case 3:
+                        AttackByCyclone();
+                        break;
+                }
+                break;
         }
     }
 
@@ -62,7 +110,7 @@ public class PlayerAttack : MonoBehaviour
     void Attack()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 origin = transform.position+ new Vector3(0.0f, 1.0f, 0.0f); ;
+        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
         if (Physics.Raycast(origin, forward, out hit, 2))
         {
@@ -71,7 +119,7 @@ public class PlayerAttack : MonoBehaviour
             if (hit.transform.gameObject.tag == "Enemy")
             {
                 EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(pa.atk);
+                ea.TakeDamage(GetShortRangeDamage(pa.atk, 0, ea.defence));
                 es.UpdateUI(ea);
             }
         }
@@ -82,7 +130,7 @@ public class PlayerAttack : MonoBehaviour
 
     void AttackByCyclone()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y +1.0f, transform.position.z), 3);
+        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z), 3);
         int i = 0;
         while (i < hitColliders.Length)
         {
@@ -143,12 +191,13 @@ public class PlayerAttack : MonoBehaviour
 
     //below for archer
     void AttackByShoot()
-    {      
-        emitPoint.AttackByShoot();        
+    {
+        emitPoint.AttackByShoot();
         timer = 0f;
         anim.SetTrigger("AttackByShoot");
     }
 
+    //Archer skill 2
     void AttackByJumpShoot()
     {
         emitPoint.AttackByJumpShoot();
@@ -156,6 +205,7 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackBySkill1");
     }
 
+    //Archer skill 1
     void AttackByTripleShoot()
     {
         emitPoint.AttackByTripleShoot();
@@ -163,12 +213,13 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackBySkill2");
     }
 
+    //Archer skill 3
     void AttackByArrowRain()
     {
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
-        if (Physics.Raycast(origin, forward, out hit,15))
+        if (Physics.Raycast(origin, forward, out hit, 15))
         {
             //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
             //Debug.Log(hit.transform.name);
@@ -185,12 +236,13 @@ public class PlayerAttack : MonoBehaviour
                 Destroy(obj, 5f);
                 timer = 0f;
                 anim.SetTrigger("AttackBySkill0");
-            }           
+            }
         }
     }
 
     //below for magician
-    void AttackByFire(int skillNum) {
+    void AttackByFire(int skillNum)
+    {
         Vector3 pos;
         float yRot = transform.rotation.eulerAngles.y;
         Vector3 forwardY = Quaternion.Euler(0.0f, yRot, 0.0f) * Vector3.forward;
@@ -242,7 +294,13 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = false;
     }
 
-    public void UseSkill(int skillNumber) {
-        
+    public int GetLongRangeDamage(int playerAtkVal, int skillDamage, int enemyDefense, int distance)
+    {
+        return Mathf.Max((Mathf.CeilToInt((playerAtkVal + skillDamage) * 0.5f) - enemyDefense), (((playerAtkVal + skillDamage) * (1 - Mathf.Abs(distance - 10) / 10)) - enemyDefense));
+    }
+
+    public int GetShortRangeDamage(int playerAtkVal, int skillDamage, int enemyDefense)
+    {
+        return (playerAtkVal + skillDamage) - enemyDefense;
     }
 }

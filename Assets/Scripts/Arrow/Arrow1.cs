@@ -51,7 +51,7 @@ public class Arrow1 : MonoBehaviour {
         {
             
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(damage + playerAttribute.atk);
+            temp.TakeDamage(player.GetComponent<PlayerAttack>().GetLongRangeDamage(playerAttribute.atk,0,temp.defence,Mathf.FloorToInt(Vector3.Distance(player.transform.position, temp.transform.position))));
             es.UpdateUI(temp);
             Destroy(gameObject);
             return;
