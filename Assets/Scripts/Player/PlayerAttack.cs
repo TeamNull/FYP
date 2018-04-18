@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void UseSkill(int skillIndex)
+    public void UseSkill(int skillIndex, int skillLevel)
     {
         switch (pa.job)
         {
@@ -93,13 +93,13 @@ public class PlayerAttack : MonoBehaviour
                 switch (skillIndex)
                 {
                     case 1:
-                        AttackByStrong();
+                        AttackByStrike(skillLevel);
                         break;
                     case 2:
-                        AttackByStrike();
+                        AttackByStrong(skillLevel);
                         break;
                     case 3:
-                        AttackByCyclone();
+                        AttackByCyclone(skillLevel);
                         break;
                 }
                 break;
@@ -128,8 +128,9 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("Attack");
     }
 
-    void AttackByCyclone()
+    void AttackByCyclone(int level)
     {
+        pa.ConsumeMP(50);
         Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z), 3);
         int i = 0;
         while (i < hitColliders.Length)
@@ -137,7 +138,7 @@ public class PlayerAttack : MonoBehaviour
             if (hitColliders[i].gameObject.tag == "Enemy")
             {
                 EnemyAttribute ea = hitColliders[i].transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(pa.atk);
+                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (level / 10)), ea.defence));
                 es.UpdateUI(ea);
             }
             i++;
@@ -147,8 +148,9 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackBySkill0");
     }
 
-    void AttackByStrike()
+    void AttackByStrike(int level)
     {
+        pa.ConsumeMP(20);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
@@ -159,7 +161,7 @@ public class PlayerAttack : MonoBehaviour
             if (hit.transform.gameObject.tag == "Enemy")
             {
                 EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(pa.atk);
+                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level/10)), ea.defence));
                 es.UpdateUI(ea);
             }
         }
@@ -168,8 +170,9 @@ public class PlayerAttack : MonoBehaviour
         anim.SetTrigger("AttackBySkill1");
     }
 
-    void AttackByStrong()
+    void AttackByStrong(int level)
     {
+        pa.ConsumeMP(30);
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
@@ -180,7 +183,7 @@ public class PlayerAttack : MonoBehaviour
             if (hit.transform.gameObject.tag == "Enemy")
             {
                 EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(pa.atk);
+                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level / 10)), ea.defence));
                 es.UpdateUI(ea);
             }
         }

@@ -83,6 +83,20 @@ public class UIController : MonoBehaviour {
                         LocalSkill[index]++;
                         SkillUI[index].text = LocalSkill[index].ToString();
                         UsedPoint++;
+                        int job = 0;
+                        switch (pa.job)
+                        {
+                            case PlayerAttribute.Classes.Archer:
+                                job = 1;
+                                break;
+                            case PlayerAttribute.Classes.Magician:
+                                job = 2;
+                                break;
+                            case PlayerAttribute.Classes.Warrior:
+                                job = 3;
+                                break;
+                        }
+                        DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel++;
                         UpdateTitle(pa.SkillPoint - UsedPoint);
                     }
                 }
@@ -97,6 +111,20 @@ public class UIController : MonoBehaviour {
                     LocalSkill[index]--;
                     SkillUI[index].text = LocalSkill[index].ToString();
                     UsedPoint--;
+                    int job = 0;
+                    switch (pa.job)
+                    {
+                        case PlayerAttribute.Classes.Archer:
+                            job = 1;
+                            break;
+                        case PlayerAttribute.Classes.Magician:
+                            job = 2;
+                            break;
+                        case PlayerAttribute.Classes.Warrior:
+                            job = 3;
+                            break;
+                    }
+                    DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel--;
                     UpdateTitle(pa.SkillPoint - UsedPoint);
                 }
             }
