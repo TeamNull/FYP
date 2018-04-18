@@ -21,6 +21,7 @@ public class UIController : MonoBehaviour {
 
     public void SkillUpSwitch()
     {
+        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ClickButton");
         if (pa.SkillPoint > 0)
         {
             if (SkillUpEnabled)
