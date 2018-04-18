@@ -75,51 +75,51 @@ namespace DigitalRuby.PyroParticles
             StartCoroutine(SendCollisionAfterDelay());
         }
 
-        public void HandleCollision(GameObject obj, Collision c)
-        {
-            //if (c.gameObject.tag == "Enemy")
-            //{
-            //    Debug.Log("pro");
-            //    EnemyAttribute temp = c.gameObject.GetComponent<EnemyAttribute>();
-            //    temp.TakeDamage(damage + playerAttribute.atk);
-            //    es.UpdateUI(temp);
-            //}
-            if (collided)
-            {
-                // already collided, don't do anything
-                return;
-            }
+        //public void HandleCollision(GameObject obj, Collision c)
+        //{
+        //    //if (c.gameObject.tag == "Enemy")
+        //    //{
+        //    //    Debug.Log("pro");
+        //    //    EnemyAttribute temp = c.gameObject.GetComponent<EnemyAttribute>();
+        //    //    temp.TakeDamage(damage + playerAttribute.atk);
+        //    //    es.UpdateUI(temp);
+        //    //}
+        //    if (collided)
+        //    {
+        //        // already collided, don't do anything
+        //        return;
+        //    }
 
-            // stop the projectile
-            collided = true;
-            Stop();
+        //    // stop the projectile
+        //    collided = true;
+        //    Stop();
 
-            // destroy particle systems after a slight delay
-            if (ProjectileDestroyParticleSystemsOnCollision != null)
-            {
-                foreach (ParticleSystem p in ProjectileDestroyParticleSystemsOnCollision)
-                {
-                    GameObject.Destroy(p, 0.1f);
-                }
-            }
+        //    // destroy particle systems after a slight delay
+        //    if (ProjectileDestroyParticleSystemsOnCollision != null)
+        //    {
+        //        foreach (ParticleSystem p in ProjectileDestroyParticleSystemsOnCollision)
+        //        {
+        //            GameObject.Destroy(p, 0.1f);
+        //        }
+        //    }
 
-            // play collision sound
-            if (ProjectileCollisionSound != null)
-            {
-                ProjectileCollisionSound.Play();
-            }
+        //    // play collision sound
+        //    if (ProjectileCollisionSound != null)
+        //    {
+        //        ProjectileCollisionSound.Play();
+        //    }
 
-            // if we have contacts, play the collision particle system and call the delegate
-            if (c.contacts.Length != 0)
-            {
-                ProjectileExplosionParticleSystem.transform.position = c.contacts[0].point;
-                ProjectileExplosionParticleSystem.Play();
-                FireBaseScript.CreateExplosion(c.contacts[0].point, ProjectileExplosionRadius, ProjectileExplosionForce);
-                if (CollisionDelegate != null)
-                {
-                    CollisionDelegate(this, c.contacts[0].point);
-                }
-            }
-        }
+        //    // if we have contacts, play the collision particle system and call the delegate
+        //    if (c.contacts.Length != 0)
+        //    {
+        //        ProjectileExplosionParticleSystem.transform.position = c.contacts[0].point;
+        //        ProjectileExplosionParticleSystem.Play();
+        //        FireBaseScript.CreateExplosion(c.contacts[0].point, ProjectileExplosionRadius, ProjectileExplosionForce);
+        //        if (CollisionDelegate != null)
+        //        {
+        //            CollisionDelegate(this, c.contacts[0].point);
+        //        }
+        //    }
+        //}
     }
 }
