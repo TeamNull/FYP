@@ -27,8 +27,12 @@ public class BGMcontrol : MonoBehaviour {
     public AudioSource soundSource;
 
     // Use this for initialization
-    void Start () {
+    private void Awake()
+    {
         GameManager.SetBGM();
+    }
+    void Start () {
+        
         DontDestroyOnLoad(this.gameObject);
         BGMSource.clip = MusicClip;
         BGMSource.Play();
