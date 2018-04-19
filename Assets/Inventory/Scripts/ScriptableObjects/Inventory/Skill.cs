@@ -24,6 +24,6 @@ public class Skill : Item
 
     public override void ApplyAction()
     {
-        pa.UseSkill(skillIndex);
+        pa.UseSkill(skillIndex, skillLevel);
     }
 }
