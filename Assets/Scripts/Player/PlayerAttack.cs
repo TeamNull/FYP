@@ -299,11 +299,12 @@ public class PlayerAttack : MonoBehaviour
 
     public int GetLongRangeDamage(int playerAtkVal, int skillDamage, int enemyDefense, int distance)
     {
-        return Mathf.Max((Mathf.CeilToInt((playerAtkVal + skillDamage) * 0.5f) - enemyDefense), (((playerAtkVal + skillDamage) * (1 - Mathf.Abs(distance - 10) / 10)) - enemyDefense));
+        int damage = Mathf.Max((Mathf.CeilToInt((playerAtkVal + skillDamage) * 0.5f) - enemyDefense), (((playerAtkVal + skillDamage) * (1 - Mathf.Abs(distance - 10) / 10)) - enemyDefense));
+        return damage < 1 ? 1 : damage;
     }
 
     public int GetShortRangeDamage(int playerAtkVal, int skillDamage, int enemyDefense)
     {
-        return (playerAtkVal + skillDamage) - enemyDefense;
+        return ((playerAtkVal + skillDamage) - enemyDefense) < 1 ? 1 : ((playerAtkVal + skillDamage) - enemyDefense);
     }
 }
