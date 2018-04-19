@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MissionSystem : MonoBehaviour
 {
 
-    private int globalMissionID = 5;
+    private int globalMissionID = 0;
     private int enemycount = 0;
     public Mission[] mission = new Mission[missionnumber];
 
