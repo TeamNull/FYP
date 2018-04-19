@@ -42,7 +42,7 @@ public class PlayerAttack : MonoBehaviour
             }
             if (pa.job == PlayerAttribute.Classes.Archer)
             {
-                AttackByShoot();
+                AttackByShoot(0);
                 //AttackByTripleShoot();
                 //AttackByArrowRain();
                 //AttackByJumpShoot();
@@ -65,10 +65,10 @@ public class PlayerAttack : MonoBehaviour
                 switch (skillIndex)
                 {
                     case 1:
-                        AttackByTripleShoot();
+                        AttackByTripleShoot(skillLevel);
                         break;
                     case 2:
-                        AttackByJumpShoot();
+                        AttackByJumpShoot(skillLevel);
                         break;
                     case 3:
                         AttackByArrowRain();
@@ -82,7 +82,7 @@ public class PlayerAttack : MonoBehaviour
                         AttackByFire(1);
                         break;
                     case 2:
-                        AttackByShoot();
+                        AttackByShoot(skillLevel);
                         break;
                     case 3:
                         AttackByFire(2);
@@ -130,90 +130,115 @@ public class PlayerAttack : MonoBehaviour
 
     void AttackByCyclone(int level)
     {
-        pa.ConsumeMP(50);
-        Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z), 3);
-        int i = 0;
-        while (i < hitColliders.Length)
+        if (pa.ConsumeMP(50))
         {
-            if (hitColliders[i].gameObject.tag == "Enemy")
+            Collider[] hitColliders = Physics.OverlapSphere(new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z), 3);
+            int i = 0;
+            while (i < hitColliders.Length)
             {
-                EnemyAttribute ea = hitColliders[i].transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (level / 10)), ea.defence));
-                es.UpdateUI(ea);
+                if (hitColliders[i].gameObject.tag == "Enemy")
+                {
+                    EnemyAttribute ea = hitColliders[i].transform.gameObject.GetComponent<EnemyAttribute>();
+                    ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (level / 10)), ea.defence));
+                    es.UpdateUI(ea);
+                }
+                i++;
             }
-            i++;
+            timer = 0f;
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
+            anim.SetTrigger("AttackBySkill0");
         }
-        timer = 0f;
-        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
-        anim.SetTrigger("AttackBySkill0");
     }
 
     void AttackByStrike(int level)
     {
-        pa.ConsumeMP(20);
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
-        RaycastHit hit;
-        if (Physics.Raycast(origin, forward, out hit, 2))
+        if (pa.ConsumeMP(20))
         {
-            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
-            //Debug.Log(hit.transform.name);
-            if (hit.transform.gameObject.tag == "Enemy")
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
+            Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+            RaycastHit hit;
+            if (Physics.Raycast(origin, forward, out hit, 2))
             {
-                EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level/10)), ea.defence));
-                es.UpdateUI(ea);
+                //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+                //Debug.Log(hit.transform.name);
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+                    ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level / 10)), ea.defence));
+                    es.UpdateUI(ea);
+                }
             }
+            timer = 0f;
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
+            anim.SetTrigger("AttackBySkill1");
         }
-        timer = 0f;
-        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
-        anim.SetTrigger("AttackBySkill1");
     }
 
     void AttackByStrong(int level)
     {
-        pa.ConsumeMP(30);
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
-        Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
-        RaycastHit hit;
-        if (Physics.Raycast(origin, forward, out hit, 2))
+        if (pa.ConsumeMP(30))
         {
-            //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
-            //Debug.Log(hit.transform.name);
-            if (hit.transform.gameObject.tag == "Enemy")
+            Vector3 forward = transform.TransformDirection(Vector3.forward);
+            Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
+            RaycastHit hit;
+            if (Physics.Raycast(origin, forward, out hit, 2))
             {
-                EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
-                ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level / 10)), ea.defence));
-                es.UpdateUI(ea);
+                //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
+                //Debug.Log(hit.transform.name);
+                if (hit.transform.gameObject.tag == "Enemy")
+                {
+                    EnemyAttribute ea = hit.transform.gameObject.GetComponent<EnemyAttribute>();
+                    ea.TakeDamage(GetShortRangeDamage(pa.atk, Mathf.FloorToInt(pa.atk * (0.5f + level / 10)), ea.defence));
+                    es.UpdateUI(ea);
+                }
             }
+            timer = 0f;
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
+            anim.SetTrigger("AttackBySkill2");
         }
-        timer = 0f;
-        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("SwordAttack");
-        anim.SetTrigger("AttackBySkill2");
     }
 
     //below for archer
-    void AttackByShoot()
+    void AttackByShoot(int skillLevel)
     {
-        emitPoint.AttackByShoot();
-        timer = 0f;
-        anim.SetTrigger("AttackByShoot");
+        if (skillLevel == 0)
+        {
+            emitPoint.AttackByShoot(skillLevel);
+            timer = 0f;
+            anim.SetTrigger("AttackByShoot");
+        }
+        else
+        {
+            if (pa.ConsumeMP(30))
+            {
+                emitPoint.AttackByShoot(skillLevel);
+                timer = 0f;
+                anim.SetTrigger("AttackByShoot");
+            }
+        }
+
     }
 
     //Archer skill 2
-    void AttackByJumpShoot()
+    void AttackByJumpShoot(int skillLevel)
     {
-        emitPoint.AttackByJumpShoot();
-        timer = 0f;
-        anim.SetTrigger("AttackBySkill1");
+        if (pa.ConsumeMP(30))
+        {
+            emitPoint.AttackByJumpShoot(skillLevel);
+            timer = 0f;
+            anim.SetTrigger("AttackBySkill1");
+        }
     }
 
     //Archer skill 1
-    void AttackByTripleShoot()
+    void AttackByTripleShoot(int skillLevel)
     {
-        emitPoint.AttackByTripleShoot();
-        timer = 0f;
-        anim.SetTrigger("AttackBySkill2");
+        if (pa.ConsumeMP(20))
+        {
+            emitPoint.AttackByTripleShoot(skillLevel);
+            timer = 0f;
+            anim.SetTrigger("AttackBySkill2");
+        }
     }
 
     //Archer skill 3
@@ -228,6 +253,7 @@ public class PlayerAttack : MonoBehaviour
             //Debug.Log(hit.transform.name);
             if (hit.transform.gameObject.tag == "Enemy")
             {
+                if (!pa.ConsumeMP(50)) return;
                 GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ArcheryAttack");
                 //creat arrow rain at the head of monster x,z fix y10
                 float tempX = (this.transform.position.x + hit.transform.position.x) / 2;
@@ -246,6 +272,16 @@ public class PlayerAttack : MonoBehaviour
     //below for magician
     void AttackByFire(int skillNum)
     {
+        if (skillNum == 1)
+        {
+            if (!pa.ConsumeMP(20))
+                return;
+        }
+        else if (skillNum == 2)
+        {
+            if (!pa.ConsumeMP(50))
+                return;
+        }
         Vector3 pos;
         float yRot = transform.rotation.eulerAngles.y;
         Vector3 forwardY = Quaternion.Euler(0.0f, yRot, 0.0f) * Vector3.forward;

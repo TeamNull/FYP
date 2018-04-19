@@ -33,28 +33,30 @@ public class emitPoint : MonoBehaviour
 
     }
 
-    public void AttackByShoot()
+    public void AttackByShoot(int skillLevel)
     {
-        StartCoroutine(ArrowOut(0.2f));
+        StartCoroutine(ArrowOut(0.2f, "Normal", skillLevel));
     }
 
-    public void AttackByTripleShoot()
+    public void AttackByTripleShoot(int skillLevel)
     {
         for (int i = 0; i < 3; i++)
         {
-            StartCoroutine(ArrowOut(0.4f*i));
+            StartCoroutine(ArrowOut(0.4f*i, "Triple", skillLevel));
         }
     }
 
-    public void AttackByJumpShoot()
+    public void AttackByJumpShoot(int skillLevel)
     {
-        StartCoroutine(ArrowOut(0.6f));
+        StartCoroutine(ArrowOut(0.6f, "Jump", skillLevel));
     }
 
-    IEnumerator ArrowOut(float second)
+    IEnumerator ArrowOut(float second, string type, int skillLevel)
     {
         yield return new WaitForSeconds(second);
         GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ArcheryAttack");
+        theArrow.GetComponent<Arrow1>().arrowType = type;
+        theArrow.GetComponent<Arrow1>().skillLevel = skillLevel;
         GameObject cloneArrow = Instantiate(theArrow, theEmitPoint, Quaternion.identity);
         cloneArrow.transform.position = theEmitPoint;
         cloneArrow.transform.rotation = transform.rotation;

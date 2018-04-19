@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class Arrow1 : MonoBehaviour {
     public int theSpeed=50;
-    public int damage = 20;
     public int range = 100;
+    public string arrowType;
+    public int skillLevel;
 
     public EnemyStatus es;
     public float controlTimer = 0.0f;
@@ -51,7 +52,19 @@ public class Arrow1 : MonoBehaviour {
         {
             
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(player.GetComponent<PlayerAttack>().GetLongRangeDamage(playerAttribute.atk,0,temp.defence,Mathf.FloorToInt(Vector3.Distance(player.transform.position, temp.transform.position))));
+            float skillDamage = 0;
+            switch (arrowType) {
+                case "Normal":
+                    skillDamage = 0;
+                    break;
+                case "Triple":
+                    skillDamage = (skillLevel / 10) / 3;
+                    break;
+                case "Jump":
+                    skillDamage = skillLevel / 10;
+                    break;
+            }
+            temp.TakeDamage(player.GetComponent<PlayerAttack>().GetLongRangeDamage(playerAttribute.atk,Mathf.FloorToInt(playerAttribute.atk * skillDamage),temp.defence,Mathf.FloorToInt(Vector3.Distance(player.transform.position, temp.transform.position))));
             es.UpdateUI(temp);
             Destroy(gameObject);
             return;

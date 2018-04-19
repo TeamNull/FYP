@@ -87,13 +87,13 @@ public class UIController : MonoBehaviour {
                         switch (pa.job)
                         {
                             case PlayerAttribute.Classes.Archer:
-                                job = 1;
+                                job = 0;
                                 break;
                             case PlayerAttribute.Classes.Magician:
-                                job = 2;
+                                job = 1;
                                 break;
                             case PlayerAttribute.Classes.Warrior:
-                                job = 3;
+                                job = 2;
                                 break;
                         }
                         DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel++;
@@ -115,13 +115,13 @@ public class UIController : MonoBehaviour {
                     switch (pa.job)
                     {
                         case PlayerAttribute.Classes.Archer:
-                            job = 1;
+                            job = 0;
                             break;
                         case PlayerAttribute.Classes.Magician:
-                            job = 2;
+                            job = 1;
                             break;
                         case PlayerAttribute.Classes.Warrior:
-                            job = 3;
+                            job = 2;
                             break;
                     }
                     DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel--;

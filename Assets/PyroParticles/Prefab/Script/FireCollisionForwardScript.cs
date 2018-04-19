@@ -19,12 +19,13 @@ namespace DigitalRuby.PyroParticles
     {
         public ICollisionHandler CollisionHandler;
         public EnemyStatus es;
-        public int damage = 20;
+        public string type;
         GameObject player;
         PlayerAttribute playerAttribute;
-        protected void Start()
+        PlayerAttack pa;
+        void Start()
         {
-
+            pa = GameManager.player.GetComponent<PlayerAttack>();
         
         }
         public void OnCollisionEnter(Collision col)
@@ -36,7 +37,12 @@ namespace DigitalRuby.PyroParticles
                 playerAttribute = player.GetComponent<PlayerAttribute>();
                 es = SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.GetChild(11).GetComponent<EnemyStatus>();
                 EnemyAttribute temp = col.gameObject.GetComponent<EnemyAttribute>();
-                temp.TakeDamage(damage + playerAttribute.atk);
+                if (type == "Firebolt")
+                {
+                    temp.TakeDamage(pa.GetLongRangeDamage(playerAttribute.atk, 0, temp.defence, Mathf.FloorToInt(Vector3.Distance(temp.transform.position, GameManager.player.transform.position))));
+                } else {
+                    temp.TakeDamage(pa.GetLongRangeDamage(playerAttribute.atk, playerAttribute.Skill[0], temp.defence, Mathf.FloorToInt(Vector3.Distance(temp.transform.position, GameManager.player.transform.position))));
+                }
                 es.UpdateUI(temp);
             }
             //CollisionHandler.HandleCollision(gameObject, col);
