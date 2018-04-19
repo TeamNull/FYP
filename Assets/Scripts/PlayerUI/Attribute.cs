@@ -131,6 +131,6 @@ public class Attribute : MonoBehaviour
         usedSTR = usedAGI = used_INT = 0;
         isEditing = false;
         pa.UpdatePlayerValueByPoint();
-        pa.UpdateAllAttributeInfo();
+        UpdatePlayerInfo();
     }
 }

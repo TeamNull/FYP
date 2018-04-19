@@ -12,6 +12,7 @@ public class UIController : MonoBehaviour {
     public Text ButtonText;
     public Text SkillTitle;
     public int UsedPoint;
+    public Attribute attibute;
 
     PlayerAttribute pa;
 
@@ -96,8 +97,39 @@ public class UIController : MonoBehaviour {
                                 job = 2;
                                 break;
                         }
-                        DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel++;
+                        if (index == 0 || index == 1 || index == 2)
+                            DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel++;
                         UpdateTitle(pa.SkillPoint - UsedPoint);
+                        if (index == 3) {
+                            switch (pa.job)
+                            {
+                                case PlayerAttribute.Classes.Archer:
+                                    pa.additionalAtk += 2;
+                                    break;
+                                case PlayerAttribute.Classes.Magician:
+                                    pa.additionalAtk += 2;
+                                    break;
+                                case PlayerAttribute.Classes.Warrior:
+                                    pa.additionalHP += 10;
+                                    break;
+                            }
+                            pa.UpdatePlayerValueByPoint();
+                        } else if (index == 4) {
+                            switch (pa.job)
+                            {
+                                case PlayerAttribute.Classes.Archer:
+                                    pa.additionalDef += 2;
+                                    break;
+                                case PlayerAttribute.Classes.Magician:
+                                    pa.additionalMP += 10;
+                                    break;
+                                case PlayerAttribute.Classes.Warrior:
+                                    pa.additionalDef += 2;
+                                    break;
+                            }
+                            pa.UpdatePlayerValueByPoint();
+                            
+                        }
                     }
                 }
             }
@@ -126,6 +158,40 @@ public class UIController : MonoBehaviour {
                     }
                     DadItem[index].GetComponent<DragAndDropItem>().SkillItem[job].skillLevel--;
                     UpdateTitle(pa.SkillPoint - UsedPoint);
+                    if (index == 3)
+                    {
+                        switch (pa.job)
+                        {
+                            case PlayerAttribute.Classes.Archer:
+                                pa.additionalAtk -= 2;
+                                break;
+                            case PlayerAttribute.Classes.Magician:
+                                pa.additionalAtk -= 2;
+                                break;
+                            case PlayerAttribute.Classes.Warrior:
+                                pa.additionalHP -= 10;
+                                break;
+                        }
+                        pa.UpdatePlayerValueByPoint();
+                        attibute.GetComponent<Attribute>().UpdatePlayerInfo();
+                    }
+                    else if (index == 4)
+                    {
+                        switch (pa.job)
+                        {
+                            case PlayerAttribute.Classes.Archer:
+                                pa.additionalDef -= 2;
+                                break;
+                            case PlayerAttribute.Classes.Magician:
+                                pa.additionalMP -= 10;
+                                break;
+                            case PlayerAttribute.Classes.Warrior:
+                                pa.additionalDef -= 2;
+                                break;
+                        }
+                        pa.UpdatePlayerValueByPoint();
+                        attibute.GetComponent<Attribute>().UpdatePlayerInfo();
+                    }
                 }
             }
         }
