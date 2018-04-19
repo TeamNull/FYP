@@ -34,12 +34,12 @@ public class PlayerAttribute : MonoBehaviour
     public int SkillPoint;
     public int currentLevel;
     public int currentExp;
-    public int hpCoe;
-    public int mpCoe;
-    public int atkCoe;
-    public int atkLvCoe;
-    public int defCoe;
-    public int defLvCoe;
+    //public int hpCoe;
+    //public int mpCoe;
+    //public int atkCoe;
+    //public int atkLvCoe;
+    //public int defCoe;
+    //public int defLvCoe;
     int totalExp;
     int needExp;
     const int baseExp = 100;
@@ -170,35 +170,35 @@ public class PlayerAttribute : MonoBehaviour
         isLvUp = false;
     }
 
-    public void SetCoe() {
-        switch (job)
-        {
-            case Classes.Warrior:
-                hpCoe = 7;
-                mpCoe = 10;
-                atkCoe = 5;
-                atkLvCoe = 1;
-                defCoe=1;
-                defLvCoe =3;
-                break;
-            case Classes.Archer:
-                hpCoe = 5;
-                mpCoe = 12;
-                atkCoe = 4;
-                atkLvCoe = 2;
-                defCoe = 2;
-                defLvCoe = 2;
-                break;
-            case Classes.Magician:
-                hpCoe = 5;
-                mpCoe = 15;
-                atkCoe = 2;
-                atkLvCoe = 1;
-                defCoe = 1;
-                defLvCoe = 2;
-                break;
-        }
-    }
+    //public void SetCoe() {
+    //    switch (job)
+    //    {
+    //        case Classes.Warrior:
+    //            hpCoe = 7;
+    //            mpCoe = 10;
+    //            atkCoe = 5;
+    //            atkLvCoe = 1;
+    //            defCoe=1;
+    //            defLvCoe =3;
+    //            break;
+    //        case Classes.Archer:
+    //            hpCoe = 5;
+    //            mpCoe = 12;
+    //            atkCoe = 4;
+    //            atkLvCoe = 2;
+    //            defCoe = 2;
+    //            defLvCoe = 2;
+    //            break;
+    //        case Classes.Magician:
+    //            hpCoe = 5;
+    //            mpCoe = 15;
+    //            atkCoe = 2;
+    //            atkLvCoe = 1;
+    //            defCoe = 1;
+    //            defLvCoe = 2;
+    //            break;
+    //    }
+    //}
 
     //initial
     void InitialPlayerAttribute()
@@ -234,7 +234,7 @@ public class PlayerAttribute : MonoBehaviour
                 break;
         }
         maxMP = 100;
-        SetCoe();
+        //SetCoe();
 
         additionalAtk = 0;
         additionalDef = 0;
@@ -270,19 +270,28 @@ public class PlayerAttribute : MonoBehaviour
         switch (job)
         {
             case Classes.Warrior:
-                atk = 2 + str * 2 + additionalAtk;
+                atk = 10 + str * 5 + currentLevel + additionalAtk;
+                def = agi + currentLevel * 2+additionalDef;
+                maxHP = 300 + str * 7 + currentLevel * 10 + additionalHP;
+                maxMP = 100 + _int * 10+additionalMP;
                 break;
             case Classes.Archer:
-                atk = 2 + agi * 2 + additionalAtk;
+                atk = 10 + agi * 4 + currentLevel*2+ additionalAtk;
+                def = agi * 2 + currentLevel * 2+additionalDef;
+                maxHP = 270 + str * 5 + currentLevel * 10+ additionalHP;
+                maxMP = 100 + _int * 13 + additionalMP;
                 break;
             case Classes.Magician:
-                atk = 2 + _int * 2 + additionalAtk;
+                atk = _int * 2 + additionalAtk;
+                def = agi + currentLevel * 2+additionalDef;
+                maxHP = 250 + str * 5 + currentLevel * 10 + additionalHP;
+                maxMP = 100 + _int * 15 + additionalMP;
                 break;
         }
-        def = Mathf.CeilToInt(agi * 0.5f) + additionalDef;
-        attackSpeed = 1 + additionalSpeed;    //Todo: Calculate attackSpeed by agi
-        maxHP = 100 + str * 8 +additionalHP;
-        maxMP = 100 + _int * 5 +additionalMP;
+        //def = Mathf.CeilToInt(agi * 0.5f) + additionalDef;
+        //attackSpeed = 1 + additionalSpeed;    //Todo: Calculate attackSpeed by agi
+        //maxHP = 100 + str * 8 +additionalHP;
+        //maxMP = 100 + _int * 5 +additionalMP;
         currentHP = (currentHP < maxHP) ? currentHP : maxHP;
         currentMP = (currentMP < maxMP) ? currentMP : maxMP;
 
