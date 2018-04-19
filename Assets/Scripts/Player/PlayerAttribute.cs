@@ -119,12 +119,13 @@ public class PlayerAttribute : MonoBehaviour
         if (SceneManager.GetActiveScene().name.Equals("Ruins")) this.transform.position = new Vector3(27.87f, 6.18f, 0.89f);
     }
 
-    public void ConsumeMP(int value)
+    public bool ConsumeMP(int value)
     {
-        if (GameManager.PlayerIsDead) return;
-
+        if (GameManager.PlayerIsDead) return false;
+        if (currentMP < value) return false;
         currentMP -= value;
         playerUiScript.updateHP(currentMP, maxMP);
+        return true;
     }
 
     public void GainExp(int sourceExp, int sourceLevel)

@@ -24,6 +24,7 @@ public class Skill : Item
 
     public override void ApplyAction()
     {
+        if (pa == null) pa = GameManager.player.GetComponent<PlayerAttack>();
         pa.UseSkill(skillIndex, skillLevel);
     }
 }
