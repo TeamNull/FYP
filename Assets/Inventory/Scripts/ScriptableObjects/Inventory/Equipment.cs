@@ -39,9 +39,9 @@ public class Equipment : Item
             return;
         } 
         //Debug.Log("applyaction in equipment");
-        pa.maxHP += hp;
+        pa.additionalHP += hp;
         pa.currentHP += hp;
-        pa.maxMP += mp;
+        pa.additionalMP += mp;
         pa.currentMP += mp;
         pa.str += str;
         pa.agi += agi;
