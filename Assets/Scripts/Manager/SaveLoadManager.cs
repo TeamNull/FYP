@@ -30,6 +30,10 @@ public class SaveLoadManager : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        //Init();
+    }
+
+    public void Init() {
         player = GameManager.player.GetComponent<PlayerAttribute>();
         builder = new SqlConnectionStringBuilder
         {
@@ -70,6 +74,7 @@ public class SaveLoadManager : MonoBehaviour
             PlayerInfo.GetComponent<UIinfo>().updateHP(player.currentHP, player.maxHP);
             PlayerInfo.GetComponent<UIinfo>().updateMP(player.currentMP, player.maxMP);
             PlayerInfo.GetComponent<UIinfo>().updateEXP(player.currentLevel, player.currentExp, player.needExp, false);
+            if (gameObject.activeSelf) gameObject.SetActive(false);
             Debug.Log("Load" + isSuccess);
 
         }

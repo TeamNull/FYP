@@ -125,13 +125,16 @@ public class CreateNewCharacter : MonoBehaviour
         miniMapCamera.Init();
         SceneManager.GetSceneByName("UI").GetRootGameObjects()[0].transform.Find("Skill").GetComponent<UIController>().InitSkillUI();
         //StaticVarAndFunction.UnloadNewCharacter();
+        SaveLoadManager slm = GameObject.FindWithTag("Setting").GetComponent<SaveLoadManager>();
+        slm.Init();
+        slm.gameObject.SetActive(false);
         GameManager.isLoading = false;
         Destroy(this.gameObject);
     }
 
     IEnumerator LoadVillage()
     {
-        
+        GameManager.isLoading = true;
         AsyncOperation loadVillage = SceneManager.LoadSceneAsync("Village", LoadSceneMode.Single);
         while (!loadVillage.isDone)
         {
