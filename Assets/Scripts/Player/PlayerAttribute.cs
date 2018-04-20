@@ -45,6 +45,7 @@ public class PlayerAttribute : MonoBehaviour
     const int baseExp = 100;
     Animator anim;
     GameObject loadingScene;
+    GameObject deadScene;
     float timer;
     #endregion
 
@@ -67,6 +68,7 @@ public class PlayerAttribute : MonoBehaviour
             if (go.name == "PlayerUI")
             {
                 loadingScene = go.transform.Find("Loading Scene").gameObject;
+                deadScene = go.transform.Find("Loading Scene (1)").gameObject;
             }
         }
     }
@@ -98,7 +100,8 @@ public class PlayerAttribute : MonoBehaviour
         {
             GameManager.PlayerIsDead = true;
             anim.SetTrigger("Dead");
-            GameManager.inGameLog.AddLog("You are died.", Color.red);
+            GameManager.inGameLog.AddLog("You are dead.", Color.red);
+            deadScene.SetActive(true);
             StartCoroutine(dieAction());
             //loadingScene.SetActive(true);
             //if (SceneManager.GetActiveScene().name.Equals("Forest")) this.transform.position = new Vector3(57.46f, 1.572f,-4.608f);
@@ -110,6 +113,7 @@ public class PlayerAttribute : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         loadingScene.SetActive(true);
+        deadScene.SetActive(false);
         GameManager.PlayerIsDead = false;
         currentHP = maxHP;
         UpdatePlayerValueByPoint();

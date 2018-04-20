@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class Arrow2 : MonoBehaviour {
     public int damage = 20;
     public EnemyStatus es;
-    public float controlTimer = 0.0f;
+    public float controlTimer = 0.2f;
     GameObject player;
     PlayerAttribute playerAttribute;
     Rigidbody ridigB;
@@ -43,19 +43,19 @@ public class Arrow2 : MonoBehaviour {
         if (other.tag == "Enemy")
         {
             EnemyAttribute temp = other.gameObject.GetComponent<EnemyAttribute>();
-            temp.TakeDamage(damage + playerAttribute.atk);
+            temp.TakeDamage(playerAttribute.atk/2);
             es.UpdateUI(temp);
             Destroy(gameObject);
             return;
         }
-        if (other.tag == "Player"|| other.tag == "Arrow")
-            return;
-
-        ridigB.velocity = Vector3.zero;
-        ridigB.useGravity = false;
-        //ridigB.isKinematic = true;
-        isColl = true;
-        Destroy(gameObject, 1f);
+        if (other.tag != "Player")
+        {
+            ridigB.velocity = Vector3.zero;
+            ridigB.useGravity = false;
+            //ridigB.isKinematic = true;
+            isColl = true;
+            Destroy(gameObject, 1f);
+        }
 
     }
 }
