@@ -42,10 +42,11 @@ public class PlayerAttack : MonoBehaviour
             }
             if (pa.job == PlayerAttribute.Classes.Archer)
             {
-                AttackByShoot(0);
+                //AttackByShoot(0);
                 //AttackByTripleShoot();
-                //AttackByArrowRain();
+                AttackByArrowRain();
                 //AttackByJumpShoot();
+                isAttacking = false;
             }
             if (pa.job == PlayerAttribute.Classes.Magician)
             {
@@ -253,7 +254,7 @@ public class PlayerAttack : MonoBehaviour
             //Debug.Log(hit.transform.name);
             if (hit.transform.gameObject.tag == "Enemy")
             {
-                if (!pa.ConsumeMP(50)) return;
+                //if (!pa.ConsumeMP(50)) return;
                 GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("ArcheryAttack");
                 //creat arrow rain at the head of monster x,z fix y10
                 float tempX = (this.transform.position.x + hit.transform.position.x) / 2;

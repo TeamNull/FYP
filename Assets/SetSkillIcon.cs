@@ -12,12 +12,15 @@ public class SetSkillIcon : MonoBehaviour {
         int iconIndex = 1;
         switch (GameManager.player.GetComponent<PlayerAttribute>().job) {
             case PlayerAttribute.Classes.Archer:
+                transform.GetComponent<tempSkillItem>().skillItem = skillIconList[0];
                 iconIndex = 0;
                 break;
             case PlayerAttribute.Classes.Magician:
+                transform.GetComponent<tempSkillItem>().skillItem = skillIconList[1];
                 iconIndex = 1;
                 break;
             case PlayerAttribute.Classes.Warrior:
+                transform.GetComponent<tempSkillItem>().skillItem = skillIconList[2];
                 iconIndex = 2;
                 break;
         }

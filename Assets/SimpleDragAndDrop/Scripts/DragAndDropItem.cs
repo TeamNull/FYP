@@ -26,6 +26,7 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public bool isSkill;
     public Skill[] SkillItem = new Skill[3];
     public Item item;
+    public Item skillItem;
     public int ItemId
     {
         get
@@ -65,6 +66,25 @@ public class DragAndDropItem : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             canvas.sortingOrder = canvasSortOrder;
         }
         uic = GameManager.Instance.uic;
+    }
+
+    void Start()
+    {
+        if (isSkill)
+        {
+            switch (GameManager.player.GetComponent<PlayerAttribute>().job)
+            {
+                case PlayerAttribute.Classes.Archer:
+                    transform.GetComponent<tempSkillItem>().skillItem= SkillItem[0]; 
+                    break;
+                case PlayerAttribute.Classes.Magician:
+                    transform.GetComponent<tempSkillItem>().skillItem = SkillItem[1];
+                    break;
+                case PlayerAttribute.Classes.Warrior:
+                    transform.GetComponent<tempSkillItem>().skillItem = SkillItem[2];
+                    break;
+            }
+        }
     }
 
     /// <summary>
