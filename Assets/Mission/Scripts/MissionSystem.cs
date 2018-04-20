@@ -399,40 +399,42 @@ public class MissionSystem : MonoBehaviour
 
     public void MissionComplete(int missionID)
     {
-        GameManager.inGameLog.AddLog("You have finished Mission" + (missionID + 1) + ".", Color.green);
-        GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("MissionComplete");
-        if (missionID != 0)player.GetComponent<PlayerAttribute>().GainExp(50, player.GetComponent<PlayerAttribute>().currentLevel);
-        mission[missionID].Setcomplete(true);
-
-        if (missionID < 19)
+        if (this.player == GameManager.player)
         {
-            if (player == null)
+            GameManager.inGameLog.AddLog("You have finished Mission" + (missionID + 1) + ".", Color.green);
+            GameManager.AudioManager.GetComponent<BGMcontrol>().Playsound("MissionComplete");
+            if (missionID != 0) player.GetComponent<PlayerAttribute>().GainExp(50, player.GetComponent<PlayerAttribute>().currentLevel);
+            mission[missionID].Setcomplete(true);
+
+            if (missionID < 19)
             {
-                player = GameManager.player;
+                if (player == null)
+                {
+                    player = GameManager.player;
+                }
+                //if (missionID != 5 || missionID != 18)
+                //{
+                //    player.GetComponent<Story>().Callstory(globalMissionID);
+                //}
+                player.GetComponent<Story>().Callstory(globalMissionID);
+                progresstext.text = "";
+                missionID++;
+                MissionStart(missionID);
+
+                return;
             }
-            //if (missionID != 5 || missionID != 18)
-            //{
-            //    player.GetComponent<Story>().Callstory(globalMissionID);
-            //}
-            player.GetComponent<Story>().Callstory(globalMissionID);
-            progresstext.text = "";
-            missionID++;
-            MissionStart(missionID);
-
-            return;
-        }
 
 
-        if (missionID == 19)
-        {
-            player.GetComponent<Story>().Callstory(globalMissionID);
-            descriptiontext.text = "Mission complete";
-            requirementtext.text = "";
+            if (missionID == 19)
+            {
+                player.GetComponent<Story>().Callstory(globalMissionID);
+                descriptiontext.text = "Mission complete";
+                requirementtext.text = "";
 
 
-            return;
+                return;
+            }
         }
     }
-
 
 }
