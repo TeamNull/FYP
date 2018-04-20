@@ -41,7 +41,7 @@ public class PlayerAttribute : MonoBehaviour
     //public int defCoe;
     //public int defLvCoe;
     int totalExp;
-    int needExp;
+    public int needExp;
     const int baseExp = 100;
     Animator anim;
     GameObject loadingScene;

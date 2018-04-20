@@ -14,6 +14,7 @@ public class SaveLoadManager : MonoBehaviour
     public GameObject shopObject;
     public GameObject skill;
     public GameObject DadItem;
+    public GameObject PlayerInfo;
 
     const string id = "BF1D24BE7DF041E4A40170B1E940BBD4";
 
