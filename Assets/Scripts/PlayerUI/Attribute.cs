@@ -33,6 +33,7 @@ public class Attribute : MonoBehaviour
     }
 
     public void UpdatePlayerInfo() {
+        if (pa == null) pa = GameManager.player.GetComponent<PlayerAttribute>();
         playerName.text = pa.playerName;
         level.text = pa.currentLevel.ToString();
         job.text = pa.job.ToString();
