@@ -97,7 +97,11 @@ public class Bag : MonoBehaviour
     }
 
     public void RemoveAllItemInBag() {
+        for (int i = 0; i < itemInBag; i++) {
+            itemList[i].unit = 0;
+        }
         itemList.Clear();
+        UpdateImageList();
     }
 
     public void UpdateImageList()

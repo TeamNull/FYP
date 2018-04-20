@@ -32,6 +32,8 @@ public class UIController : MonoBehaviour {
                 {
                     pa.Skill[i] = LocalSkill[i];
                 }
+                pa.SkillPoint -= UsedPoint;
+                UsedPoint = 0;
             }
             SkillUpEnabled = !SkillUpEnabled;
             ButtonText.text = SkillUpEnabled ? "Complete" : "Add";
