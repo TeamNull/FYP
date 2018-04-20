@@ -247,7 +247,7 @@ public class PlayerAttack : MonoBehaviour
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 origin = transform.position + new Vector3(0.0f, 1.0f, 0.0f); ;
         RaycastHit hit;
-        if (Physics.Raycast(origin, forward, out hit, 15))
+        if (Physics.Raycast(origin, forward, out hit, 10))
         {
             //Debug.DrawLine(Camera.main.transform.position, hit.transform.position, Color.red, 0.1f, true);
             //Debug.Log(hit.transform.name);

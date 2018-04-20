@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Arrow1 : MonoBehaviour {
     public int theSpeed=50;
-    public int range = 100;
+    public int range = 10;
     public string arrowType;
     public int skillLevel;
 
