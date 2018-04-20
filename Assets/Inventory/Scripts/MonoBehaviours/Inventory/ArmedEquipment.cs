@@ -37,6 +37,7 @@ public class ArmedEquipment : MonoBehaviour
 
     public void ApplyEquipment(Equipment Equipment)
     {
+        if (Equipment == null) return;
         if (equipmentList[Equipment.equipmentType]!=null) {
             RemoveEquipment(Equipment.equipmentType);
         }
