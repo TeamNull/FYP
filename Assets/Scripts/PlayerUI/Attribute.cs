@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Attribute : MonoBehaviour
 {
-    public UnityEngine.UI.Text playerName, level, job, damage,defense, attackSpeed, str, agi, _int, availablePoint;
+    public UnityEngine.UI.Text playerName, level, job, damage,defense,  str, agi, _int, availablePoint;
     
     PlayerAttribute pa;
     int usedSTR = 0;
@@ -19,6 +19,7 @@ public class Attribute : MonoBehaviour
         pa = GameManager.player.GetComponent<PlayerAttribute>();      
         pa.LevelUp += UpdatePlayerInfo;
         UpdatePlayerInfo();
+        GameManager.attribute = this;
     }
 
     // Update is called once per frame
@@ -39,7 +40,7 @@ public class Attribute : MonoBehaviour
         job.text = pa.job.ToString();
         damage.text = pa.atk.ToString();    //Todo: Add back equipment damage
         defense.text = pa.def.ToString();
-        attackSpeed.text = pa.attackSpeed.ToString();
+        //attackSpeed.text = pa.attackSpeed.ToString();
         str.text = pa.str.ToString();
         if (usedSTR > 0) str.text += "(+" + usedSTR + ")";
         agi.text = pa.agi.ToString();

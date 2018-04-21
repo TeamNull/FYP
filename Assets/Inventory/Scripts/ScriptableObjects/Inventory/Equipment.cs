@@ -20,6 +20,7 @@ public class Equipment : Item
     // 4
     PlayerAttribute pa;
     ArmedEquipment ae;
+    Attribute attribute;
     //enum Classes { Warrior, Archer, Magician };
     
 
@@ -33,7 +34,7 @@ public class Equipment : Item
     public override void ApplyAction() {
         pa = GameManager.player.GetComponent<PlayerAttribute>();
         ae = GameManager.armedEquipment;
-
+        attribute = GameManager.attribute.GetComponent<Attribute>();
         if ((equipmentType == 1) && !(pa.job.Equals(PlayerAttribute.Classes.Warrior) && id == 111 || pa.job.Equals(PlayerAttribute.Classes.Archer) && id == 112 || pa.job.Equals(PlayerAttribute.Classes.Magician) && id == 113)) {
             GameManager.bag.AddItem(this, 1);
             return;
@@ -50,6 +51,7 @@ public class Equipment : Item
         pa.additionalDef += def;
         pa.attackSpeed += speed;
         pa.UpdatePlayerValueByPoint();
+        attribute.UpdatePlayerInfo();
         ae.ApplyEquipment(this);
         //Debug.Log("applyaction end in equipment");
     }
@@ -67,5 +69,6 @@ public class Equipment : Item
         pa.additionalDef -= def;
         pa.attackSpeed -= speed;
         pa.UpdatePlayerValueByPoint();
+        attribute.UpdatePlayerInfo();
     }
 }

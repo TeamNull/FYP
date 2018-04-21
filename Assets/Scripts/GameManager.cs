@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static Bag bag;
     public static Inventory inventory;
     public static ArmedEquipment armedEquipment;
+    public static Attribute attribute;
     public static bool mainCamRendered;
     public static InGameLog inGameLog;
     public UIController uic;
