@@ -128,7 +128,7 @@ public class PlayerAttribute : MonoBehaviour
         if (GameManager.PlayerIsDead) return false;
         if (currentMP < value) return false;
         currentMP -= value;
-        playerUiScript.updateHP(currentMP, maxMP);
+        playerUiScript.updateMP(currentMP, maxMP);
         return true;
     }
 
